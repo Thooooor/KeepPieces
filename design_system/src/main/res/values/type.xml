@@ -1,0 +1,135 @@
+<!--
+~ Copyright (C) 2019 The Android Open Source Project
+~
+~ Licensed under the Apache License, Version 2.0 (the "License");
+~ you may not use this file except in compliance with the License.
+~ You may obtain a copy of the License at
+~
+~      http://www.apache.org/licenses/LICENSE-2.0
+~
+~ Unless required by applicable law or agreed to in writing, software
+~ distributed under the License is distributed on an "AS IS" BASIS,
+~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~ See the License for the specific language governing permissions and
+~ limitations under the License.
+-->
+
+<resources>
+
+    <!--Typography-->
+
+    <!--Material’s type system supports 13 categories that, when combined, form the typescale. -->
+    <!--This typescale is evident in the variety of text styles and sizes that appear on screen, -->
+    <!--ranging from body copy to buttons. Type appears across the UI, in places such as in -->
+    <!--components and on surfaces.-->
+
+    <!--These styles should be used throughout your app when creating text views so all your -->
+    <!--text is consistently styled and easily updated if design or product needs change. Each -->
+    <!--style in the type scale can be customized by defining a style and overriding that -->
+    <!--style's Material Theme attribute (?textAppearanceHeadline1, ?textAppearanceBody2, etc.) -->
+    <!--in your app's theme. In this project, type attributes have already been overridden in -->
+    <!--themes.xml and are set to the styles in this file, type.xml. These ?textAppearance* -->
+    <!--theme attributes should be used in your layouts to set a TextView’s appearance instead -->
+    <!--of fully qualified style references and in favor of manually setting text properties.-->
+
+    <!--Type on Android is themed by defining a custom TextAppearance for each type scale style. -->
+    <!--Use standard TextAppearance attributes such as textSize, textColor, fontFamily, -->
+    <!--letterSpacing, etc. to define a custom appearance for each and see how they are -->
+    <!--applied globally across your app.-->
+
+    <style name="TextAppearance.Rally.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/roboto_condensed_light</item>
+        <item name="android:textSize">96sp</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/roboto_condensed_light</item>
+        <item name="android:textSize">60sp</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/eczar_semibold</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/roboto_condensed_regular</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/roboto_condensed_regular</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/roboto_condensed_regular</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:fontWeight">500</item>
+
+    </style>
+
+    <style name="TextAppearance.Rally.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/roboto_condensed_regular</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/roboto_condensed_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/eczar</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/roboto_condensed_light</item>
+        <item name="android:textColor">?attr/colorPrimaryVariant</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">.2</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/roboto_condensed_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.175</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/roboto_condensed_regular</item>
+        <item name="android:textColor">?attr/colorPrimaryVariant</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.Rally.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="fontFamily">@font/roboto_condensed_regular</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TextAppearance.RallyScrollableTab" parent="TextAppearance.Rally.Button" >
+    </style>
+
+
+    <attr name="textAppearanceMoney1" format="reference"/>
+
+    <style name="TextAppearance.Rally.Money1" parent="">
+        <item name="fontFamily">@font/eczar</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">.15</item>
+    </style>
+
+    <attr name="textAppearanceCardNumber1" format="reference"/>
+    <style name="TextAppearance.Rally.CardNumber1" parent="TextAppearance.Rally.Subtitle2">
+        <item name="android:textColor">?attr/colorPrimaryVariant</item>
+        <item name="android:letterSpacing">.25</item>
+    </style>
+</resources>

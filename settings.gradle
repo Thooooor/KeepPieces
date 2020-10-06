@@ -1,2 +1,3 @@
+include ':design_system'
 include ':app'
 rootProject.name = "KeepPieces"

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+~ Copyright (C) 2019 The Android Open Source Project
+~
+~ Licensed under the Apache License, Version 2.0 (the "License");
+~ you may not use this file except in compliance with the License.
+~ You may obtain a copy of the License at
+~
+~      http://www.apache.org/licenses/LICENSE-2.0
+~
+~ Unless required by applicable law or agreed to in writing, software
+~ distributed under the License is distributed on an "AS IS" BASIS,
+~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~ See the License for the specific language governing permissions and
+~ limitations under the License.
+-->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--Components-->
+
+    <style name="Widget.Rally.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearanceOverlay">?shapeAppearanceLargeComponent</item>
+    </style>
+
+    <!--Navigation Drawer-->
+    <style name="Widget.Rally.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="itemTextAppearance">?textAppearanceBody2</item>
+    </style>
+
+
+
+    <style name="Widget.Rally.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+    </style>
+
+
+    <style name="Widget.Rally.CompoundButton.Switch" parent="@style/Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:colorButtonNormal">@color/rally_green_700</item>
+        <item name="android:colorControlActivated">@color/rally_green_300</item>
+    </style>
+
+    <style name="Widget.Rally.Button.OutlinedButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconTint">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="Widget.Rally.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="Widget.Rally.TabLayout" parent="@style/Widget.MaterialComponents.TabLayout">
+        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+</resources>
