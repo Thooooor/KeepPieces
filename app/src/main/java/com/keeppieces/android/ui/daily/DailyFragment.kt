@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
-import com.keeppieces.android.logic.Repository
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_daily.*
-import java.time.LocalDate
 
+
+@AndroidEntryPoint
 class DailyFragment: Fragment() {
+    private val viewModel: DailyViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG, "onCreateView")
@@ -31,7 +34,12 @@ class DailyFragment: Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
-            adapter = DailyAdapter(Repository.getDailyItems(LocalDate.now()))
+            viewModel.billList.observe(viewLifecycleOwner) { billList->
+                for (bill in billList) {
+                    Log.d("Daily ${bill.id}", bill.toString())
+                }
+                adapter = DailyAdapter(billList)
+            }
         }
     }
 
