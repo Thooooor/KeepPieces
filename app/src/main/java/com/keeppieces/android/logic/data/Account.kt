@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey
     tableName = "account"
 )
 data class Account(
-    @ColumnInfo(name = "account_name") val name: String,
+    @PrimaryKey @ColumnInfo(name = "account_name") val name: String,
     val amount: Double = 0.0,
 ) {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "account_id")
-    var accountId: Long = 0
+//    @PrimaryKey(autoGenerate = true)
+//    @ColumnInfo(name = "account_id")
+//    var accountId: Long = 0
 }
