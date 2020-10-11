@@ -14,6 +14,9 @@ interface BillDao {
     @Delete
     fun deleteBill(bill: Bill)
 
+    @Query("SELECT * FROM bill")
+    fun getBill(): LiveData<List<Bill>>
+
     @Query("SELECT * FROM bill ORDER BY amount")
-    fun loadAllBills(): LiveData<List<Bill>>
+    fun loadAllBillByAmount(): LiveData<List<Bill>>
 }

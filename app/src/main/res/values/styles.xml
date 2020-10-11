@@ -1,12 +1,12 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">true</item>
+    <style name="AppTheme" parent="KeepPieces.DayNight"/>
+
+    <style name="KeepPieces.DayNight.Main." parent="Base.KeepPieces">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowExitTransition">@transition/main_exit</item>
+        <item name="android:windowReenterTransition">@transition/main_reenter</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
     </style>
 
 </resources>

@@ -39,7 +39,7 @@ class DailyAdapter(private val bills: List<Bill>) : RecyclerView.Adapter<DailyAd
 private class BillDiffCallback : DiffUtil.ItemCallback<Bill>() {
 
     override fun areItemsTheSame(oldItem: Bill, newItem: Bill): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.billId == newItem.billId
     }
 
     override fun areContentsTheSame(oldItem: Bill, newItem: Bill): Boolean {

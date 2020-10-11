@@ -1,0 +1,306 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "d2ac35a7a6babe79c45dda51a1fd988f",
+    "entities": [
+      {
+        "tableName": "bill",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bill_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` TEXT NOT NULL, `amount` REAL NOT NULL, `account` TEXT NOT NULL, `member` TEXT NOT NULL, `primary_category` TEXT NOT NULL, `secondary_category` TEXT NOT NULL, `type` TEXT NOT NULL, FOREIGN KEY(`account`) REFERENCES `account`(`account_name`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`member`) REFERENCES `member`(`member_name`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`primary_category`) REFERENCES `primaryCategory`(`primary_name`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`secondary_category`) REFERENCES `secondaryCategory`(`secondary_name`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`type`) REFERENCES `type`(`type_name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "billId",
+            "columnName": "bill_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "account",
+            "columnName": "account",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "member",
+            "columnName": "member",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "primaryCategory",
+            "columnName": "primary_category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "secondaryCategory",
+            "columnName": "secondary_category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "bill_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_bill_account",
+            "unique": false,
+            "columnNames": [
+              "account"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bill_account` ON `${TABLE_NAME}` (`account`)"
+          },
+          {
+            "name": "index_bill_member",
+            "unique": false,
+            "columnNames": [
+              "member"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bill_member` ON `${TABLE_NAME}` (`member`)"
+          },
+          {
+            "name": "index_bill_primary_category",
+            "unique": false,
+            "columnNames": [
+              "primary_category"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bill_primary_category` ON `${TABLE_NAME}` (`primary_category`)"
+          },
+          {
+            "name": "index_bill_secondary_category",
+            "unique": false,
+            "columnNames": [
+              "secondary_category"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bill_secondary_category` ON `${TABLE_NAME}` (`secondary_category`)"
+          },
+          {
+            "name": "index_bill_type",
+            "unique": false,
+            "columnNames": [
+              "type"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bill_type` ON `${TABLE_NAME}` (`type`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "account",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "account"
+            ],
+            "referencedColumns": [
+              "account_name"
+            ]
+          },
+          {
+            "table": "member",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "member"
+            ],
+            "referencedColumns": [
+              "member_name"
+            ]
+          },
+          {
+            "table": "primaryCategory",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "primary_category"
+            ],
+            "referencedColumns": [
+              "primary_name"
+            ]
+          },
+          {
+            "table": "secondaryCategory",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "secondary_category"
+            ],
+            "referencedColumns": [
+              "secondary_name"
+            ]
+          },
+          {
+            "table": "type",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "type"
+            ],
+            "referencedColumns": [
+              "type_name"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "account",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_name` TEXT NOT NULL, `amount` REAL NOT NULL, PRIMARY KEY(`account_name`))",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "account_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "account_name"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "member",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`member_name` TEXT NOT NULL, PRIMARY KEY(`member_name`))",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "member_name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "member_name"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "primaryCategory",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`primary_name` TEXT NOT NULL, PRIMARY KEY(`primary_name`))",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "primary_name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "primary_name"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "secondaryCategory",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`secondary_name` TEXT NOT NULL, `primary_category` TEXT NOT NULL, PRIMARY KEY(`secondary_name`), FOREIGN KEY(`secondary_name`) REFERENCES `primaryCategory`(`primary_name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "secondary_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "primaryName",
+            "columnName": "primary_category",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "secondary_name"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_secondaryCategory_secondary_name",
+            "unique": false,
+            "columnNames": [
+              "secondary_name"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_secondaryCategory_secondary_name` ON `${TABLE_NAME}` (`secondary_name`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "primaryCategory",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "secondary_name"
+            ],
+            "referencedColumns": [
+              "primary_name"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`type_name` TEXT NOT NULL, PRIMARY KEY(`type_name`))",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "type_name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "type_name"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd2ac35a7a6babe79c45dda51a1fd988f')"
+    ]
+  }
+}

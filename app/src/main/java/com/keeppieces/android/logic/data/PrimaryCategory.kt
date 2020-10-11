@@ -5,12 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "primary_category"
+    tableName = "primaryCategory"
 )
 data class PrimaryCategory(
-    @ColumnInfo(name = "primary_name") val name: String,
+    @PrimaryKey @ColumnInfo(name = "primary_name") val name: String
 ) {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "primary_id")
-    val primaryId: Long = 0
+//    @PrimaryKey(autoGenerate = true)
+//    @ColumnInfo(name = "primary_id")
+//    var primaryId: Long = 0
 }

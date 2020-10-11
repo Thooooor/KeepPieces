@@ -7,7 +7,7 @@ import com.keeppieces.android.logic.data.BillRepository
 
 class BillViewModel(billRepository: BillRepository) : ViewModel() {
     private val billLiveData = MutableLiveData<Bill>()
-    val billList = billRepository.loadBills()
+    val billList = billRepository.getBill()
 
     fun addBill(bill: Bill) {
         billLiveData.value = bill

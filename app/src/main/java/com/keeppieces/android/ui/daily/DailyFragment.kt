@@ -36,7 +36,7 @@ class DailyFragment: Fragment() {
             addItemDecoration(getItemDecoration())
             viewModel.billList.observe(viewLifecycleOwner) { billList->
                 for (bill in billList) {
-                    Log.d("Daily ${bill.id}", bill.toString())
+                    Log.d("Daily ${bill.billId}", bill.toString())
                 }
                 adapter = DailyAdapter(billList)
             }

@@ -5,12 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "member"
+    tableName = "type"
 )
-data class Member(
-    @PrimaryKey @ColumnInfo(name = "member_name") val name: String
+data class Type(
+    @PrimaryKey @ColumnInfo(name = "type_name") val name: String
 ) {
 //    @PrimaryKey(autoGenerate = true)
-//    @ColumnInfo(name = "member_id")
-//    var memberId: Long = 0
+//    @ColumnInfo(name = "type_id")
+//    var typeId: Long = 0
 }
