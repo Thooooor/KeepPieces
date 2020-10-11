@@ -1,18 +1,19 @@
 package com.keeppieces.android.logic.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
 @Dao
 interface MemberDao {
     @Insert
-    fun insertMember(member: Member): Long
+    fun insertMember(member: Member)
 
     @Update
     fun updateMember(newMember: Member)
 
     @Delete
     fun deleteMember(member: Member)
+
+    @Query("SELECT * FROM member")
+    fun getMember(): LiveData<List<Member>>
 }

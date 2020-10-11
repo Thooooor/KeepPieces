@@ -26,13 +26,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         queryButton.setOnClickListener {
-            billDao.loadAllBills().observe(this, {bills ->
+            billDao.loadAllBillByAmount().observe(this, {bills ->
                 for (bill in bills) {
                     Log.d("Main ${bill.billId}", bill.toString())
                 }
             })
             thread {
-                val billList = billDao.loadAllBills().value
+                val billList = billDao.loadAllBillByAmount().value
                 if (billList == null) {
                     Log.d("MainActivity", "Null")
                 } else {
