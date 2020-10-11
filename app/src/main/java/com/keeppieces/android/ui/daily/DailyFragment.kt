@@ -30,7 +30,7 @@ class DailyFragment: Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        billDaily.apply {
+        dailyBills.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())

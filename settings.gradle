@@ -1,3 +1,4 @@
+include ':pie_chart'
 include ':design_system'
 include ':app'
 rootProject.name = "KeepPieces"
