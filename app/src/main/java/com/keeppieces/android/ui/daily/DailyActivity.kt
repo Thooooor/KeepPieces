@@ -16,7 +16,6 @@ class DailyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_daily)
         viewModel = ViewModelProvider(this).get(DailyViewModel::class.java)
-        setUpToolbar()
         addDailyFragment(DailyFragment())
     }
 
@@ -25,13 +24,6 @@ class DailyActivity : AppCompatActivity() {
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.detailLayout, fragment)
         transaction.commit()
-    }
-
-    private fun setUpToolbar() {
-        setSupportActionBar(toolbar as Toolbar?)
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.title = ""
     }
 
 }
