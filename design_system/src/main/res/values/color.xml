@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 ~ Copyright (C) 2019 The Android Open Source Project
 ~
 ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,47 +15,7 @@
 -->
 
 <resources>
-
-    <!--Color-->
-
-    <!--Material uses an organized approach to applying color by providing a set of attributes -->
-    <!--which define the color of generalized UI elements such as backgrounds, surfaces, type -->
-    <!--and icons. Using these attributes throughout your app makes it easy to change a single -->
-    <!--color, or the entire theme, and have those changes cascade through the interface.-->
-
-    <!--Color is customized by overriding Material Components color attributes with custom -->
-    <!--color values. In this project, your theme’s color attributes are already overridden -->
-    <!--with default values defined in this file, color.xml.  Change any of the values in -->
-    <!--this file to see changes applied across all elements of your app.-->
-
-    <!--LIGHT COLOR THEME-->
-
-    <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
-    <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
-    <!--selection controls.-->
-<!--    <color name="color_primary">#1D1D23</color>-->
-<!--    <color name="color_primary_variant">#808080</color>-->
-<!--    <color name="color_secondary">#FFFFFF</color>-->
-<!--    <color name="color_secondary_variant">#AEAEB1</color>-->
-
-<!--    &lt;!&ndash;colorBackground appears behind scrollable content and is used for the default window&ndash;&gt;-->
-<!--    &lt;!&ndash;background. colorSurface is mapped to the surface of components such as cards, sheets&ndash;&gt;-->
-<!--    &lt;!&ndash;and menus. colorError is used to indicate an error state for components such as&ndash;&gt;-->
-<!--    &lt;!&ndash;text fields.&ndash;&gt;-->
-<!--    <color name="color_surface">#FFFFFF</color>-->
-<!--    <color name="color_background">#F5F5F5</color>-->
-<!--    <color name="color_error">#b00020</color>-->
-
-<!--    &lt;!&ndash;"On" colors define how text, icons and strokes are colored in relation to the surface&ndash;&gt;-->
-<!--    &lt;!&ndash;on which they appear.&ndash;&gt;-->
-<!--    <color name="color_on_primary">#ffffff</color>-->
-<!--    <color name="color_on_secondary">#2A2931</color>-->
-<!--    <color name="color_on_background">#2A2931</color>-->
-<!--    <color name="color_on_surface">#202020</color>-->
-<!--    <color name="color_on_error">#2A2931</color>-->
-
-<!--    <color name="color_status_bar">#27272F</color>-->
-<!--    Using dark theme color on default-->
+    <!--    Using dark theme color on default-->
     <color name="color_primary">#FFFFFF</color>
     <color name="color_primary_variant">#AEAEB1</color>
     <color name="color_secondary">#2A2931</color>
@@ -80,73 +39,69 @@
 
     <color name="color_status_bar">#27272F</color>
 
-    <color name="rally_dark_green">#0C4B44</color>
-    <color name="rally_green_900">#00391e</color>
-    <color name="rally_green_800">#005f35</color>
-    <color name="rally_green_700">#0E6C40</color>
-    <color name="rally_green_600">#009c68</color>
-    <color name="rally_green_500">#21AF6C</color>
-    <color name="rally_green_400">#00e5a8</color>
-    <color name="rally_green_300">#36F0AB</color>
-    <color name="rally_green_200">#5df7d2</color>
-    <color name="rally_green_100">#88fee1</color>
-    <color name="rally_green_50">#b6fff2</color>
+    <color name="dark_green">#0C4B44</color>
+    <color name="green_900">#00391e</color>
+    <color name="green_800">#005f35</color>
+    <color name="green_700">#0E6C40</color>
+    <color name="green_600">#009c68</color>
+    <color name="green_500">#21AF6C</color>
+    <color name="green_400">#00e5a8</color>
+    <color name="green_300">#36F0AB</color>
+    <color name="green_200">#5df7d2</color>
+    <color name="green_100">#88fee1</color>
+    <color name="green_50">#b6fff2</color>
+
+    <!--<color nally_green_400">#1EB980</color>-->
+
+    <color name="orange">#FF6859</color>
+    <color name="orange_900">#620002</color>
+    <color name="orange_800">#8c0000</color>
+    <color name="orange_700">#b50000</color>
+    <color name="orange_600">#df0000</color>
+    <color name="orange_500">#ff0600</color>
+    <color name="orange_400">#ff3522</color>
+    <color name="orange_300">#FC4F47</color>
+    <color name="orange_200">#FC6E69</color>
+    <color name="orange_100">#ffb3a6</color>
+    <color name="orange_50">#FECDC5</color>
 
 
-    <!--<color name="rally_green_400">#1EB980</color>-->
-
-    <color name="rally_orange">#FF6859</color>
-    <color name="rally_orange_900">#620002</color>
-    <color name="rally_orange_800">#8c0000</color>
-    <color name="rally_orange_700">#b50000</color>
-    <color name="rally_orange_600">#df0000</color>
-    <color name="rally_orange_500">#ff0600</color>
-    <color name="rally_orange_400">#ff3522</color>
-    <color name="rally_orange_300">#FC4F47</color>
-    <color name="rally_orange_200">#FC6E69</color>
-    <color name="rally_orange_100">#ffb3a6</color>
-    <color name="rally_orange_50">#FECDC5</color>
+    <color name="yellow">#FFCF44</color>
+    <color name="yellow_900">#e83400</color>
+    <color name="yellow_800">#f75500</color>
+    <color name="yellow_700">#ff7000</color>
+    <color name="yellow_600">#ff8500</color>
+    <color name="yellow_500">#FD9C12</color>
+    <color name="yellow_400">#ffbc2b</color>
+    <color name="yellow_300">#FEC635</color>
+    <color name="yellow_200">#FED665</color>
+    <color name="yellow_100">#ffebb0</color>
+    <color name="yellow_50">#fff8e5</color>
 
 
-
-    <color name="rally_yellow">#FFCF44</color>
-    <color name="rally_yellow_900">#e83400</color>
-    <color name="rally_yellow_800">#f75500</color>
-    <color name="rally_yellow_700">#ff7000</color>
-    <color name="rally_yellow_600">#ff8500</color>
-    <color name="rally_yellow_500">#FD9C12</color>
-    <color name="rally_yellow_400">#ffbc2b</color>
-    <color name="rally_yellow_300">#FEC635</color>
-    <color name="rally_yellow_200">#FED665</color>
-    <color name="rally_yellow_100">#ffebb0</color>
-    <color name="rally_yellow_50">#fff8e5</color>
-
+    <color name="purple">#B15DFF</color>
+    <color name="purple_900">#460052</color>
+    <color name="purple_800">#63007c</color>
+    <color name="purple_700">#7f009f</color>
+    <color name="purple_600">#9200c8</color>
+    <color name="purple_500">#a000f1</color>
+    <color name="purple_400">#a500ff</color>
+    <color name="purple_300">#9600FF</color>
+    <color name="purple_200">#9F3BFF</color>
+    <color name="purple_100">#cb9af8</color>
+    <color name="purple_50">#D5BCF5</color>
 
 
-    <color name="rally_purple">#B15DFF</color>
-    <color name="rally_purple_900">#460052</color>
-    <color name="rally_purple_800">#63007c</color>
-    <color name="rally_purple_700">#7f009f</color>
-    <color name="rally_purple_600">#9200c8</color>
-    <color name="rally_purple_500">#a000f1</color>
-    <color name="rally_purple_400">#a500ff</color>
-    <color name="rally_purple_300">#9600FF</color>
-    <color name="rally_purple_200">#9F3BFF</color>
-    <color name="rally_purple_100">#cb9af8</color>
-    <color name="rally_purple_50">#D5BCF5</color>
-
-
-
-    <color name="rally_blue">#72DEFF</color>
-    <color name="rally_blue_900">#005ccc</color>
-    <color name="rally_blue_800">#0077e5</color>
-    <color name="rally_blue_700">#0082fb</color>
-    <color name="rally_blue_600">#009bff</color>
-    <color name="rally_blue_500">#24b4ff</color>
-    <color name="rally_blue_400">#42c6ff</color>
-    <color name="rally_blue_300">#5cceff</color>
-    <color name="rally_blue_200">#63D6FE</color>
-    <color name="rally_blue_100">#A4EFFF</color>
-    <color name="rally_blue_50">#eafdff</color>
+    <color name="blue">#72DEFF</color>
+    <color name="blue_900">#005ccc</color>
+    <color name="blue_800">#0077e5</color>
+    <color name="blue_700">#0082fb</color>
+    <color name="blue_600">#009bff</color>
+    <color name="blue_500">#24b4ff</color>
+    <color name="blue_400">#42c6ff</color>
+    <color name="blue_300">#5cceff</color>
+    <color name="blue_200">#63D6FE</color>
+    <color name="blue_100">#A4EFFF</color>
+    <color name="blue_50">#eafdff</color>
 
 </resources>
