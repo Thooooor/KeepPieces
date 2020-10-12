@@ -115,7 +115,7 @@
   </style>
 
   <style name="ThemeOverlay.Rally.Switch" parent="">
-    <item name="colorSecondary">@color/rally_green_500</item>
+    <item name="colorSecondary">@color/green_500</item>
   </style>
 
   <style name="ThemeOverlay.Rally.InputBox" parent="">
