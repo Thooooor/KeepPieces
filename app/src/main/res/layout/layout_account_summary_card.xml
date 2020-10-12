@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/spacing_medium"
+    android:clickable="true"
+    android:layout_marginEnd="@dimen/spacing_medium"
+    android:layout_marginTop="@dimen/spacing_small"
+    android:layout_marginBottom="@dimen/spacing_small"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账户情况"
+            style="?attr/textAppearanceSubtitle2"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_medium"
+            />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/account_amount_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                style="?attr/textAppearanceHeadline3"
+                android:layout_marginStart="@dimen/spacing_medium"
+                />
+            <TextView
+                android:id="@+id/account_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12132.49"
+                style="?attr/textAppearanceHeadline3"
+                android:layout_marginStart="@dimen/spacing_medium"
+                />
+        </LinearLayout>
+<!-- 暂时不做       -->
+        <TextView
+            android:id="@+id/account_line_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/rally_orange_300"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bill_account_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_card" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/account_see_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="查看更多"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
