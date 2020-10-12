@@ -8,7 +8,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [Bill::class, Account::class, Member::class, PrimaryCategory::class, SecondaryCategory::class, Type::class]
 )
 abstract class AppDatabase : RoomDatabase() {
