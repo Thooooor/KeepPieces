@@ -28,7 +28,7 @@ fun RecyclerView.getItemDecoration() =
     }
 
 
-fun Float.toMoneyFormatted(removeSuffix: Boolean = false): String {
+fun Double.toMoneyFormatted(removeSuffix: Boolean = false): String {
     return DecimalFormat("###,###,##0.00").format(this).apply {
         if (removeSuffix) {
             return this.removeSuffix(".00")
