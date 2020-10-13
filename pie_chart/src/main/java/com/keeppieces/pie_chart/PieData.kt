@@ -1,14 +1,14 @@
 package com.keeppieces.pie_chart
 
-data class PieData(val portions: List<PiePortion>, val maxValue: Float? = null)
+data class PieData(val portions: List<PiePortion>, val maxValue: Double? = null)
 
-data class PiePortion(val name: String, val value: Float, val colorInt: Int)
+data class PiePortion(val name: String, val value: Double, val colorInt: Int)
 
 fun List<PiePortion>.toPoints(maxValue: Float): List<PieRenderData> {
     val renderDataList = mutableListOf<PieRenderData>()
-    forEachIndexed { index, it ->
+    forEachIndexed { _, it ->
         val startAngle = if (renderDataList.isEmpty()) {
-            -90f + 1f
+            (-90f + 1f).toDouble()
         } else {
             val last = renderDataList.last()
             last.startAngle + last.sweepAngle + 1f
@@ -23,4 +23,4 @@ fun List<PiePortion>.toPoints(maxValue: Float): List<PieRenderData> {
 }
 
 
-data class PieRenderData(val name: String, val startAngle: Float, val sweepAngle: Float, val color: Int)
+data class PieRenderData(val name: String, val startAngle: Double, val sweepAngle: Double, val color: Int)

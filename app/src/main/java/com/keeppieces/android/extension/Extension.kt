@@ -36,6 +36,6 @@ fun Float.toMoneyFormatted(removeSuffix: Boolean = false): String {
     }
 }
 
-fun Float.toUSDFormatted(): String {
-    return NumberFormat.getCurrencyInstance(Locale.US).format(this)
+fun Double.toCHINADFormatted(): String {
+    return NumberFormat.getCurrencyInstance(Locale.CHINA).format(this)
 }

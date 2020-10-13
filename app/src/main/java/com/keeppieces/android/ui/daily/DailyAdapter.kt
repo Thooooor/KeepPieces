@@ -3,7 +3,6 @@ package com.keeppieces.android.ui.daily
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.inflate
@@ -23,7 +22,7 @@ class DailyAdapter(private val bills: List<Bill>) : RecyclerView.Adapter<DailyAd
     }
 
     class DailyItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        private val billSecondary: TextView = view.findViewById(R.id.billSecondary)
+        private val billSecondary: TextView = view.findViewById(R.id.billType)
         private val billAmount: TextView = view.findViewById(R.id.billAmount)
         private val billDate: TextView = view.findViewById(R.id.billDate)
         private val billAccount: TextView = view.findViewById(R.id.billAccount)
@@ -36,17 +35,5 @@ class DailyAdapter(private val bills: List<Bill>) : RecyclerView.Adapter<DailyAd
             billAccount.text = model.account
             billType.text = "￥"
         }
-    }
-}
-
-
-private class BillDiffCallback : DiffUtil.ItemCallback<Bill>() {
-
-    override fun areItemsTheSame(oldItem: Bill, newItem: Bill): Boolean {
-        return oldItem.billId == newItem.billId
-    }
-
-    override fun areContentsTheSame(oldItem: Bill, newItem: Bill): Boolean {
-        return oldItem == newItem
     }
 }

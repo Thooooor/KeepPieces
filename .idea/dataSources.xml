@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="KP Android SQLite" uuid="fbc982b5-63a3-4706-94e5-3f8dff6fb155">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Thor\AppData\Local\JetBrains\IntelliJIdea2020.2\android\databases\SERIAL_NUMBER_VED7N18515007695\com.keeppieces.android\internal\app_database</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="KP Android SQLite" uuid="11e9c0d7-768a-47e6-b2dc-1e91315da9a3">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Thor\AppData\Local\JetBrains\IntelliJIdea2020.2\android\databases\SERIAL_NUMBER_VED7N18515007695\com.keeppieces.android\internal\app_database</jdbc-url>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.31.1/sqlite-jdbc-3.31.1.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="KP Android SQLite" uuid="ede34f19-11b0-4ac2-aa3c-4389f99988af">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Thor\AppData\Local\JetBrains\IntelliJIdea2020.2\android\databases\SERIAL_NUMBER_VED7N18515007695\com.keeppieces.android\internal\app_database</jdbc-url>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.31.1/sqlite-jdbc-3.31.1.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>

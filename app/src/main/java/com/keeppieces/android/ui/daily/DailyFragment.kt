@@ -15,10 +15,13 @@ import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.logic.data.DailyPrimary
+import com.keeppieces.android.ui.daily.adapter.DailyPrimaryOverviewAdapter
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
 import kotlinx.android.synthetic.main.fragment_daily.*
+import kotlinx.android.synthetic.main.layout_daily_primary_overview.*
 import java.time.LocalDate
 
 
@@ -32,34 +35,66 @@ class DailyFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpPieView()
-        setUpRecyclerView()
+        setUpView()
         Log.d(TAG, "onActivityCreated")
     }
 
-    private fun setUpPieView() {
+    private fun setUpView() {
         viewModel.billList(LocalDate.now().toString()).observe(viewLifecycleOwner) { billList ->
-            val bills = if (billList.isEmpty()) {
-                tempList
-            } else {
-                billList
-            }
-            val dailyOverview = viewModel.dailyOverview(bills)
-            dailyAmount.text = dailyOverview.total.toCHINADFormatted()
-            val piePortions = dailyOverview.bills.map {
-                PiePortion(
-                    it.secondaryCategory, it.amount, ContextCompat.getColor(requireContext(), it.color)
-                )
-            }.toList()
-
-            val pieData = PieData(portions = piePortions)
-            val pieAnimation = PieAnimation(pieChart).apply {
-                duration = 600
-            }
-            pieChart.setPieData(pieData = pieData, animation = pieAnimation)
+            val bills = if (billList.isEmpty()) tempList else billList
+            setUpPieView(bills)
+            Log.d("Daily", "PieView done.")
+            setUpPrimaryCard(bills)
         }
     }
 
+    private fun setUpPieView(bills: List<Bill>) {
+        val dailyOverview = viewModel.dailyOverview(bills, "green")
+        dailyAmount.text = dailyOverview.total.toCHINADFormatted()
+        val piePortions = dailyOverview.bills.map {
+            PiePortion(
+                it.secondaryCategory, it.amount, ContextCompat.getColor(requireContext(), it.color)
+            )
+        }.toList()
+
+        val pieData = PieData(portions = piePortions)
+        val pieAnimation = PieAnimation(pieChart).apply {
+            duration = 600
+        }
+        pieChart.setPieData(pieData = pieData, animation = pieAnimation)
+    }
+
+    private fun setUpPrimaryCard(bills: List<Bill>) {
+        val primaryList = viewModel.dailyPrimaryList(bills, "blue")
+        primary_detail_recycler.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            addItemDecoration(getItemDecoration())
+            adapter = DailyPrimaryOverviewAdapter(primaryList)
+        }
+        Log.d("Daily", "PrimaryCard recycler done.")
+        setUpPrimaryPieView(primaryList)
+        Log.d("Daily", "PrimaryCard PieView done.")
+    }
+
+    private fun setUpPrimaryPieView(primaryList: List<DailyPrimary>) {
+        primary_title.text = "分类"
+        val piePortions = primaryList.map {
+            PiePortion(
+                it.primaryCategory, it.amount, ContextCompat.getColor(requireContext(), it.color)
+            )
+        }.toList()
+
+        val pieData = PieData(portions = piePortions)
+
+        val pieAnimation = PieAnimation(daily_primary_overview_pie).apply {
+            duration = 600
+        }
+
+        daily_primary_overview_pie.setPieData(pieData = pieData, animation = pieAnimation)
+    }
+
+    /*
     private fun setUpRecyclerView() {
         dailyBills.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -77,7 +112,7 @@ class DailyFragment : Fragment() {
                 }
             }
         }
-    }
+    }*/
 
     companion object {
         const val TAG = "DailyFragment"

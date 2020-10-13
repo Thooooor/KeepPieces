@@ -14,7 +14,7 @@ data class LineIndicatorPortion(
 
 fun List<LineIndicatorPortion>.toPoints(maxValue: Float): List<LineIndicatorRenderData> {
   val renderDataList = mutableListOf<LineIndicatorRenderData>()
-  forEachIndexed { index, it ->
+  forEachIndexed { _, it ->
     val percent = it.value / maxValue
     renderDataList.add(LineIndicatorRenderData(it.name, percent, it.colorInt))
   }

@@ -13,11 +13,11 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 class PieChart @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    private val defStyleAttr: Int = 0,
+    defStyleAttr: Int = 0,
     val defStyleRes: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-    var rallyPieProgressRenderData = listOf<PieRenderData>()
-    private var rallyPieFinalRenderData = listOf<PieRenderData>()
+    var pieProgressRenderData = listOf<PieRenderData>()
+    private var pieFinalRenderData = listOf<PieRenderData>()
 
     private val stroke = context.dpToPx(6f)
     private var rect = RectF()
@@ -34,7 +34,7 @@ class PieChart @JvmOverloads constructor(
         }
     }
 
-    var colorPrimary : Int = 0
+    private var colorPrimary : Int = 0
 
     init{
         // Get attrs
@@ -64,12 +64,12 @@ class PieChart @JvmOverloads constructor(
         canvas?.drawCircle(centerX , centerY , chartRadius + stroke , paint)
 
         canvas?.apply {
-            rallyPieFinalRenderData.forEachIndexed { index, it ->
+            pieFinalRenderData.forEachIndexed { index, it ->
                 paint.color = it.color
                 drawArc(
                     rect,
-                    rallyPieProgressRenderData[index].startAngle,
-                    rallyPieProgressRenderData[index].sweepAngle,
+                    pieProgressRenderData[index].startAngle.toFloat(),
+                    pieProgressRenderData[index].sweepAngle.toFloat(),
                     false,
                     paint
                 )
@@ -79,27 +79,23 @@ class PieChart @JvmOverloads constructor(
 
     }
 
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-    }
-
 
     override fun startAnimation(animation: Animation?) {
         if (animation is PieAnimation) {
-            animation.addData(rallyPieFinalRenderData)
+            animation.addData(pieFinalRenderData)
         }
         super.startAnimation(animation)
     }
 
     fun setPieData(pieData: PieData, animation: PieAnimation? = null) {
-        val totalPortionValues = pieData.maxValue ?: pieData.portions.sumByDouble { it.value.toDouble() }.toFloat()
-        rallyPieFinalRenderData = pieData.portions.toPoints(totalPortionValues)
+        val totalPortionValues = pieData.maxValue ?: pieData.portions.sumByDouble { it.value }.toFloat()
+        pieFinalRenderData = pieData.portions.toPoints(totalPortionValues.toFloat())
         if (animation != null) {
-            animation.addData(rallyPieFinalRenderData)
+            animation.addData(pieFinalRenderData)
             animation.interpolator = FastOutSlowInInterpolator()
             this.startAnimation(animation)
         } else {
-            rallyPieProgressRenderData = rallyPieFinalRenderData
+            pieProgressRenderData = pieFinalRenderData
         }
     }
 }

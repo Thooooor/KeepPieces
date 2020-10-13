@@ -2,4 +2,6 @@
     <string name="app_name">KeepPieces</string>
     <string name="支出" />
     <string name="label_total">total</string>
+    <string name="detail">detail</string>
+    <string name="billDetail" />
 </resources>

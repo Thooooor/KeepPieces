@@ -3,7 +3,6 @@ package com.keeppieces.android
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
-import com.keeppieces.android.logic.data.AppDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 
 @Suppress("COMPATIBILITY_WARNING")
@@ -16,36 +15,6 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) runEnterAnimation()
         setUpViewPager()
-
-        val billDao = AppDatabase.getDatabase(this).billDao()
-        /*
-        addBillButton.setOnClickListener {
-            val intent = Intent(this, BillActivity::class.java)
-            startActivity(intent)
-        }
-
-        queryButton.setOnClickListener {
-            billDao.loadAllBillByAmount().observe(this, {bills ->
-                for (bill in bills) {
-                    Log.d("Main ${bill.billId}", bill.toString())
-                }
-            })
-            thread {
-                val billList = billDao.loadAllBillByAmount().value
-                if (billList == null) {
-                    Log.d("MainActivity", "Null")
-                } else {
-                    for (bill in billList) {
-                        Log.d("MainActivity", bill.toString())
-                    }
-                }
-            }
-        }
-
-        dailyButton.setOnClickListener {
-            val intent = Intent(this, DailyActivity::class.java)
-            startActivity(intent)
-        }*/
     }
 
     private fun setUpViewPager() {
@@ -53,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         view_pager.adapter = MainPagerAdapter(supportFragmentManager, tabs)
         view_pager.offscreenPageLimit = 0
         tab_layout.setUpWithViewPager(view_pager, false)
-
         view_pager.setCurrentItem(0, true)
     }
 
