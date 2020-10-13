@@ -37,8 +37,8 @@
 
 
     <style name="Widget.Rally.CompoundButton.Switch" parent="@style/Widget.MaterialComponents.CompoundButton.Switch">
-        <item name="android:colorButtonNormal">@color/rally_green_700</item>
-        <item name="android:colorControlActivated">@color/rally_green_300</item>
+        <item name="android:colorButtonNormal">@color/green_700</item>
+        <item name="android:colorControlActivated">@color/green_300</item>
     </style>
 
     <style name="Widget.Rally.Button.OutlinedButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
