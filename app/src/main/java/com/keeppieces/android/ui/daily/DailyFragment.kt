@@ -1,5 +1,6 @@
 package com.keeppieces.android.ui.daily
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +20,7 @@ import com.keeppieces.android.ui.daily.adapter.DailyAccountOverviewAdapter
 import com.keeppieces.android.ui.daily.adapter.DailyMemberOverviewAdapter
 import com.keeppieces.android.ui.daily.adapter.DailyPrimaryOverviewAdapter
 import com.keeppieces.android.ui.daily.adapter.DailyTypeOverviewAdapter
+import com.keeppieces.android.ui.detail.DetailActivity
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
@@ -52,6 +54,10 @@ class DailyFragment : Fragment() {
             setUpPrimaryCard(bills)
             setUpAccountCard(bills)
             setUpMemberCard(bills)
+        }
+        daily_detail_btn.setOnClickListener {
+            val intent = Intent(this.context, DetailActivity::class.java)
+            startActivity(intent)
         }
     }
 

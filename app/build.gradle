@@ -43,6 +43,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':design_system')
     implementation project(':pie_chart')
+    implementation project(':line_chart')
     implementation project(':line_indicator')
     implementation project(':scrollable_tab')
 

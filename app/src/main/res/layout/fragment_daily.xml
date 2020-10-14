@@ -74,7 +74,7 @@
             style="?attr/textAppearanceSubtitle2" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_info"
+            android:id="@+id/daily_detail_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:layout_constraintEnd_toEndOf="parent"

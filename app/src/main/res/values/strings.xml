@@ -4,4 +4,5 @@
     <string name="label_total">total</string>
     <string name="detail">detail</string>
     <string name="billDetail" />
+    <string name="label_checking">流水</string>
 </resources>
