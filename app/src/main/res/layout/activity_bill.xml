@@ -217,7 +217,7 @@
                     android:background="@color/color_background">
 
                     <ImageView
-                        android:id="@+id/bill_typechoose"
+                        android:id="@+id/bill_typeChoose"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_billchoose"
@@ -236,7 +236,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/bill_type"
                         android:background="@color/color_background"
-                        android:layout_toStartOf="@id/bill_typechoose"
+                        android:layout_toStartOf="@id/bill_typeChoose"
                         android:textSize="30sp"
                         android:autofillHints="2020/10/12"
                         android:layout_marginEnd="10dp"
@@ -264,7 +264,7 @@
                 android:id="@+id/bill_memberChina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/bill_memberchina"
+                android:text="@string/bill_memberChina"
                 android:textSize="20sp"
                 android:layout_marginStart="50dp"
                 android:layout_centerVertical="true"/>
@@ -374,7 +374,7 @@
                         android:id="@+id/bill_secondcategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/bill_secondarytext"
+                        android:text="@string/bill_secondaryText"
                         android:background="@color/color_background"
                         android:layout_toStartOf="@id/bill_categoryChoose"
                         android:textSize="30sp"
@@ -401,7 +401,7 @@
                         android:id="@+id/bill_primarycategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/bill_primarycategory"
+                        android:text="@string/bill_primaryCategory"
                         android:background="@color/color_background"
                         android:layout_toStartOf="@id/bill_nextcategory"
                         android:textSize="30sp"
@@ -430,7 +430,7 @@
                 android:id="@+id/bill_accountChina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/bill_accountchina"
+                android:text="@string/bill_accountChina"
                 android:textSize="20sp"
                 android:layout_marginStart="50dp"
                 android:layout_centerVertical="true"/>
@@ -500,7 +500,7 @@
                 android:id="@+id/bill_infoChina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/bill_infochina"
+                android:text="@string/bill_infoChina"
                 android:textSize="20sp"
                 android:layout_marginStart="50dp"
                 android:layout_centerVertical="true"/>

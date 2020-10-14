@@ -17,16 +17,9 @@
         android:layout_height="wrap_content"
         />
 
-<!--    <com.keeppieces.android.ui.viewpager.SwipeControllableViewPager-->
-<!--        android:id="@+id/view_pager"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-    <Button
-        android:id="@+id/addBillButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/addbill"
-        android:layout_gravity="center_horizontal"/>
-<!--    </com.keeppieces.android.ui.viewpager.SwipeControllableViewPager>-->
+    <com.keeppieces.android.ui.viewpager.SwipeControllableViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.keeppieces.android.ui.viewpager.SwipeControllableViewPager>
 </LinearLayout>
