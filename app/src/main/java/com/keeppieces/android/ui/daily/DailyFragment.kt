@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
-import com.keeppieces.android.extension.toCHINADFormatted
+//import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.Bill
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
@@ -38,45 +38,45 @@ class DailyFragment : Fragment() {
     }
 
     private fun setUpPieView() {
-        viewModel.billList(LocalDate.now().toString()).observe(viewLifecycleOwner) { billList ->
-            val bills = if (billList.isEmpty()) {
-                tempList
-            } else {
-                billList
-            }
-            val dailyOverview = viewModel.dailyOverview(bills)
-            dailyAmount.text = dailyOverview.total.toCHINADFormatted()
-            val piePortions = dailyOverview.bills.map {
-                PiePortion(
-                    it.secondaryCategory, it.amount, ContextCompat.getColor(requireContext(), it.color)
-                )
-            }.toList()
-
-            val pieData = PieData(portions = piePortions)
-            val pieAnimation = PieAnimation(pieChart).apply {
-                duration = 600
-            }
-            pieChart.setPieData(pieData = pieData, animation = pieAnimation)
-        }
+//        viewModel.billList(LocalDate.now().toString()).observe(viewLifecycleOwner) { billList ->
+//            val bills = if (billList.isEmpty()) {
+//                tempList
+//            } else {
+//                billList
+//            }
+//            val dailyOverview = viewModel.dailyOverview(bills)
+//            dailyAmount.text = dailyOverview.total.toCHINADFormatted()
+//            val piePortions = dailyOverview.bills.map {
+//                PiePortion(
+//                    it.secondaryCategory, it.amount, ContextCompat.getColor(requireContext(), it.color)
+//                )
+//            }.toList()
+//
+//            val pieData = PieData(portions = piePortions)
+//            val pieAnimation = PieAnimation(pieChart).apply {
+//                duration = 600
+//            }
+//            pieChart.setPieData(pieData = pieData, animation = pieAnimation)
+//        }
     }
 
     private fun setUpRecyclerView() {
-        dailyBills.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            setHasFixedSize(true)
-            addItemDecoration(getItemDecoration())
-            viewModel.billList(LocalDate.now().toString()).observe(viewLifecycleOwner) { billList ->
-                for (bill in billList) {
-                    Log.d("Daily ${bill.billId}", bill.toString())
-                }
-                adapter = if (billList.isEmpty()) {
-                    Log.d("DailyFragment", "ListEmpty")
-                    DailyAdapter(tempList)
-                } else {
-                    DailyAdapter(billList)
-                }
-            }
-        }
+//        dailyBills.apply {
+//            layoutManager = LinearLayoutManager(requireContext())
+//            setHasFixedSize(true)
+//            addItemDecoration(getItemDecoration())
+//            viewModel.billList(LocalDate.now().toString()).observe(viewLifecycleOwner) { billList ->
+//                for (bill in billList) {
+//                    Log.d("Daily ${bill.billId}", bill.toString())
+//                }
+//                adapter = if (billList.isEmpty()) {
+//                    Log.d("DailyFragment", "ListEmpty")
+//                    DailyAdapter(tempList)
+//                } else {
+//                    DailyAdapter(billList)
+//                }
+//            }
+//        }
     }
 
     companion object {

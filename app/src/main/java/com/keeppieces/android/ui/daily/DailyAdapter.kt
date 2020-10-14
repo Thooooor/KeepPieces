@@ -15,7 +15,8 @@ class DailyAdapter(private val bills: List<Bill>) : RecyclerView.Adapter<DailyAd
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyItemViewHolder {
 
-        return DailyItemViewHolder(parent.inflate(R.layout.item_detail))
+//        return DailyItemViewHolder(parent.inflate(R.layout.item_detail))
+        return DailyItemViewHolder(parent.inflate(R.layout.item_daily))
     }
 
     override fun onBindViewHolder(holder: DailyItemViewHolder, position: Int) {
@@ -23,17 +24,17 @@ class DailyAdapter(private val bills: List<Bill>) : RecyclerView.Adapter<DailyAd
     }
 
     class DailyItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        private val billSecondary: TextView = view.findViewById(R.id.billSecondary)
+//        private val billSecondary: TextView = view.findViewById(R.id.item_daily)
         private val billAmount: TextView = view.findViewById(R.id.billAmount)
         private val billDate: TextView = view.findViewById(R.id.billDate)
-        private val billAccount: TextView = view.findViewById(R.id.billAccount)
+//        private val billAccount: TextView = view.findViewById(R.id.billAccount)
         private  val billType: TextView = view.findViewById(R.id.billType)
 
         fun bind(model: Bill) {
-            billSecondary.text = model.secondaryCategory
+//            billSecondary.text = model.secondaryCategory
             billAmount.text = model.amount.toString()
             billDate.text = model.date
-            billAccount.text = model.account
+//            billAccount.text = model.account
             billType.text = "￥"
         }
     }

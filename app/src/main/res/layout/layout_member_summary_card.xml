@@ -32,8 +32,8 @@
             android:id="@+id/member_line_indicator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="@dimen/spacing_small"
-            android:background="@color/rally_yellow_300"/>
+            android:layout_margin="@dimen/spacing_small"/>
+<!--            android:background="@color/rally_yellow_300"/>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bill_member_overview"

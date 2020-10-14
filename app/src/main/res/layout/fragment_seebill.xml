@@ -21,6 +21,19 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/billEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_billedit"
+                android:clickable="true"
+                app:backgroundTint="@color/color_background"
+                app:elevation="0dp"
+                app:borderWidth="0dp"
+                android:focusable="true"
+                android:layout_alignParentEnd="true"
+                tools:ignore="ContentDescription,RelativeOverlap" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/billBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,23 +50,19 @@
                 android:id="@+id/billToolText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/makeBill"
+                android:text="@string/bill_seeTool"
                 android:layout_toEndOf="@id/billBack"
                 android:textSize="@dimen/bill_textTop"
                 android:layout_centerInParent="true"/>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/billAdd"
+            <TextView
+                android:id="@+id/billToolTextEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_billadd"
-                android:clickable="true"
-                app:backgroundTint="@color/color_background"
-                app:elevation="0dp"
-                app:borderWidth="0dp"
-                android:focusable="true"
-                android:layout_alignParentEnd="true"
-                android:contentDescription="@string/todo"
+                android:text="@string/bill_edit"
+                android:layout_toStartOf="@id/billEdit"
+                android:textSize="@dimen/bill_textTop"
+                android:layout_centerInParent="true"
                 tools:ignore="RelativeOverlap" />
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -63,7 +72,7 @@
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/bill_amounttop"
+        android:id="@+id/bill_seeamounttop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/billAmount"
@@ -134,7 +143,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
+                android:clickable="false"
                 android:layout_toEndOf="@id/bill_timeChina"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="16dp"
@@ -146,27 +155,13 @@
                     android:layout_height="wrap_content"
                     android:background="@color/color_background">
 
-                    <ImageView
-                        android:id="@+id/bill_timechoose"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_billchoose"
-                        android:clickable="true"
-                        app:backgroundTint="@color/color_background"
-                        app:elevation="0dp"
-                        app:borderWidth="0dp"
-                        android:focusable="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        tools:ignore="ContentDescription" />
-
                     <EditText
                         android:id="@+id/bill_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bill_time"
                         android:background="@color/color_background"
-                        android:layout_toStartOf="@id/bill_timechoose"
+                        android:layout_alignParentEnd="true"
                         android:textSize="30sp"
                         android:autofillHints="2020/10/12"
                         android:layout_marginEnd="10dp"
@@ -216,27 +211,13 @@
                     android:layout_height="wrap_content"
                     android:background="@color/color_background">
 
-                    <ImageView
-                        android:id="@+id/bill_typechoose"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_billchoose"
-                        android:clickable="true"
-                        app:backgroundTint="@color/color_background"
-                        app:elevation="0dp"
-                        app:borderWidth="0dp"
-                        android:focusable="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        tools:ignore="ContentDescription" />
-
                     <EditText
                         android:id="@+id/bill_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bill_type"
                         android:background="@color/color_background"
-                        android:layout_toStartOf="@id/bill_typechoose"
+                        android:layout_alignParentEnd="true"
                         android:textSize="30sp"
                         android:autofillHints="2020/10/12"
                         android:layout_marginEnd="10dp"
@@ -286,27 +267,13 @@
                     android:layout_height="wrap_content"
                     android:background="@color/color_background">
 
-                    <ImageView
-                        android:id="@+id/bill_memberchoose"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_billchoose"
-                        android:clickable="true"
-                        app:backgroundTint="@color/color_background"
-                        app:elevation="0dp"
-                        app:borderWidth="0dp"
-                        android:focusable="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        tools:ignore="ContentDescription" />
-
                     <EditText
                         android:id="@+id/bill_member"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bill_member"
                         android:background="@color/color_background"
-                        android:layout_toStartOf="@id/bill_memberchoose"
+                        android:layout_alignParentEnd="true"
                         android:textSize="30sp"
                         android:autofillHints="2020/10/12"
                         android:layout_marginEnd="10dp"
@@ -356,27 +323,13 @@
                     android:layout_height="wrap_content"
                     android:background="@color/color_background">
 
-                    <ImageView
-                        android:id="@+id/bill_categoryChoose"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_billchoose"
-                        android:clickable="true"
-                        app:backgroundTint="@color/color_background"
-                        app:elevation="0dp"
-                        app:borderWidth="0dp"
-                        android:focusable="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        tools:ignore="ContentDescription" />
-
                     <EditText
                         android:id="@+id/bill_secondcategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bill_secondarytext"
                         android:background="@color/color_background"
-                        android:layout_toStartOf="@id/bill_categoryChoose"
+                        android:layout_alignParentEnd="true"
                         android:textSize="30sp"
                         android:autofillHints="2020/10/12"
                         android:layout_marginEnd="10dp"
@@ -452,27 +405,13 @@
                     android:layout_height="wrap_content"
                     android:background="@color/color_background">
 
-                    <ImageView
-                        android:id="@+id/bill_accountchoose"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_billchoose"
-                        android:clickable="true"
-                        app:backgroundTint="@color/color_background"
-                        app:elevation="0dp"
-                        app:borderWidth="0dp"
-                        android:focusable="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        tools:ignore="ContentDescription" />
-
                     <EditText
                         android:id="@+id/bill_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bill_account"
                         android:background="@color/color_background"
-                        android:layout_toStartOf="@id/bill_accountchoose"
+                        android:layout_alignParentEnd="true"
                         android:textSize="30sp"
                         android:autofillHints="2020/10/12"
                         android:layout_marginEnd="10dp"
@@ -543,4 +482,20 @@
             </com.google.android.material.card.MaterialCardView>
         </RelativeLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/bill_deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bill_seeDeleteBtn"
+            android:textColor="#ff0000"
+            android:backgroundTint="@color/color_primary_variant"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 </LinearLayout>
