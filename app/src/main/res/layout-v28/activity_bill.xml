@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/billAmount"
+        android:id="@+id/bill_amountChina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/billAmount"
@@ -130,7 +130,7 @@
                 android:layout_centerVertical="true"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/bill_timecontent"
+                android:id="@+id/bill_timeContent"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                     android:background="@color/color_background">
 
                     <ImageView
-                        android:id="@+id/bill_timechoose"
+                        android:id="@+id/bill_timeChoose"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_billchoose"
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/bill_time"
                         android:background="@color/color_background"
-                        android:layout_toStartOf="@id/bill_timechoose"
+                        android:layout_toStartOf="@id/bill_timeChoose"
                         android:textSize="30sp"
                         android:autofillHints="2020/10/12"
                         android:layout_marginEnd="10dp"
@@ -200,7 +200,7 @@
                 android:layout_centerVertical="true"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/bill_typecontent"
+                android:id="@+id/bill_typeContent"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -270,7 +270,7 @@
                 android:layout_centerVertical="true"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/bill_membercontent"
+                android:id="@+id/bill_memberContent"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -287,7 +287,7 @@
                     android:background="@color/color_background">
 
                     <ImageView
-                        android:id="@+id/bill_memberchoose"
+                        android:id="@+id/bill_memberChoose"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_billchoose"
@@ -306,7 +306,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/bill_member"
                         android:background="@color/color_background"
-                        android:layout_toStartOf="@id/bill_memberchoose"
+                        android:layout_toStartOf="@id/bill_memberChoose"
                         android:textSize="30sp"
                         android:autofillHints="2020/10/12"
                         android:layout_marginEnd="10dp"
@@ -371,7 +371,7 @@
                         tools:ignore="ContentDescription" />
 
                     <EditText
-                        android:id="@+id/bill_secondcategory"
+                        android:id="@+id/bill_secondCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bill_secondaryText"
@@ -384,7 +384,7 @@
                         tools:ignore="LabelFor" />
 
                     <ImageView
-                        android:id="@+id/bill_nextcategory"
+                        android:id="@+id/bill_nextCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_billnextcategory"
@@ -393,17 +393,17 @@
                         app:elevation="0dp"
                         app:borderWidth="0dp"
                         android:focusable="true"
-                        android:layout_toStartOf="@id/bill_secondcategory"
+                        android:layout_toStartOf="@id/bill_secondCategory"
                         android:layout_centerInParent="true"
                         tools:ignore="ContentDescription" />
 
                     <EditText
-                        android:id="@+id/bill_primarycategory"
+                        android:id="@+id/bill_primaryCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bill_primaryCategory"
                         android:background="@color/color_background"
-                        android:layout_toStartOf="@id/bill_nextcategory"
+                        android:layout_toStartOf="@id/bill_nextCategory"
                         android:textSize="30sp"
                         android:autofillHints="2020/10/12"
                         android:inputType=""
@@ -413,7 +413,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:background="@color/color_primary_variant"
-                        android:layout_below="@id/bill_primarycategory" />
+                        android:layout_below="@id/bill_primaryCategory" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
         </RelativeLayout>
@@ -436,7 +436,7 @@
                 android:layout_centerVertical="true"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/bill_accountcontent"
+                android:id="@+id/bill_accountContent"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -453,7 +453,7 @@
                     android:background="@color/color_background">
 
                     <ImageView
-                        android:id="@+id/bill_accountchoose"
+                        android:id="@+id/bill_accountChoose"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_billchoose"
@@ -472,7 +472,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/bill_account"
                         android:background="@color/color_background"
-                        android:layout_toStartOf="@id/bill_accountchoose"
+                        android:layout_toStartOf="@id/bill_accountChoose"
                         android:textSize="30sp"
                         android:autofillHints="2020/10/12"
                         android:layout_marginEnd="10dp"
@@ -506,7 +506,7 @@
                 android:layout_centerVertical="true"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/bill_infocontent"
+                android:id="@+id/bill_infoContent"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
