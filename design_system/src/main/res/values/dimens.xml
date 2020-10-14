@@ -32,4 +32,9 @@
     <dimen name="alpha_emphasis_disabled">0.38</dimen>
 
     <dimen name="card_elevation">0dp</dimen>
+
+<!--    创建账单大小说明-->
+    <dimen name="bill_textTop">24sp</dimen>
+    <dimen name="bill_textAmountChina">20sp</dimen>
+    <dimen name="bill_textAmountChinaLeft">30dp</dimen>
 </resources>

@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/bill_amountTop"
+        android:id="@+id/bill_amountChina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/billAmount"
@@ -234,13 +234,13 @@
                         android:id="@+id/bill_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_toStartOf="@id/bill_typeChoose"
-                        android:autofillHints="2020/10/12"
-                        android:background="@color/color_background"
-                        android:inputType=""
                         android:text="@string/bill_type"
+                        android:background="@color/color_background"
+                        android:layout_toStartOf="@id/bill_typeChoose"
                         android:textSize="30sp"
+                        android:autofillHints="2020/10/12"
+                        android:layout_marginEnd="10dp"
+                        android:inputType=""
                         tools:ignore="LabelFor" />
 
                     <TextView
@@ -304,13 +304,13 @@
                         android:id="@+id/bill_member"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_toStartOf="@id/bill_memberChoose"
-                        android:autofillHints="2020/10/12"
-                        android:background="@color/color_background"
-                        android:inputType=""
                         android:text="@string/bill_member"
+                        android:background="@color/color_background"
+                        android:layout_toStartOf="@id/bill_memberChoose"
                         android:textSize="30sp"
+                        android:autofillHints="2020/10/12"
+                        android:layout_marginEnd="10dp"
+                        android:inputType=""
                         tools:ignore="LabelFor" />
 
                     <TextView
@@ -374,13 +374,13 @@
                         android:id="@+id/bill_secondCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_toStartOf="@id/bill_categoryChoose"
-                        android:autofillHints="2020/10/12"
-                        android:background="@color/color_background"
-                        android:inputType=""
                         android:text="@string/bill_secondaryText"
+                        android:background="@color/color_background"
+                        android:layout_toStartOf="@id/bill_categoryChoose"
                         android:textSize="30sp"
+                        android:autofillHints="2020/10/12"
+                        android:layout_marginEnd="10dp"
+                        android:inputType=""
                         tools:ignore="LabelFor" />
 
                     <ImageView
