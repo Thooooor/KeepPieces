@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface AccountDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     fun insertAccount(account: Account)
 
     @Update

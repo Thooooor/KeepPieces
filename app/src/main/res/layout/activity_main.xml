@@ -20,6 +20,6 @@
     <com.keeppieces.android.ui.viewpager.SwipeControllableViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.keeppieces.android.ui.viewpager.SwipeControllableViewPager>
+        android:layout_height="match_parent"
+        />
 </LinearLayout>
