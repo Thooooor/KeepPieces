@@ -8,7 +8,7 @@ class BillRepository {
     private val billDao = AppDatabase.getDatabase(context).billDao()
     private val repository = com.keeppieces.android.logic.Repository
 
-    fun insertBill(bill:Bill) {
+    fun createBill(bill:Bill) {
         bill.billId = billDao.insertBill(bill)
     }
 

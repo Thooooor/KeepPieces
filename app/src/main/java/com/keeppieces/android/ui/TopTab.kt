@@ -3,7 +3,6 @@ package com.keeppieces.android.ui
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -12,15 +11,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.helper.widget.Flow
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.os.bundleOf
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.transition.Slide
 import androidx.transition.TransitionManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.button.MaterialButton
 import com.keeppieces.android.R
-import com.keeppieces.android.ui.bill.BillActivity
 import com.keeppieces.android.ui.viewpager.SwipeControllableViewPager
 import kotlinx.android.synthetic.main.layout_top_tab.view.*
 
@@ -83,9 +79,7 @@ class TopTab @JvmOverloads constructor(
         }
 
         image5.setOnClickListener {
-            val intent = Intent(context, BillActivity::class.java)
-            startActivity(context, intent, bundleOf())
-//            viewPager?.setCurrentItem(4, true)
+            viewPager?.setCurrentItem(4, true)
         }
     }
 

@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface PrimaryCategoryDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     fun insertPrimaryCategory(primaryCategory: PrimaryCategory)
 
     @Update
