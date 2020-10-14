@@ -12,27 +12,43 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_start"
+            android:id="@+id/guideline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".1" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_end"
+            android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".9" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/keyline_start"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing_keyline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/keyline_end"
+            app:layout_constraintGuide_end="@dimen/spacing_keyline"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
         <com.keeppieces.pie_chart.PieChart
-            android:id="@+id/PieChart"
+            android:id="@+id/pieChart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_small"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
-            app:layout_constraintStart_toStartOf="@+id/guideline_start"
+            app:layout_constraintEnd_toEndOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -40,10 +56,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="￥2,132.34"
-            app:layout_constraintBottom_toBottomOf="@id/PieChart"
+            app:layout_constraintBottom_toBottomOf="@id/pieChart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/PieChart"
+            app:layout_constraintTop_toTopOf="@id/pieChart"
             style="?attr/textAppearanceHeadline3" />
 
         <TextView
@@ -67,22 +83,54 @@
             app:icon="@drawable/ic_info_outline"
             style="@style/Widget.Rally.Button.IconOnly" />
 
-        <com.google.android.material.card.MaterialCardView
+        <include
+            layout="@layout/layout_daily_type_overview"
+            android:id="@+id/layout_daily_type_overview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/PieChart">
+            android:layout_marginBottom="@dimen/spacing_medium"
+            app:layout_constraintStart_toStartOf="@+id/keyline_start"
+            app:layout_constraintEnd_toEndOf="@+id/keyline_end"
+            android:layout_marginTop="@dimen/vertical_gutters_half"
+            app:layout_constraintTop_toBottomOf="@+id/pieChart"
+            />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dailyBills"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layoutAnimation="@anim/layout_anim_slide_up"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_daily" />
+        <include
+            layout="@layout/layout_daily_primary_overview"
+            android:id="@+id/layout_daily_primary_overview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            app:layout_constraintStart_toStartOf="@+id/keyline_start"
+            app:layout_constraintEnd_toEndOf="@+id/keyline_end"
+            android:layout_marginTop="@dimen/vertical_gutters_half"
+            app:layout_constraintTop_toBottomOf="@+id/layout_daily_type_overview"
+            />
 
-        </com.google.android.material.card.MaterialCardView>
+        <include
+            layout="@layout/layout_daily_account_overview"
+            android:id="@+id/layout_daily_account_overview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            app:layout_constraintStart_toStartOf="@+id/keyline_start"
+            app:layout_constraintEnd_toEndOf="@+id/keyline_end"
+            android:layout_marginTop="@dimen/vertical_gutters_half"
+            app:layout_constraintTop_toBottomOf="@+id/layout_daily_primary_overview"
+            />
+
+        <include
+            layout="@layout/layout_daily_member_overview"
+            android:id="@+id/layout_daily_member_overview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            app:layout_constraintStart_toStartOf="@+id/keyline_start"
+            app:layout_constraintEnd_toEndOf="@+id/keyline_end"
+            android:layout_marginTop="@dimen/vertical_gutters_half"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_daily_account_overview"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

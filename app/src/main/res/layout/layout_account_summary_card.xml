@@ -51,8 +51,8 @@
         <TextView
             android:id="@+id/account_line_indicator"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-<!--            android:background="@color/rally_orange_300"/>-->
+            android:layout_height="1dp"
+            android:background="@color/orange_300"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bill_account_overview"

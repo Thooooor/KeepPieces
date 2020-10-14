@@ -25,4 +25,6 @@
     <string name="bill_info">不知道备注什么</string>
     <string name="addbill">添加账单</string>
     <string name="todo">TODO</string>
+    <string name="detail">detail</string>
+    <string name="billDetail" />
 </resources>

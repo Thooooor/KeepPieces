@@ -3,7 +3,6 @@ package com.keeppieces.android.ui.daily
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.inflate
@@ -15,8 +14,7 @@ class DailyAdapter(private val bills: List<Bill>) : RecyclerView.Adapter<DailyAd
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyItemViewHolder {
 
-//        return DailyItemViewHolder(parent.inflate(R.layout.item_detail))
-        return DailyItemViewHolder(parent.inflate(R.layout.item_daily))
+        return DailyItemViewHolder(parent.inflate(R.layout.item_detail))
     }
 
     override fun onBindViewHolder(holder: DailyItemViewHolder, position: Int) {
@@ -24,30 +22,18 @@ class DailyAdapter(private val bills: List<Bill>) : RecyclerView.Adapter<DailyAd
     }
 
     class DailyItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-//        private val billSecondary: TextView = view.findViewById(R.id.item_daily)
+        private val billSecondary: TextView = view.findViewById(R.id.billType)
         private val billAmount: TextView = view.findViewById(R.id.billAmount)
         private val billDate: TextView = view.findViewById(R.id.billDate)
-//        private val billAccount: TextView = view.findViewById(R.id.billAccount)
+        private val billAccount: TextView = view.findViewById(R.id.billAccount)
         private  val billType: TextView = view.findViewById(R.id.billType)
 
         fun bind(model: Bill) {
-//            billSecondary.text = model.secondaryCategory
+            billSecondary.text = model.secondaryCategory
             billAmount.text = model.amount.toString()
             billDate.text = model.date
-//            billAccount.text = model.account
+            billAccount.text = model.account
             billType.text = "￥"
         }
-    }
-}
-
-
-private class BillDiffCallback : DiffUtil.ItemCallback<Bill>() {
-
-    override fun areItemsTheSame(oldItem: Bill, newItem: Bill): Boolean {
-        return oldItem.billId == newItem.billId
-    }
-
-    override fun areContentsTheSame(oldItem: Bill, newItem: Bill): Boolean {
-        return oldItem == newItem
     }
 }
