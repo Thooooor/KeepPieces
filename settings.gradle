@@ -1,3 +1,4 @@
+include ':scrollable_tab'
 include ':line_chart'
 include ':line_indicator'
 include ':pie_chart'

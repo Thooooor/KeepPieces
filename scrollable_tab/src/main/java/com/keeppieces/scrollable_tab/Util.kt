@@ -2,8 +2,12 @@ package com.keeppieces.scrollable_tab
 
 import kotlin.math.pow
 
+
 object Util {
 
+  /**
+   * This method is from medium article by supha software with a little params modification
+   */
   fun getGaussianScale(
       childCenterX: Int,
       minScaleOffset: Float,

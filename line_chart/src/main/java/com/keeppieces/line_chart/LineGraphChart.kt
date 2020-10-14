@@ -185,7 +185,7 @@ class LineGraphChart : View {
     val xDiff =
       width.toFloat() / (data.size - 1) //subtract -1 because we want to include position at right side
 
-    val maxData = data.maxBy { it.amount }!!.amount
+    val maxData = data.maxByOrNull { it.amount }!!.amount
 
     for (i in 0 until data.size) {
       val y = bottomY - (data[i].amount / maxData * (bottomY - curveTopMargin))
