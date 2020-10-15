@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.layout_daily_type_overview.*
 import java.time.LocalDate
 
 
-class DailyFragment() : Fragment() {
+class DailyFragment(var date: LocalDate) : Fragment() {
     private val viewModel: DailyViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,7 +39,6 @@ class DailyFragment() : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val date = LocalDate.now()
         setUpView(date.toString())
         dailyLeftArrow.setOnClickListener {
             date.plusDays(-1)
@@ -84,7 +83,7 @@ class DailyFragment() : Fragment() {
 
     private fun setUpPrimaryCard(bills: List<Bill>) {
         val primaryList = viewModel.dailyPrimaryList(bills, "blue")
-        daily_primary_detail_recycler.apply {
+        dailyPrimaryDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
@@ -102,16 +101,16 @@ class DailyFragment() : Fragment() {
         }.toList()
 
         val pieData = PieData(portions = piePortions)
-        val pieAnimation = PieAnimation(daily_primary_overview_pie).apply {
+        val pieAnimation = PieAnimation(dailyPrimaryOverviewPie).apply {
             duration = 600
         }
 
-        daily_primary_overview_pie.setPieData(pieData = pieData, animation = pieAnimation)
+        dailyPrimaryOverviewPie.setPieData(pieData = pieData, animation = pieAnimation)
     }
 
     private fun setUpAccountCard(bills: List<Bill>) {
         val accountList = viewModel.dailyAccountList(bills, "purple")
-        daily_account_detail_recycler.apply {
+        dailyAccountDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
@@ -121,7 +120,7 @@ class DailyFragment() : Fragment() {
     }
 
     private fun setUpAccountPieView(accountList: List<DailyAccount>) {
-        daily_account_title.text = "账户"
+        dailyAccountTitle.text = "账户"
         val piePortions = accountList.map {
             PiePortion(
                 it.account, it.amount, ContextCompat.getColor(requireContext(), it.color)
@@ -129,16 +128,16 @@ class DailyFragment() : Fragment() {
         }.toList()
 
         val pieData = PieData(portions = piePortions)
-        val pieAnimation = PieAnimation(daily_account_overview_pie).apply {
+        val pieAnimation = PieAnimation(dailyAccountOverviewPie).apply {
             duration = 600
         }
 
-        daily_account_overview_pie.setPieData(pieData = pieData, animation = pieAnimation)
+        dailyAccountOverviewPie.setPieData(pieData = pieData, animation = pieAnimation)
     }
 
     private fun setUpMemberCard(bills: List<Bill>) {
         val memberList = viewModel.dailyMemberList(bills, "orange")
-        daily_member_detail_recycler.apply {
+        dailyMemberDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
@@ -148,7 +147,7 @@ class DailyFragment() : Fragment() {
     }
 
     private fun setUpMemberPieView(memberList: List<DailyMember>) {
-        daily_member_title.text = "成员"
+        dailyMemberTitle.text = "成员"
         val piePortions = memberList.map {
             PiePortion(
                 it.member, it.amount, ContextCompat.getColor(requireContext(), it.color)
@@ -156,16 +155,16 @@ class DailyFragment() : Fragment() {
         }.toList()
 
         val pieData = PieData(portions = piePortions)
-        val pieAnimation = PieAnimation(daily_member_overview_pie).apply {
+        val pieAnimation = PieAnimation(dailyMemberOverviewPie).apply {
             duration = 600
         }
 
-        daily_member_overview_pie.setPieData(pieData = pieData, animation = pieAnimation)
+        dailyMemberOverviewPie.setPieData(pieData = pieData, animation = pieAnimation)
     }
 
     private fun setUpTypeCard(bills: List<Bill>) {
         val typeList = viewModel.dailyTypeList(bills)
-        daily_type_detail_recycler.apply {
+        dailyTypeDetaiRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
@@ -175,7 +174,7 @@ class DailyFragment() : Fragment() {
     }
 
     private fun setUpTypePieView(typeList: List<DailyType>) {
-        daily_type_title.text = "收支"
+        dailyTypeTitle.text = "收支"
         val piePortions = typeList.map {
             PiePortion(
                 it.type, it.amount, ContextCompat.getColor(requireContext(), it.color)
@@ -183,22 +182,14 @@ class DailyFragment() : Fragment() {
         }.toList()
 
         val pieData = PieData(portions = piePortions)
-        val pieAnimation = PieAnimation(daily_type_overview_pie).apply {
+        val pieAnimation = PieAnimation(dailyTypeOverviewPie).apply {
             duration = 600
         }
 
-        daily_type_overview_pie.setPieData(pieData = pieData, animation = pieAnimation)
+        dailyTypeOverviewPie.setPieData(pieData = pieData, animation = pieAnimation)
     }
 
     companion object {
-        const val TAG = "DailyFragment"
-        private const val KEY_DAY = "key-day"
-        fun newInstance(day: Int): DailyFragment {
-            return DailyFragment().apply {
-                arguments = Bundle().apply { putInt(KEY_DAY, day) }
-            }
-        }
-
         @RequiresApi(Build.VERSION_CODES.O)
         val tempList = listOf(
             Bill(
