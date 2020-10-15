@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.keeppieces.android.KeepPiecesApplication
+import com.keeppieces.android.R
 import com.keeppieces.android.logic.Repository
 
 
@@ -29,25 +30,17 @@ class TypeRepository {
         typeDao.deleteType(type)
     }
 
-    fun getDailyTypeList(bills: List<Bill>, color: String): MutableList<DailyType> {
-        val typeList = mutableListOf<DailyType>()
+    fun getDailyTypeList(bills: List<Bill>): List<DailyType> {
+        val income = "收入"
+        val outcome = "支出"
+        val typeList = listOf<DailyType>(
+            DailyType(income, 0.0, R.color.yellow_600),
+            DailyType(outcome, 0.0, R.color.dark_green)
+        )
         for (bill in bills) {
-            var isTypeExist = false
-            for (type in typeList) {
-                if (type.type == bill.type) {
-                    type.amount += bill.amount
-                    isTypeExist = true
-                    break
-                } else {
-                    continue
-                }
-            }
-            if (!isTypeExist) {
-                val primaryIndex = typeList.size
-                val primaryColor = repository.getColorInt(color, primaryIndex)
-                typeList.add(DailyType(bill.type, bill.amount, primaryColor))
-            } else {
-                continue
+            when (bill.type) {
+                income -> typeList[0].amount += bill.amount
+                outcome -> typeList[1].amount += bill.amount
             }
         }
         return typeList

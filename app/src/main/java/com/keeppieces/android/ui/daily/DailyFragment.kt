@@ -1,9 +1,7 @@
 package com.keeppieces.android.ui.daily
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,14 +34,12 @@ class DailyFragment : Fragment() {
     private val viewModel: DailyViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d(TAG, "onCreateView")
         return inflater.inflate(R.layout.fragment_daily, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setUpView()
-        Log.d(TAG, "onActivityCreated")
     }
 
     private fun setUpView() {
@@ -55,9 +51,9 @@ class DailyFragment : Fragment() {
             setUpAccountCard(bills)
             setUpMemberCard(bills)
         }
+
         daily_detail_btn.setOnClickListener {
-            val intent = Intent(this.context, DetailActivity::class.java)
-            startActivity(intent)
+            DetailActivity.start(it.context, LocalDate.now(), LocalDate.now(), R.color.dark_green)
         }
     }
 
@@ -159,7 +155,7 @@ class DailyFragment : Fragment() {
     }
 
     private fun setUpTypeCard(bills: List<Bill>) {
-        val typeList = viewModel.dailyTypeList(bills, "yellow")
+        val typeList = viewModel.dailyTypeList(bills)
         daily_type_detail_recycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
