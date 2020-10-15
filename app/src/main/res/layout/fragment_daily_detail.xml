@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.detail.DetailFragment">
+    tools:context=".ui.detail.DailyDetailFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detail_bill_list"

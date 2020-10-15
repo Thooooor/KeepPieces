@@ -59,7 +59,7 @@ class DetailActivity : AppCompatActivity() {
             detailLineChart.addDataPoints(getRandomPoints())
         }
 
-        detailViewPager.adapter = DetailPagerAdapter(supportFragmentManager)
+        detailViewPager.adapter = DailyDetailPagerAdapter(supportFragmentManager)
         tab.setUpWithViewPager(detailViewPager)
     }
 

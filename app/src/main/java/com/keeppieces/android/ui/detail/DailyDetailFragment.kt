@@ -12,17 +12,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.logic.data.Bill
-import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_daily_detail.*
 import java.time.LocalDate
 
 
-class DetailFragment : Fragment() {
+class DailyDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        return inflater.inflate(R.layout.fragment_daily_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,9 +41,9 @@ class DetailFragment : Fragment() {
 
     companion object {
         private const val KEY_MONTH = "key-month"
-        fun newInstance(): DetailFragment {
+        fun newInstance(): DailyDetailFragment {
             Log.d("Detail", "begin")
-            return DetailFragment().apply {
+            return DailyDetailFragment().apply {
                 arguments = Bundle().apply {  }
             }
         }
