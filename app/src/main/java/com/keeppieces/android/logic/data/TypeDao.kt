@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface TypeDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertType(type: Type)
 
     @Update
