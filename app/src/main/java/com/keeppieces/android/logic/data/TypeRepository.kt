@@ -1,11 +1,6 @@
 package com.keeppieces.android.logic.data
 
 import androidx.annotation.ColorRes
-import androidx.lifecycle.LiveData
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
 import com.keeppieces.android.KeepPiecesApplication
 import com.keeppieces.android.R
 import com.keeppieces.android.logic.Repository
@@ -33,9 +28,9 @@ class TypeRepository {
     fun getDailyTypeList(bills: List<Bill>): List<DailyType> {
         val income = "收入"
         val outcome = "支出"
-        val typeList = listOf<DailyType>(
-            DailyType(income, 0.0, R.color.yellow_600),
-            DailyType(outcome, 0.0, R.color.dark_green)
+        val typeList = listOf(
+            DailyType(income, 0.0, R.color.yellow_300),
+            DailyType(outcome, 0.0, R.color.yellow_600)
         )
         for (bill in bills) {
             when (bill.type) {
