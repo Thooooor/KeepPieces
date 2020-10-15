@@ -41,6 +41,34 @@
             android:layout_height="wrap_content"
             />
 
+        <ImageView
+            android:id="@+id/dailyLeftArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:contentDescription="@string/dailyLeftArrow"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/keyline_start"
+            app:layout_constraintBottom_toBottomOf="@id/dailyAmount"
+            app:tint="?attr/colorPrimaryVariant" />
+
+        <ImageView
+            android:id="@+id/dailyRightArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:contentDescription="@string/dailyRightArrow"
+            android:src="@drawable/ic_right_arrow"
+            app:layout_constraintEnd_toEndOf="@id/keyline_end"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/guideline2"
+            app:layout_constraintBottom_toBottomOf="@id/dailyAmount"
+            app:tint="?attr/colorPrimaryVariant" />
+
         <com.keeppieces.pie_chart.PieChart
             android:id="@+id/pieChart"
             android:layout_width="0dp"
@@ -74,7 +102,7 @@
             style="?attr/textAppearanceSubtitle2" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/daily_detail_btn"
+            android:id="@+id/dailyDetailBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:layout_constraintEnd_toEndOf="parent"

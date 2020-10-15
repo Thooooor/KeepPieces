@@ -29,4 +29,6 @@
     <string name="bill_see_top_name">账单</string>
     <string name="bill_see_top_edit">编辑</string>
     <string name="bill_see_delete_btn">删除账单</string>
+    <string name="dailyLeftArrow">dailyLeftArrow</string>
+    <string name="dailyRightArrow">dailyRightArrow</string>
 </resources>

@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.layout_daily_type_overview.*
 import java.time.LocalDate
 
 
-class DailyFragment : Fragment() {
+class DailyFragment() : Fragment() {
     private val viewModel: DailyViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,11 +39,20 @@ class DailyFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpView()
+        val date = LocalDate.now()
+        setUpView(date.toString())
+        dailyLeftArrow.setOnClickListener {
+            date.plusDays(-1)
+            setUpView(date.toString())
+        }
+        dailyRightArrow.setOnClickListener {
+            date.plusDays(1)
+            setUpView(date.toString())
+        }
     }
 
-    private fun setUpView() {
-        viewModel.billList(LocalDate.now().toString()).observe(viewLifecycleOwner) { billList ->
+    private fun setUpView(date: String) {
+        viewModel.billList(date).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) tempList else billList
             setUpPieView(bills)
             setUpTypeCard(bills)
@@ -52,7 +61,7 @@ class DailyFragment : Fragment() {
             setUpMemberCard(bills)
         }
 
-        daily_detail_btn.setOnClickListener {
+        dailyDetailBtn.setOnClickListener {
             DetailActivity.start(it.context, LocalDate.now(), LocalDate.now(), R.color.dark_green)
         }
     }
