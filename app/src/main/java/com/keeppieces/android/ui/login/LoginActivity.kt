@@ -31,6 +31,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         //setSupportActionBar(findV
         executor = ContextCompat.getMainExecutor(this)
+        loginWithPassword()
+        
         biometricPrompt = createBiometricPrompt()
         val biometricLoginButton = findViewById<ImageView>(R.id.fingerprint)
         biometricLoginButton.setOnClickListener {
