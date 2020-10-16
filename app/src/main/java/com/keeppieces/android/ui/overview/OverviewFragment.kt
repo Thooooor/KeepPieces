@@ -64,8 +64,8 @@ class OverviewFragment : Fragment() {
             }
         }
         val piePortions = listOf<PiePortion>(
-            PiePortion("支出",monthExpenditure, ContextCompat.getColor(requireContext(), R.color.green_900)),
-            PiePortion("收入",monthIncome,ContextCompat.getColor(requireContext(), R.color.green_300)))
+            PiePortion("支出",monthExpenditure, ContextCompat.getColor(requireContext(), R.color.green_800)),
+            PiePortion("收入",monthIncome,ContextCompat.getColor(requireContext(), R.color.green_600)))
         val pieData = PieData(portions = piePortions)
         val pieAnimation = PieAnimation(month_income_expenditure_pie).apply {
             duration = 600

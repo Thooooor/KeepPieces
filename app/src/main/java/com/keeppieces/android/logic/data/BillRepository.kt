@@ -6,7 +6,6 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import com.keeppieces.android.KeepPiecesApplication
 import java.time.LocalDate
-import java.time.Month
 
 class BillRepository {
     private val context = KeepPiecesApplication.context
@@ -20,16 +19,23 @@ class BillRepository {
     fun getOneDayBill(date: String) = billDao.getOneDayBill(date)
 
     fun getOneDayOverview(bills: List<Bill>, color: String): DailyOverview {
-        val newBills = billToNew(bills, color)
-        val total = newBills.sumByDouble { it.amount }
-        return DailyOverview(total, newBills)
+        val dailyBills = billToNew(bills, color)
+        var total = 0.0
+        for (bill in dailyBills) {
+            total += when (bill.type) {
+                "收入" -> bill.amount
+                "支出" -> -bill.amount
+                else -> bill.amount
+            }
+        }
+        return DailyOverview(total, dailyBills)
     }
 
     fun getPeriodBill(startDate: String, endDate: String) = billDao.getPeriodBill(startDate, endDate)
 
-    private fun billToNew(bills: List<Bill>, color: String): MutableList<DailyBill> {
+    private fun billToNew(bills: List<Bill>, color: String): MutableList<OverviewBill> {
         val primaryList = mutableListOf<String>()
-        val newBillList = mutableListOf<DailyBill>()
+        val newBillList = mutableListOf<OverviewBill>()
         for (bill in bills) {
             val primary = bill.primaryCategory
             if (!primaryList.contains(primary)) {
@@ -37,7 +43,7 @@ class BillRepository {
             }
             val primaryIndex = primaryList.indexOf(primary)
             val primaryColorInt = repository.getColorInt(color, primaryIndex)
-            newBillList.add(DailyBill(bill, primaryColorInt))
+            newBillList.add(OverviewBill(bill, primaryColorInt))
         }
         return newBillList
     }
@@ -100,10 +106,10 @@ fun getOneDaySummary(bills: List<Bill>, color: String): TodaySummary {
     }
 }
 
-data class DailyOverview(val total: Double, val bills: List<DailyBill>)
+data class DailyOverview(val total: Double, val bills: List<OverviewBill>)
 data class TodaySummary(val today_total:Double, val bills:List<TodaySummaryBill>)
 
-class DailyBill(bill: Bill, colorInt: Int) {
+class OverviewBill(bill: Bill, colorInt: Int) {
     val date: String = bill.date
     val amount: Double = bill.amount
     val account: String = bill.account

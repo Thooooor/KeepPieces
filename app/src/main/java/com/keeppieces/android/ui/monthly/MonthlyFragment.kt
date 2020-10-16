@@ -48,8 +48,8 @@ class MonthlyFragment: Fragment() {
         val endDate = Calendar.getInstance()
         endDate.set(year, month+1, 1)
         endDate.add(Calendar.DAY_OF_MONTH, -1)
-
         val date = LocalDate.now()
+
         setUpView(date.toString())
         monthlyLeftArrow.setOnClickListener {
             date.plusDays(-1)
