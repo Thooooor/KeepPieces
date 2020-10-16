@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:itemCount="3"
-            tools:listitem="@layout/item_card" />
+            tools:listitem="@layout/item_summary_card" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/account_see_all"

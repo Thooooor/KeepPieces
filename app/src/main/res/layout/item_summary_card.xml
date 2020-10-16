@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground">
+
+    <com.keeppieces.line_indicator.VerticalBar
+        android:id="@+id/item_vertical_bar"
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="?attr/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/money_symbol_in_item"
+        style="?attr/textAppearanceMoney1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:textColor="@color/color_on_surface_20"
+        app:layout_constraintBottom_toBottomOf="@+id/money_type_in_item"
+        app:layout_constraintEnd_toStartOf="@+id/money_amount_in_item"
+        app:layout_constraintTop_toTopOf="@+id/money_type_in_item"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="￥" />
+
+    <TextView
+        android:id="@+id/money_type_in_item"
+        style="?attr/textAppearanceMoney1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/color_on_surface_20"
+        app:layout_constraintBottom_toBottomOf="@+id/item_vertical_bar"
+        app:layout_constraintEnd_toStartOf="@+id/money_symbol_in_item"
+        app:layout_constraintTop_toTopOf="@+id/item_vertical_bar"
+        app:layout_constraintVertical_bias="0.266"
+        tools:text="+" />
+
+    <TextView
+        android:id="@+id/title_in_item"
+        style="?attr/textAppearanceSubtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:gravity="center"
+        android:text="早餐/微信"
+        app:layout_constraintBottom_toBottomOf="@+id/money_amount_in_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/money_amount_in_item" />
+
+    <ImageButton
+        android:id="@+id/more_information"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="#00000000"
+        android:gravity="center"
+        android:src="@drawable/arrow_right"
+        app:layout_constraintBottom_toBottomOf="@+id/money_amount_in_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/money_amount_in_item"
+        app:layout_constraintVertical_bias="0.461" />
+
+    <TextView
+        android:id="@+id/money_amount_in_item"
+        style="?attr/textAppearanceMoney1"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:gravity="center_vertical"
+        android:text="2215.13"
+        app:layout_constraintBottom_toBottomOf="@+id/money_symbol_in_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/money_symbol_in_item"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
