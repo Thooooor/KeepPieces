@@ -91,11 +91,6 @@ class OverviewFragment : Fragment() {
     companion object {
         const val TAG = "OverviewFragment"
         private const val KEY_DAY = "key-day"
-        fun newInstance(day: Int): DailyFragment {
-            return DailyFragment().apply {
-                arguments = Bundle().apply { putInt(KEY_DAY, day) }
-            }
-        }
 
         @RequiresApi(Build.VERSION_CODES.O)
         val tempList = listOf(
