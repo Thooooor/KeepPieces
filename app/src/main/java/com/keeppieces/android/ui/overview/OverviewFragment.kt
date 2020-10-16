@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,9 +16,12 @@ import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.logic.data.GeneralBill
 import com.keeppieces.android.ui.daily.DailyFragment
 import com.keeppieces.android.ui.daily.adapter.DailyPrimaryOverviewAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.TodaySummaryCardAdapter
+import com.keeppieces.line_indicator.data.LineIndicatorData
+import com.keeppieces.line_indicator.data.LineIndicatorPortion
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
@@ -66,8 +71,8 @@ class OverviewFragment : Fragment() {
             }
         }
         val piePortions = listOf<PiePortion>(
-            PiePortion("支出",monthExpenditure,R.color.orange_300),
-            PiePortion("收入",monthIncome,R.color.green_300))
+            PiePortion("支出",monthExpenditure, ContextCompat.getColor(requireContext(), R.color.green_600)),
+            PiePortion("收入",monthIncome,ContextCompat.getColor(requireContext(), R.color.green_300)))
         val pieData = PieData(portions = piePortions)
         val pieAnimation = PieAnimation(month_income_expenditure_pie).apply {
             duration = 600
@@ -78,7 +83,11 @@ class OverviewFragment : Fragment() {
     }
 
     private fun setUpTodaySummaryCardView(bills: List<Bill>) {  // bills：今天的账单表
-        val todaySummary = viewModel.todaySummary(bills,"blue")
+        val todaySummary = viewModel.getTodaySummary(bills,"blue")
+        val lineIndicatorData:LineIndicatorData = getLineIndicatorData(todaySummary.bills){
+                GeneralBill -> GeneralBill.secondaryCategory
+        }
+        today_summary_line_indicator.setData(lineIndicatorData)
         today_amount.text = todaySummary.today_total.toCHINADFormatted()
         bill_today_overview_recyclerview.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -86,6 +95,17 @@ class OverviewFragment : Fragment() {
             addItemDecoration(getItemDecoration())
             adapter = TodaySummaryCardAdapter(requireContext(),todaySummary.bills)
         }
+    }
+
+    private fun getLineIndicatorData(bills:List<GeneralBill>, f: (GeneralBill) -> String): LineIndicatorData {
+        val portions = bills.map {
+            LineIndicatorPortion(
+                name = f(it),
+                value = it.amount.toFloat(),
+                colorInt = ContextCompat.getColor(requireContext(), it.color)
+            )
+        }
+        return LineIndicatorData(portions = portions)
     }
 
     companion object {
