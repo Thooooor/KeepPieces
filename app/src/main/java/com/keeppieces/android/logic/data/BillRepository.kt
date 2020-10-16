@@ -20,6 +20,8 @@ class BillRepository {
         return DailyOverview(total, newBills)
     }
 
+    fun getPeriodBill(startDate: String, endDate: String) = billDao.getPeriodBill(startDate, endDate)
+
     private fun billToNew(bills: List<Bill>, color: String): MutableList<DailyBill> {
         val primaryList = mutableListOf<String>()
         val newBillList = mutableListOf<DailyBill>()
