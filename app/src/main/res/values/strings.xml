@@ -5,4 +5,32 @@
     <string name="detail">detail</string>
     <string name="billDetail" />
     <string name="label_checking">流水</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search</string>
+    <string name="bill_top_text_make">记账</string>
+    <string name="todo">TODO</string>
+    <string name="bill_up_amount_text">金额</string>
+    <string name="_1234_55">1234.55</string>
+    <string name="bill_amount_sign">￥</string>
+    <string name="bill_time_china">时间</string>
+    <string name="bill_time">2020/10/15</string>
+    <string name="bill_type_china">方式</string>
+    <string name="bill_type">支出</string>
+    <string name="bill_member_china">成员</string>
+    <string name="bill_member">自己</string>
+    <string name="bill_category_china">分类</string>
+    <string name="bill_secondary">午餐</string>
+    <string name="bill_primary">三餐</string>
+    <string name="bill_account_china">账户</string>
+    <string name="bill_account">微信</string>
+    <string name="bill_info_china">备注</string>
+    <string name="bill_info">没什么好备注的</string>
+    <string name="bill_see_top_name">账单</string>
+    <string name="bill_see_top_edit">编辑</string>
+    <string name="bill_see_delete_btn">删除账单</string>
+    <string name="dailyLeftArrow">dailyLeftArrow</string>
+    <string name="dailyRightArrow">dailyRightArrow</string>
+    <string name="monthlyRightArrow">monthlyRightArrow</string>
+    <string name="monthlyLeftArrow">monthlyLeftArrow</string>
 </resources>

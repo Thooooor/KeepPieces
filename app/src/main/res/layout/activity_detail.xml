@@ -19,11 +19,11 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/toolbar"
+            android:id="@+id/detailToolbar"
             layout="@layout/include_toolbar" />
 
         <com.keeppieces.line_chart.LineGraphChart
-            android:id="@+id/line_chart"
+            android:id="@+id/detailLineChart"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:layout_gravity="center"
@@ -42,7 +42,7 @@
             app:tabTextAppearance="?attr/textAppearanceButton" />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
+            android:id="@+id/detailViewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

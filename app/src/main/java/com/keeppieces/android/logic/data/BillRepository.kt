@@ -13,7 +13,7 @@ class BillRepository {
     private val billDao = AppDatabase.getDatabase(context).billDao()
     private val repository = com.keeppieces.android.logic.Repository
 
-    fun createBill(bill:Bill) {
+    fun insertBill(bill:Bill) {
         bill.billId = billDao.insertBill(bill)
     }
 
@@ -24,6 +24,8 @@ class BillRepository {
         val total = newBills.sumByDouble { it.amount }
         return DailyOverview(total, newBills)
     }
+
+    fun getPeriodBill(startDate: String, endDate: String) = billDao.getPeriodBill(startDate, endDate)
 
     private fun billToNew(bills: List<Bill>, color: String): MutableList<DailyBill> {
         val primaryList = mutableListOf<String>()

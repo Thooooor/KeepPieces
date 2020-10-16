@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.keeppieces.android.ui.daily.DailyFragment
+import com.keeppieces.android.ui.monthly.MonthlyFragment
 import com.keeppieces.android.ui.overview.OverviewFragment
+import java.time.LocalDate
 
 class MainPagerAdapter(
     fm: FragmentManager,
@@ -13,9 +15,9 @@ class MainPagerAdapter(
 ) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> DailyFragment()
-            1 -> DailyFragment()
-            else -> OverviewFragment()
+            0 -> MonthlyFragment()
+            1 -> DailyFragment(LocalDate.now())
+            else -> MonthlyFragment()
         }
     }
 

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.daily.DailyFragment">
+    tools:context=".ui.monthly.MonthlyFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -43,31 +43,31 @@
             />
 
         <ImageView
-            android:id="@+id/dailyLeftArrow"
+            android:id="@+id/monthlyLeftArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="160dp"
             android:layout_marginEnd="@dimen/spacing_medium"
-            android:contentDescription="@string/dailyLeftArrow"
+            android:contentDescription="@string/monthlyLeftArrow"
             android:src="@drawable/ic_left_arrow"
             app:layout_constraintEnd_toEndOf="@id/guideline1"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/keyline_start"
-            app:layout_constraintBottom_toBottomOf="@id/dailyAmount"
+            app:layout_constraintBottom_toBottomOf="@id/monthlyAmount"
             app:tint="?attr/colorPrimaryVariant" />
 
         <ImageView
-            android:id="@+id/dailyRightArrow"
+            android:id="@+id/monthlyRightArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="160dp"
             android:layout_marginEnd="@dimen/spacing_medium"
-            android:contentDescription="@string/dailyRightArrow"
+            android:contentDescription="@string/monthlyRightArrow"
             android:src="@drawable/ic_right_arrow"
             app:layout_constraintEnd_toEndOf="@id/keyline_end"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/guideline2"
-            app:layout_constraintBottom_toBottomOf="@id/dailyAmount"
+            app:layout_constraintBottom_toBottomOf="@id/monthlyAmount"
             app:tint="?attr/colorPrimaryVariant" />
 
         <com.keeppieces.pie_chart.PieChart
@@ -81,7 +81,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/dailyAmount"
+            android:id="@+id/monthlyAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="￥2,132.34"
@@ -97,24 +97,24 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"
             android:text="@string/label_total"
-            app:layout_constraintBottom_toTopOf="@id/dailyAmount"
+            app:layout_constraintBottom_toTopOf="@id/monthlyAmount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             style="?attr/textAppearanceSubtitle2" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/dailyDetailBtn"
+            android:id="@+id/monthlyDetailBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dailyAmount"
+            app:layout_constraintTop_toBottomOf="@id/monthlyAmount"
             app:icon="@drawable/ic_info_outline"
             style="@style/Widget.Rally.Button.IconOnly" />
 
         <include
             layout="@layout/layout_daily_type_overview"
-            android:id="@+id/layout_daily_type_overview"
+            android:id="@+id/layout_monthly_type_overview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"
@@ -126,31 +126,31 @@
 
         <include
             layout="@layout/layout_daily_primary_overview"
-            android:id="@+id/layout_daily_primary_overview"
+            android:id="@+id/layout_monthly_primary_overview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"
             app:layout_constraintStart_toStartOf="@+id/keyline_start"
             app:layout_constraintEnd_toEndOf="@+id/keyline_end"
             android:layout_marginTop="@dimen/vertical_gutters_half"
-            app:layout_constraintTop_toBottomOf="@+id/layout_daily_type_overview"
+            app:layout_constraintTop_toBottomOf="@+id/layout_monthly_type_overview"
             />
 
         <include
             layout="@layout/layout_daily_account_overview"
-            android:id="@+id/layout_daily_account_overview"
+            android:id="@+id/layout_monthly_account_overview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"
             app:layout_constraintStart_toStartOf="@+id/keyline_start"
             app:layout_constraintEnd_toEndOf="@+id/keyline_end"
             android:layout_marginTop="@dimen/vertical_gutters_half"
-            app:layout_constraintTop_toBottomOf="@+id/layout_daily_primary_overview"
+            app:layout_constraintTop_toBottomOf="@+id/layout_monthly_primary_overview"
             />
 
         <include
             layout="@layout/layout_daily_member_overview"
-            android:id="@+id/layout_daily_member_overview"
+            android:id="@+id/layout_monthly_member_overview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"
@@ -158,8 +158,9 @@
             app:layout_constraintEnd_toEndOf="@+id/keyline_end"
             android:layout_marginTop="@dimen/vertical_gutters_half"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_daily_account_overview"
+            app:layout_constraintTop_toBottomOf="@+id/layout_monthly_account_overview"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.core.widget.NestedScrollView>

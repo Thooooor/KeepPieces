@@ -15,5 +15,5 @@ class DailyViewModel @ViewModelInject internal constructor(): ViewModel() {
 
     fun dailyMemberList(bills: List<Bill>, color: String) = MemberRepository().getDailyMemberList(bills, color)
 
-    fun dailyTypeList(bills: List<Bill>, color: String) = TypeRepository().getDailyTypeList(bills, color)
+    fun dailyTypeList(bills: List<Bill>) = TypeRepository().getDailyTypeList(bills)
 }

@@ -3,6 +3,7 @@ package com.keeppieces.android.ui
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -11,21 +12,24 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.helper.widget.Flow
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.os.bundleOf
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.transition.Slide
 import androidx.transition.TransitionManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.button.MaterialButton
 import com.keeppieces.android.R
+import com.keeppieces.android.ui.bill.BillActivity
 import com.keeppieces.android.ui.viewpager.SwipeControllableViewPager
 import kotlinx.android.synthetic.main.layout_top_tab.view.*
 
 class TopTab @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet ?= null,
+    attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
-    var viewPager: SwipeControllableViewPager ?= null
+    var viewPager: SwipeControllableViewPager? = null
     var previousClickedPosition = 0
     var lastClickedPosition = 0
 
@@ -40,13 +44,13 @@ class TopTab @JvmOverloads constructor(
 
     private val titleAlphaAnimator by lazy {
         ObjectAnimator.ofFloat(textView, "alpha", 0f, 1f).apply {
-            startDelay = duration  * 1 / 3
+            startDelay = duration * 1 / 3
             duration = 300
         }
     }
 
     private val titleSlideAnimator by lazy {
-        val tvWidth = resources.displayMetrics.widthPixels - ( image1.width * 5 )
+        val tvWidth = resources.displayMetrics.widthPixels - (image1.width * 5)
         ObjectAnimator.ofFloat(
             textView, "translationX", tvWidth.toFloat(), 0f
         ).apply {
@@ -79,7 +83,9 @@ class TopTab @JvmOverloads constructor(
         }
 
         image5.setOnClickListener {
-            viewPager?.setCurrentItem(4, true)
+            val intent = Intent(context, BillActivity::class.java)
+            startActivity(context, intent, bundleOf())
+            // viewPager?.setCurrentItem(4, true)
         }
     }
 
@@ -92,7 +98,7 @@ class TopTab @JvmOverloads constructor(
         // Currently a bug
         // Found in ConstraintLayout flow that does not have no reference ids after configuration changes
         // Tweak it by switching tab to zero position
-        if(refs.size < position){
+        if (refs.size < position) {
             viewPager?.currentItem = 0
             return
         }

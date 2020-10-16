@@ -17,6 +17,9 @@ interface BillDao {
     @Query("SELECT * FROM bill WHERE date = :date ORDER BY bill_id")
     fun getOneDayBill(date: String): LiveData<List<Bill>>
 
+    @Query("SELECT * FROM bill WHERE date >= :startDate and date <= :endDate")
+    fun getPeriodBill(startDate: String, endDate: String): LiveData<List<Bill>>
+
     @Query("SELECT * FROM bill ORDER BY amount")
     fun loadAllBillByAmount(): LiveData<List<Bill>>
 
