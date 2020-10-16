@@ -38,6 +38,7 @@ class MonthlyFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_monthly, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         var year = Calendar.DAY_OF_YEAR
@@ -56,6 +57,7 @@ class MonthlyFragment: Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpView(date: String) {
         viewModel.billList(date, date).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) tempList else billList

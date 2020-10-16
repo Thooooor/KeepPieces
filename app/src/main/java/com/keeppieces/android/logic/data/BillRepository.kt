@@ -27,9 +27,9 @@ class BillRepository {
 
     fun getPeriodBill(startDate: String, endDate: String) = billDao.getPeriodBill(startDate, endDate)
 
-    private fun billToNew(bills: List<Bill>, color: String): MutableList<DailyBill> {
+    private fun billToNew(bills: List<Bill>, color: String): MutableList<GeneralBill> {
         val primaryList = mutableListOf<String>()
-        val newBillList = mutableListOf<DailyBill>()
+        val newBillList = mutableListOf<GeneralBill>()
         for (bill in bills) {
             val primary = bill.primaryCategory
             if (!primaryList.contains(primary)) {
@@ -37,7 +37,7 @@ class BillRepository {
             }
             val primaryIndex = primaryList.indexOf(primary)
             val primaryColorInt = repository.getColorInt(color, primaryIndex)
-            newBillList.add(DailyBill(bill, primaryColorInt))
+            newBillList.add(GeneralBill(bill, primaryColorInt))
         }
         return newBillList
     }
@@ -71,8 +71,8 @@ class BillRepository {
 //    private fun date2Int(date:String):Int = date.replace("-","").toInt()
 fun getOneDaySummary(bills: List<Bill>, color: String): TodaySummary {
     val primaryList = mutableListOf<String>()
-    val newBills = mutableListOf<TodaySummaryBill>()
-    var total:Double = 0.00
+    val newBills = mutableListOf<GeneralBill>()
+    var total= 0.00
     for (bill in bills) {
         val primary = bill.primaryCategory
         if (!primaryList.contains(primary)) {
@@ -80,7 +80,7 @@ fun getOneDaySummary(bills: List<Bill>, color: String): TodaySummary {
         }
         val primaryIndex = primaryList.indexOf(primary)
         val primaryColorInt = repository.getColorInt(color, primaryIndex)
-        newBills.add(TodaySummaryBill(bill, primaryColorInt))
+        newBills.add(GeneralBill(bill, primaryColorInt))
         when(bill.type) {
             "收入" -> total += bill.amount
             else -> total -= bill.amount
@@ -100,10 +100,10 @@ fun getOneDaySummary(bills: List<Bill>, color: String): TodaySummary {
     }
 }
 
-data class DailyOverview(val total: Double, val bills: List<DailyBill>)
-data class TodaySummary(val today_total:Double, val bills:List<TodaySummaryBill>)
+data class DailyOverview(val total: Double, val bills: List<GeneralBill>)
+data class TodaySummary(val today_total:Double, val bills:List<GeneralBill>)
 
-class DailyBill(bill: Bill, colorInt: Int) {
+class GeneralBill(bill: Bill, colorInt: Int) {
     val date: String = bill.date
     val amount: Double = bill.amount
     val account: String = bill.account
@@ -111,13 +111,5 @@ class DailyBill(bill: Bill, colorInt: Int) {
     val primaryCategory: String = bill.primaryCategory
     val secondaryCategory: String = bill.secondaryCategory
     val type: String = bill.type
-    @ColorRes val color: Int = colorInt
-}
-
-class TodaySummaryBill(bill:Bill,colorInt: Int) {
-    val amount: Double = bill.amount
-    val type: String = bill.type
-    val primaryCategory: String = bill.primaryCategory
-    val secondaryCategory: String = bill.secondaryCategory
     @ColorRes val color: Int = colorInt
 }
