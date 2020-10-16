@@ -83,9 +83,7 @@ class TopTab @JvmOverloads constructor(
         }
 
         image5.setOnClickListener {
-            val intent = Intent(context, BillActivity::class.java)
-            startActivity(context, intent, bundleOf())
-            // viewPager?.setCurrentItem(4, true)
+            viewPager?.setCurrentItem(4, true)
         }
     }
 

@@ -20,9 +20,16 @@ class BillRepository {
     fun getOneDayBill(date: String) = billDao.getOneDayBill(date)
 
     fun getOneDayOverview(bills: List<Bill>, color: String): DailyOverview {
-        val newBills = billToNew(bills, color)
-        val total = newBills.sumByDouble { it.amount }
-        return DailyOverview(total, newBills)
+        val dailyBills = billToNew(bills, color)
+        var total = 0.0
+        for (bill in dailyBills) {
+            total += when (bill.type) {
+                "收入" -> bill.amount
+                "支出" -> -bill.amount
+                else -> bill.amount
+            }
+        }
+        return DailyOverview(total, dailyBills)
     }
 
     fun getPeriodBill(startDate: String, endDate: String) = billDao.getPeriodBill(startDate, endDate)

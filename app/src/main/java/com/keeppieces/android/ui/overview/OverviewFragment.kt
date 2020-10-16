@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -25,7 +24,6 @@ import com.keeppieces.line_indicator.data.LineIndicatorPortion
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
-import kotlinx.android.synthetic.main.layout_daily_primary_overview.*
 import kotlinx.android.synthetic.main.layout_month_summary_card.*
 import kotlinx.android.synthetic.main.layout_today_summary_card.*
 import java.time.LocalDate
@@ -71,8 +69,8 @@ class OverviewFragment : Fragment() {
             }
         }
         val piePortions = listOf<PiePortion>(
-            PiePortion("支出",monthExpenditure, ContextCompat.getColor(requireContext(), R.color.green_600)),
-            PiePortion("收入",monthIncome,ContextCompat.getColor(requireContext(), R.color.green_300)))
+            PiePortion("支出",monthExpenditure, ContextCompat.getColor(requireContext(), R.color.green_800)),
+            PiePortion("收入",monthIncome,ContextCompat.getColor(requireContext(), R.color.green_600)))
         val pieData = PieData(portions = piePortions)
         val pieAnimation = PieAnimation(month_income_expenditure_pie).apply {
             duration = 600

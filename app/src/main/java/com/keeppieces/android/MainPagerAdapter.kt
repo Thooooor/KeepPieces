@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.keeppieces.android.ui.daily.DailyFragment
 import com.keeppieces.android.ui.monthly.MonthlyFragment
 import com.keeppieces.android.ui.overview.OverviewFragment
+import com.keeppieces.android.ui.settings.SettingsFragment
 import java.time.LocalDate
 
 class MainPagerAdapter(
@@ -21,6 +22,7 @@ class MainPagerAdapter(
             0 -> OverviewFragment()
             1 -> DailyFragment(LocalDate.now())
             2 -> MonthlyFragment()
+            4 -> SettingsFragment()
             else -> MonthlyFragment()
         }
     }
