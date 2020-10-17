@@ -8,12 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.toMoneyFormatted
-import com.keeppieces.android.logic.data.TodaySummaryBill
+import com.keeppieces.android.logic.data.GeneralBill
 import com.keeppieces.line_indicator.VerticalBar
 import com.keeppieces.line_indicator.VerticalBarData
 import kotlinx.android.synthetic.main.item_summary_card.*
 
-class TodaySummaryCardAdapter(private val content:Context, val billList: List<TodaySummaryBill>):
+class TodaySummaryCardAdapter(private val content:Context, val billList: List<GeneralBill>):
     RecyclerView.Adapter<TodaySummaryCardAdapter.ViewHolder>(){
 
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view) {

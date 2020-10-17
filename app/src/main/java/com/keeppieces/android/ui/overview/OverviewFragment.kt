@@ -15,7 +15,12 @@ import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.logic.data.GeneralBill
+import com.keeppieces.android.ui.daily.DailyFragment
+import com.keeppieces.android.ui.daily.adapter.DailyPrimaryOverviewAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.TodaySummaryCardAdapter
+import com.keeppieces.line_indicator.data.LineIndicatorData
+import com.keeppieces.line_indicator.data.LineIndicatorPortion
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
@@ -76,7 +81,11 @@ class OverviewFragment : Fragment() {
     }
 
     private fun setUpTodaySummaryCardView(bills: List<Bill>) {  // bills：今天的账单表
-        val todaySummary = viewModel.todaySummary(bills,"blue")
+        val todaySummary = viewModel.getTodaySummary(bills,"blue")
+        val lineIndicatorData:LineIndicatorData = getLineIndicatorData(todaySummary.bills){
+                GeneralBill -> GeneralBill.secondaryCategory
+        }
+        today_summary_line_indicator.setData(lineIndicatorData)
         today_amount.text = todaySummary.today_total.toCHINADFormatted()
         bill_today_overview_recyclerview.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -84,6 +93,17 @@ class OverviewFragment : Fragment() {
             addItemDecoration(getItemDecoration())
             adapter = TodaySummaryCardAdapter(requireContext(),todaySummary.bills)
         }
+    }
+
+    private fun getLineIndicatorData(bills:List<GeneralBill>, f: (GeneralBill) -> String): LineIndicatorData {
+        val portions = bills.map {
+            LineIndicatorPortion(
+                name = f(it),
+                value = it.amount.toFloat(),
+                colorInt = ContextCompat.getColor(requireContext(), it.color)
+            )
+        }
+        return LineIndicatorData(portions = portions)
     }
 
     companion object {

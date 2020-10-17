@@ -49,13 +49,11 @@
                 />
         </LinearLayout>
 
-<!-- 暂时不做       -->
-        <TextView
-            android:id="@+id/today_line_indicator"
+        <com.keeppieces.line_indicator.LineIndicator
+            android:id="@+id/today_summary_line_indicator"
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:background="@color/blue_300"
-            android:layout_margin="8dp"/>
+            tools:background="@color/blue_300"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bill_today_overview_recyclerview"
