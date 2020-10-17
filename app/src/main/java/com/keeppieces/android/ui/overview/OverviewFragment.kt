@@ -2,7 +2,6 @@ package com.keeppieces.android.ui.overview
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
-import com.keeppieces.android.logic.data.Bill
-import com.keeppieces.android.logic.data.GeneralBill
-import com.keeppieces.android.ui.daily.DailyFragment
-import com.keeppieces.android.ui.daily.adapter.DailyPrimaryOverviewAdapter
+import com.keeppieces.android.logic.data.*
+import com.keeppieces.android.ui.overview.homepage_card_adapter.AccountSummaryCardAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.TodaySummaryCardAdapter
 import com.keeppieces.line_indicator.data.LineIndicatorData
 import com.keeppieces.line_indicator.data.LineIndicatorPortion
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
+import kotlinx.android.synthetic.main.layout_account_summary_card.*
 import kotlinx.android.synthetic.main.layout_month_summary_card.*
 import kotlinx.android.synthetic.main.layout_today_summary_card.*
 import java.time.LocalDate
@@ -40,22 +38,28 @@ class OverviewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setUpView()
-        Log.d(OverviewFragment.TAG, "onActivityCreated")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpView() {
         // viewModel.billList(date)返回一个LiveData<List<Bill>> 注意observe传入的是   LiveData<T>中的这个T
-        viewModel.getNowMonthBillList(LocalDate.now()).observe(viewLifecycleOwner) { billList ->
-            val nowMonthBillList = if (billList.isEmpty()) tempList else billList
+        val todayDate = LocalDate.now()
+        val nowMonth = todayDate.monthValue
+        val nowYear = todayDate.year
+        val firstMonthDate = LocalDate.parse("$nowYear-$nowMonth-01")
+        val lastMonthDate = firstMonthDate.plusMonths(1).minusDays(1)
+        viewModel.getAllBill().observe(viewLifecycleOwner) { billList ->
+//            val allBillList = if (billList.isEmpty()) tempList else billList
+            val allBillList = tempList  // 数据库里好像加入了2020/10/15这条数据...
+            // 不从数据库中获取数据，对全表数据进行处理
+            val nowMonthBillList = viewModel.getPeriodBillWithoutDao(firstMonthDate.toString(),lastMonthDate.toString(),allBillList)
+            val todayBillList = viewModel.getPeriodBillWithoutDao(todayDate.toString(),todayDate.toString(),nowMonthBillList)
             setUpMonthSummaryCardView(nowMonthBillList)
-//            setUpPrimaryCard(bills)
-//            setUpAccountCard(bills)
-//            setUpMemberCard(bills)
-        }
-        viewModel.getTodayBillList(LocalDate.now()).observe(viewLifecycleOwner) { billList ->
-            val todayBillList = if (billList.isEmpty()) tempList else billList
             setUpTodaySummaryCardView(todayBillList)
+        }
+        viewModel.getAllAccount().observe(viewLifecycleOwner) { accountList ->
+            val allAccountList = if(accountList.isEmpty()) tempAcountList else tempAcountList
+            setUpAccountSummaryCardView(allAccountList)
         }
     }
 
@@ -76,31 +80,45 @@ class OverviewFragment : Fragment() {
             duration = 600
         }
         month_income_expenditure_pie.setPieData(pieData = pieData, animation = pieAnimation)
-        month_income.text = monthIncome.toCHINADFormatted().toString()
-        month_expenditure.text = monthExpenditure.toCHINADFormatted().toString()
+        month_income.text = monthIncome.toCHINADFormatted()
+        month_expenditure.text = monthExpenditure.toCHINADFormatted()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpTodaySummaryCardView(bills: List<Bill>) {  // bills：今天的账单表
-        val todaySummary = viewModel.getTodaySummary(bills,"blue")
-        val lineIndicatorData:LineIndicatorData = getLineIndicatorData(todaySummary.bills){
-                GeneralBill -> GeneralBill.secondaryCategory
-        }
+        val todaySummary = viewModel.getTodaySummary(bills, "blue")
+        val lineIndicatorData= getLineIndicatorData(todaySummary.bills,
+            ::getGeneralBillSecondaryCategory,::getGeneralBillAmount,::getGeneralBillColorInt)
         today_summary_line_indicator.setData(lineIndicatorData)
         today_amount.text = todaySummary.today_total.toCHINADFormatted()
         bill_today_overview_recyclerview.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
-            adapter = TodaySummaryCardAdapter(requireContext(),todaySummary.bills)
+            adapter = TodaySummaryCardAdapter(requireContext(), todaySummary.bills)
         }
     }
 
-    private fun getLineIndicatorData(bills:List<GeneralBill>, f: (GeneralBill) -> String): LineIndicatorData {
-        val portions = bills.map {
+    private fun setUpAccountSummaryCardView(accounts: List<Account>) {  // accounts：数据库中所有的账账户情况
+        val accountSummary = viewModel.getAccountSummary(accounts, "purple")
+        val lineIndicatorData: LineIndicatorData = getLineIndicatorData(accountSummary.accounts,
+        ::getDailyAccountAccount,::getDailyAccountAmount,::getDailyAccountColorInt)
+        account_summary_line_indicator.setData(lineIndicatorData)
+        account_amount.text = accountSummary.total.toCHINADFormatted()
+        bill_account_overview_recyclerview.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            addItemDecoration(getItemDecoration())
+            adapter = AccountSummaryCardAdapter(requireContext(), accountSummary.accounts)
+        }
+    }
+
+    private fun <T> getLineIndicatorData(dataList:List<T>, getName: (T) -> String, getValue: (T) -> Double, getValueColor:(T)->Int): LineIndicatorData{
+        val portions = dataList.map {
             LineIndicatorPortion(
-                name = f(it),
-                value = it.amount.toFloat(),
-                colorInt = ContextCompat.getColor(requireContext(), it.color)
+                name = getName(it),
+                value = getValue(it).toFloat(),
+                colorInt = ContextCompat.getColor(requireContext(), getValueColor(it))
             )
         }
         return LineIndicatorData(portions = portions)
@@ -177,4 +195,12 @@ class OverviewFragment : Fragment() {
             ),
         )
     }
+
+    val tempAcountList = listOf(
+        Account("微信",999.00),
+        Account("支付宝",-1230.00),
+        Account("校园卡",246.40),
+        Account("平安银行卡",1456.13)
+
+    )
 }
