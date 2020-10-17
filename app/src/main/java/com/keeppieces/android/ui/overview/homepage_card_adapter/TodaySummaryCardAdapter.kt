@@ -11,14 +11,13 @@ import com.keeppieces.android.extension.toMoneyFormatted
 import com.keeppieces.android.logic.data.GeneralBill
 import com.keeppieces.line_indicator.VerticalBar
 import com.keeppieces.line_indicator.VerticalBarData
-import kotlinx.android.synthetic.main.item_summary_card.*
 
-class TodaySummaryCardAdapter(private val content:Context, val billList: List<GeneralBill>):
+class TodaySummaryCardAdapter(private val content:Context, private val billList: List<GeneralBill>):
     RecyclerView.Adapter<TodaySummaryCardAdapter.ViewHolder>(){
-
+    
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
         val billTitle:TextView = view.findViewById(R.id.title_in_item)
-        val moneyType:TextView = view.findViewById(R.id.money_type_in_item)  // 收入支出的符号
+        val moneyType:TextView = view.findViewById(R.id.money_type_in_item)  // 收入、支出的区分标志
         val moneySymbol:TextView = view.findViewById(R.id.money_symbol_in_item)
         val moneyAmount:TextView = view.findViewById(R.id.money_amount_in_item)
         val bar:VerticalBar = view.findViewById(R.id.item_vertical_bar)
