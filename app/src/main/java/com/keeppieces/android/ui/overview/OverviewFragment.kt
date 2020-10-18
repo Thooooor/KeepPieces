@@ -14,6 +14,7 @@ import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.*
+import com.keeppieces.android.ui.bill.BillActivity
 import com.keeppieces.android.ui.overview.homepage_card_adapter.AccountSummaryCardAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.TodaySummaryCardAdapter
 import com.keeppieces.line_indicator.data.LineIndicatorData
@@ -21,6 +22,7 @@ import com.keeppieces.line_indicator.data.LineIndicatorPortion
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
+import kotlinx.android.synthetic.main.fragment_overview.*
 import kotlinx.android.synthetic.main.layout_account_summary_card.*
 import kotlinx.android.synthetic.main.layout_month_summary_card.*
 import kotlinx.android.synthetic.main.layout_today_summary_card.*
@@ -38,6 +40,9 @@ class OverviewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setUpView()
+        addFab.setOnClickListener {
+
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
