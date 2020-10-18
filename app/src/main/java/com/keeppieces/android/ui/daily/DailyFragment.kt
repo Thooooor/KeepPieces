@@ -37,7 +37,6 @@ class DailyFragment(var date: LocalDate) : Fragment() {
         return inflater.inflate(R.layout.fragment_daily, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setUpView(date.toString())
@@ -51,7 +50,6 @@ class DailyFragment(var date: LocalDate) : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpView(date: String) {
         viewModel.billList(date).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) tempList else billList
