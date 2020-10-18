@@ -15,4 +15,5 @@
 
   <dimen name="vertical_gutters_half">12dp</dimen>
   <dimen name="vertical_gutters">24dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

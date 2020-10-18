@@ -68,7 +68,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/guideline2"
             app:layout_constraintBottom_toBottomOf="@id/monthlyAmount"
-            app:tint="?attr/colorPrimaryVariant" />
+            android:tint="?attr/colorPrimaryVariant" />
 
         <com.keeppieces.pie_chart.PieChart
             android:id="@+id/pieChart"

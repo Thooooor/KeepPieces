@@ -2,7 +2,6 @@ package com.keeppieces.android.ui.monthly
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,13 +37,20 @@ class MonthlyFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_monthly, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var year = Calendar.DAY_OF_YEAR
-        var month = Calendar.MONTH
-        var day = Calendar.DAY_OF_MONTH
-        Log.d("Monthly", "$year-$month-$day")
+        val today = Calendar.getInstance()
+        val year = today.get(Calendar.YEAR)
+        val month = today.get(Calendar.MONTH)
+        val day = today.get(Calendar.DAY_OF_MONTH)
+        val startDate = Calendar.getInstance()
+        startDate.set(year, month, 1)
+        val endDate = Calendar.getInstance()
+        endDate.set(year, month+1, 1)
+        endDate.add(Calendar.DAY_OF_MONTH, -1)
         val date = LocalDate.now()
+
         setUpView(date.toString())
         monthlyLeftArrow.setOnClickListener {
             date.plusDays(-1)
@@ -56,6 +62,7 @@ class MonthlyFragment: Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpView(date: String) {
         viewModel.billList(date, date).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) tempList else billList

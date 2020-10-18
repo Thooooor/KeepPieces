@@ -37,6 +37,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -64,6 +68,9 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.4.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.biometric:biometric:1.0.1'
+    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
 
     kapt "androidx.room:room-compiler:2.2.5"
     kapt "com.squareup.inject:assisted-inject-processor-dagger2:0.5.2"
