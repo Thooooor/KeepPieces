@@ -8,15 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.toMoneyFormatted
-import com.keeppieces.android.logic.data.GeneralBill
+import com.keeppieces.android.logic.data.DailyAccount
 import com.keeppieces.line_indicator.VerticalBar
 import com.keeppieces.line_indicator.VerticalBarData
 
-class TodaySummaryCardAdapter(private val content:Context, private val billList: List<GeneralBill>):
-    RecyclerView.Adapter<TodaySummaryCardAdapter.ViewHolder>(){
+class AccountSummaryCardAdapter(private val content:Context, private val accountList: List<DailyAccount>):
+    RecyclerView.Adapter<AccountSummaryCardAdapter.ViewHolder>(){
     
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
-        val billTitle:TextView = view.findViewById(R.id.title_in_item)
+        val accountTitle:TextView = view.findViewById(R.id.title_in_item)
         val moneyType:TextView = view.findViewById(R.id.money_type_in_item)  // 收入、支出的区分标志
         val moneySymbol:TextView = view.findViewById(R.id.money_symbol_in_item)
         val moneyAmount:TextView = view.findViewById(R.id.money_amount_in_item)
@@ -29,15 +29,15 @@ class TodaySummaryCardAdapter(private val content:Context, private val billList:
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val billItem = billList[position]
+        val accountItem = accountList[position]
         holder.apply {
-            billTitle.text = billItem.secondaryCategory
-            moneyType.text = if (billItem.type == "支出") "-" else if (billItem.type == "收入") "+" else ""
+            accountTitle.text = accountItem.account
+            // moneyType.text = if (accountItem.amount < 0) "-" else if (accountItem.amount > 0) "+" else ""
             moneySymbol.text = "￥"  // 后期扩展
-            moneyAmount.text = billItem.amount.toMoneyFormatted()
-            bar.renderData(VerticalBarData(100f, 100f, billItem.color))
+            moneyAmount.text = accountItem.amount.toMoneyFormatted()  // 这里自带符号，所以考虑把前面的符号抛弃
+            bar.renderData(VerticalBarData(100f, 100f, accountItem.color))
         }
     }
 
-    override fun getItemCount() = billList.size
+    override fun getItemCount() = accountList.size
 }
