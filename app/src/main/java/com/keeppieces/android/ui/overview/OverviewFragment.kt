@@ -1,5 +1,7 @@
 package com.keeppieces.android.ui.overview
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +16,7 @@ import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.*
+import com.keeppieces.android.ui.bill.BillActivity
 import com.keeppieces.android.ui.overview.homepage_card_adapter.AccountSummaryCardAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.TodaySummaryCardAdapter
 import com.keeppieces.line_indicator.data.LineIndicatorData
@@ -21,6 +24,7 @@ import com.keeppieces.line_indicator.data.LineIndicatorPortion
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
+import kotlinx.android.synthetic.main.fragment_overview.*
 import kotlinx.android.synthetic.main.layout_account_summary_card.*
 import kotlinx.android.synthetic.main.layout_month_summary_card.*
 import kotlinx.android.synthetic.main.layout_today_summary_card.*
@@ -29,7 +33,9 @@ import java.time.LocalDate
 
 class OverviewFragment : Fragment() {
     private val viewModel by lazy { ViewModelProvider(this).get(HomepageSummaryViewModel::class.java) }
-
+    private lateinit var nowMonthBillList:MutableList<Bill>
+    private lateinit var todayBillList:MutableList<Bill>
+    private val homepageRequestCode : Int = 0
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_overview, container, false)
     }
@@ -37,30 +43,53 @@ class OverviewFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpView()
+        add_bill_floating_button.setOnClickListener {
+            val intent = Intent(requireContext(),BillActivity::class.java)
+            startActivityForResult(intent,homepageRequestCode)
+        }
+        setUpCardView()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun setUpView() {
-        // viewModel.billList(date)返回一个LiveData<List<Bill>> 注意observe传入的是   LiveData<T>中的这个T
+    private fun setUpCardView() {
         val todayDate = LocalDate.now()
         val nowMonth = todayDate.monthValue
         val nowYear = todayDate.year
         val firstMonthDate = LocalDate.parse("$nowYear-$nowMonth-01")
         val lastMonthDate = firstMonthDate.plusMonths(1).minusDays(1)
-        viewModel.getAllBill().observe(viewLifecycleOwner) { billList ->
+        // 插入新账单数据或修改账单数据的时候重新加载
+        val allBillLiveData = viewModel.getAllBill()
+        val allAccountLiveData = viewModel.getAllAccount()
+
+        // 更新并展示本月、本日概要卡片
+        allBillLiveData.observe(viewLifecycleOwner) { billList ->
 //            val allBillList = if (billList.isEmpty()) tempList else billList
             val allBillList = tempList  // 数据库里好像加入了2020/10/15这条数据...
             // 不从数据库中获取数据，对全表数据进行处理
-            val nowMonthBillList = viewModel.getPeriodBillWithoutDao(firstMonthDate.toString(),lastMonthDate.toString(),allBillList)
-            val todayBillList = viewModel.getPeriodBillWithoutDao(todayDate.toString(),todayDate.toString(),nowMonthBillList)
+            nowMonthBillList = viewModel.getPeriodBillWithoutDao(firstMonthDate.toString(),
+                lastMonthDate.toString(),allBillList)
+            todayBillList = viewModel.getPeriodBillWithoutDao(todayDate.toString(),todayDate.toString(),nowMonthBillList)
             setUpMonthSummaryCardView(nowMonthBillList)
             setUpTodaySummaryCardView(todayBillList)
         }
-        viewModel.getAllAccount().observe(viewLifecycleOwner) { accountList ->
+
+        // 更新并展示账户卡片
+        allAccountLiveData.observe(viewLifecycleOwner) { accountList ->
             val allAccountList = if(accountList.isEmpty()) tempAcountList else tempAcountList
             setUpAccountSummaryCardView(allAccountList)
         }
+    }
+
+    // 等下一次会议确定
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            homepageRequestCode -> if(resultCode == RESULT_OK) { // 插入新数据
+                return
+            }
+            else -> return
+        }
+        return
     }
 
     private fun setUpMonthSummaryCardView(bills: List<Bill>) {  // bills：这个月的账单表
