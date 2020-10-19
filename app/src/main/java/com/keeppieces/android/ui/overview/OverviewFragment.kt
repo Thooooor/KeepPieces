@@ -43,7 +43,7 @@ class OverviewFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        add_bill_floating_button.setOnClickListener {
+        addFab.setOnClickListener {
             val intent = Intent(requireContext(),BillActivity::class.java)
             startActivityForResult(intent,homepageRequestCode)
         }
@@ -72,9 +72,7 @@ class OverviewFragment : Fragment() {
             setUpMonthSummaryCardView(nowMonthBillList)
             setUpTodaySummaryCardView(todayBillList)
         }
-
-        // 更新并展示账户卡片
-        allAccountLiveData.observe(viewLifecycleOwner) { accountList ->
+        viewModel.getAllAccount().observe(viewLifecycleOwner) { accountList ->
             val allAccountList = if(accountList.isEmpty()) tempAcountList else tempAcountList
             setUpAccountSummaryCardView(allAccountList)
         }
