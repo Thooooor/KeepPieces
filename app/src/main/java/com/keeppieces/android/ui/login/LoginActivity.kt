@@ -6,6 +6,8 @@ import androidx.biometric.BiometricPrompt
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
@@ -29,10 +31,10 @@ class LoginActivity : AppCompatActivity() {
         val promptInfo = createPromptInfo()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        //setSupportActionBar(findV
         executor = ContextCompat.getMainExecutor(this)
+
         loginWithPassword()
-        
+
         biometricPrompt = createBiometricPrompt()
         val biometricLoginButton = findViewById<ImageView>(R.id.fingerprint)
         biometricLoginButton.setOnClickListener {
@@ -43,18 +45,32 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginWithPassword(){
         var visible = false
-        fingerprint.setOnClickListener {
-            val password = passwordEdit.text.toString()
-            val pwd =  readPwd()
-            if(password == pwd){
-                jump()
-            }else{
-                val editor =getSharedPreferences("password", Context.MODE_PRIVATE).edit()
-                editor.putString("pwd",password)
-                editor.apply()
-                jump()
+        val pwd =  readPwd()
+        passwordEdit?.addTextChangedListener(
+            object:TextWatcher {
+
+                override fun afterTextChanged(s: Editable?) {
+                    if(s.toString() == pwd){
+                        jump()
+                    }else{
+                        Toast.makeText(applicationContext,
+                            "密码错误",Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,start: Int,count: Int,after: Int) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                }
+
             }
-        }
+        )
+
         visibleLogo.setOnClickListener {
 
             if(visible){
@@ -117,10 +133,17 @@ class LoginActivity : AppCompatActivity() {
             .build()
     }
 
+    //登录成功跳转
     private fun jump(){
         val intent = Intent(this,MainActivity::class.java)
         startActivity(intent)
         finish()
     }
+
 }
 
+/**
+private fun EditText.addTextChangedListener(loginActivity: LoginActivity) {
+
+}
+*/

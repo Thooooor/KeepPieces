@@ -27,7 +27,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/pwdLinearLayout"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:orientation="horizontal"
@@ -66,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="319dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/pwdLinearLayout">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -80,17 +80,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/fingerprint" />
+                app:srcCompat="@drawable/ic_fingerprint" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/loginMessage"
                 android:textSize="20sp"
                 android:textColor="@color/color_primary_variant"/>
 
         </LinearLayout>
-
 
 
     </LinearLayout>
