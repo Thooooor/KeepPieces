@@ -37,6 +37,9 @@ class WelcomeFragment:Fragment() {
             passwordSelect?.setOnClickListener{
                 firstActivity.replaceFragment(SetPasswordFragment())
             }
+            gestureSelect?.setOnClickListener{
+                firstActivity.replaceFragment(SetGestureFragment())
+            }
         } else {
             login()
         }

@@ -65,11 +65,14 @@
     <string name="input_second_pwd">请再次输入密码</string>
     <string name="input_first_pwd">请输入密码</string>
     <string name="pwd_setting">密码设置</string>
-    <string name="login_patten">图案密码</string>
+    <string name="login_gesture">手势密码</string>
     <string name="login_pwd">密码</string>
     <string name="appLogo">AppLogo</string>
     <string name="appTitle">碎碎记</string>
     <string name="guideWords">请选择登录方式:</string>
     <string name="pwdImg">pwdImg</string>
     <string name="pattenImg">pattenImg</string>
+    <string name="changeType">切换手势登录</string>
+    <string name="changeInputType">changeInputType</string>
+    <string name="login_fingerprint">login_fingerprint</string>
 </resources>

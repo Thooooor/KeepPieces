@@ -99,7 +99,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/pattenSelect"
+            android:id="@+id/gestureSelect"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:text="@string/login_patten"
+                android:text="@string/login_gesture"
                 android:textColor="@color/color_primary_variant"
                 android:textSize="20sp" />
 
