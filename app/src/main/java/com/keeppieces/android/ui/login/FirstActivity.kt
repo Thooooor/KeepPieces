@@ -4,16 +4,28 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.keeppieces.android.R
-import kotlinx.android.synthetic.main.fragment_welcome.*
+import com.keeppieces.ninelock.NineLockListener
 
-class FirstActivity : AppCompatActivity() {
+class FirstActivity : AppCompatActivity()  {
+    private lateinit var setData :String
+    private lateinit var confirmData :String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first)
 
         replaceFragment(WelcomeFragment())
+    }
+
+    fun sendSetData(data:String){
+        setData = data
+    }
+
+    fun sendConfirmData(data:String){
+         confirmData = data
     }
 
     fun replaceFragment(fragment: Fragment){
@@ -24,13 +36,28 @@ class FirstActivity : AppCompatActivity() {
         transaction.commit()    //提交事务
     }
 
-    /**
-    //切换到登录界面
-    private fun login(){
-        val intent = Intent(this,LoginActivity::class.java)
-        startActivity(intent)
-        finish()
+    //对比密码
+    fun compare(){
+        if (setData == confirmData){
+            Toast.makeText(applicationContext,
+                "设置成功！",Toast.LENGTH_SHORT)
+                .show()
+            val editor = getSharedPreferences("password", Context.MODE_PRIVATE)
+                .edit()
+            editor.putString("gesture",confirmData)
+            editor.apply()
+            jump()
+        }else{
+            Toast.makeText(applicationContext,
+                "两次图案不一致！",Toast.LENGTH_SHORT)
+                .show()
+            replaceFragment(ConfirmGestureFragment())
+        }
     }
-     */
+
+    private fun jump(){
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
 }
 

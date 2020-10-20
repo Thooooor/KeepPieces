@@ -80,6 +80,8 @@
     <string name="input_second_pwd">请再次输入密码</string>
     <string name="input_first_pwd">请输入密码</string>
     <string name="pwd_setting">密码设置</string>
+    <string name="gesture_setting">手势密码设置</string>
+    <string name="gesture_confirm">确定手势密码</string>
     <string name="login_gesture">手势密码</string>
     <string name="login_pwd">密码</string>
     <string name="appLogo">AppLogo</string>

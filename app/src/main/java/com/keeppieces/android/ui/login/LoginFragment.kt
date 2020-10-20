@@ -65,12 +65,16 @@ class LoginFragment:Fragment() {
 
                 override fun afterTextChanged(s: Editable?) {
                     if(s.toString() == pwd){
-                        jump()
-                    }else{
                         Toast.makeText(loginActivity.applicationContext,
-                            "密码错误",Toast.LENGTH_SHORT)
+                            "登录成功",Toast.LENGTH_SHORT)
                             .show()
-                    }
+                        jump()
+                    }//else{
+
+//                        Toast.makeText(loginActivity.applicationContext,
+//                            "密码错误",Toast.LENGTH_SHORT)
+//                            .show()
+//                   }
                 }
 
                 override fun beforeTextChanged(
@@ -97,7 +101,7 @@ class LoginFragment:Fragment() {
         }
 
         changeToGesture.setOnClickListener {
-            loginActivity.replaceFragment(SetGestureFragment())
+            loginActivity.replaceFragment(GestureFragment())
         }
     }
 

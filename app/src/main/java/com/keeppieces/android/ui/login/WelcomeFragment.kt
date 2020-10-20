@@ -32,8 +32,9 @@ class WelcomeFragment:Fragment() {
         //获取登录状态，判断是否有密码
         val share = firstActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
         val pwd = share.getString("pwd", "")
+        val gesture = share.getString("gesture","")
         //第一次登录
-        if (pwd == "") {
+        if (pwd == "" && gesture=="") {
             passwordSelect?.setOnClickListener{
                 firstActivity.replaceFragment(SetPasswordFragment())
             }

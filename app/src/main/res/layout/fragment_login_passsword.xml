@@ -49,6 +49,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:hint="@string/pwdHint"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:inputType="textPassword"
             android:textColorHint="@color/color_primary_variant" />
 
