@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/optionspicker"
+    android:minHeight="150dp"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/itemAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_dialog_max"
+        android:textColorHint="@color/color_on_primary"
+        android:autofillHints=""
+        android:gravity="center"
+        android:inputType="text"
+        android:maxLines="1" />
+</LinearLayout>
+
+
