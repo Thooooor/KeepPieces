@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.layout_daily_member_overview.*
 import kotlinx.android.synthetic.main.layout_daily_primary_overview.*
 import kotlinx.android.synthetic.main.layout_daily_type_overview.*
 import java.time.LocalDate
+import kotlin.math.absoluteValue
 
 
 class DailyFragment(var date: LocalDate) : Fragment() {
@@ -70,7 +71,7 @@ class DailyFragment(var date: LocalDate) : Fragment() {
         dailyAmount.text = dailyOverview.total.toCHINADFormatted()
         val piePortions = dailyOverview.bills.map {
             PiePortion(
-                it.secondaryCategory, it.amount, ContextCompat.getColor(requireContext(), it.color)
+                it.secondaryCategory, it.amount.absoluteValue, ContextCompat.getColor(requireContext(), it.color)
             )
         }.toList()
 
@@ -96,7 +97,7 @@ class DailyFragment(var date: LocalDate) : Fragment() {
         daily_primary_title.text = "分类"
         val piePortions = primaryList.map {
             PiePortion(
-                it.primaryCategory, it.amount, ContextCompat.getColor(requireContext(), it.color)
+                it.primaryCategory, it.amount.absoluteValue, ContextCompat.getColor(requireContext(), it.color)
             )
         }.toList()
 
@@ -123,7 +124,7 @@ class DailyFragment(var date: LocalDate) : Fragment() {
         dailyAccountTitle.text = "账户"
         val piePortions = accountList.map {
             PiePortion(
-                it.account, it.amount, ContextCompat.getColor(requireContext(), it.color)
+                it.account, it.amount.absoluteValue, ContextCompat.getColor(requireContext(), it.color)
             )
         }.toList()
 
@@ -150,7 +151,7 @@ class DailyFragment(var date: LocalDate) : Fragment() {
         dailyMemberTitle.text = "成员"
         val piePortions = memberList.map {
             PiePortion(
-                it.member, it.amount, ContextCompat.getColor(requireContext(), it.color)
+                it.member, it.amount.absoluteValue, ContextCompat.getColor(requireContext(), it.color)
             )
         }.toList()
 
@@ -177,7 +178,7 @@ class DailyFragment(var date: LocalDate) : Fragment() {
         dailyTypeTitle.text = "收支"
         val piePortions = typeList.map {
             PiePortion(
-                it.type, it.amount, ContextCompat.getColor(requireContext(), it.color)
+                it.type, it.amount.absoluteValue, ContextCompat.getColor(requireContext(), it.color)
             )
         }.toList()
 
@@ -196,43 +197,43 @@ class DailyFragment(var date: LocalDate) : Fragment() {
                 date = LocalDate.now().toString(),
                 amount = 6.60,
                 account = "校园卡",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Breakfast",
+                member = "自己",
+                primaryCategory = "三餐",
+                secondaryCategory = "早餐",
                 type = "支出"
             ),
             Bill(
                 date = LocalDate.now().toString(),
                 amount = 23.60,
-                account = "Wechat",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Lunch",
+                account = "微信",
+                member = "自己",
+                primaryCategory = "三餐",
+                secondaryCategory = "午餐",
                 type = "支出"
             ),
             Bill(
                 date = LocalDate.now().toString(),
                 amount = 47.09,
                 account = "校园卡",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Dinner",
+                member = "自己",
+                primaryCategory = "三餐",
+                secondaryCategory = "晚餐",
                 type = "支出"
             ),
             Bill(
                 date = LocalDate.now().toString(),
-                amount =1299.00,
-                account = "Alipay",
-                member = "Mom",
-                primaryCategory = "Wearing",
-                secondaryCategory = "Shoes",
+                amount = 1299.00,
+                account = "支付宝",
+                member = "妈妈",
+                primaryCategory = "衣物",
+                secondaryCategory = "鞋子",
                 type = "支出"
             ),
             Bill(
                 date = LocalDate.now().toString(),
                 amount = 229.90,
-                account = "Cash",
-                member = "boy friend",
+                account = "现金",
+                member = "男朋友",
                 primaryCategory = "人情",
                 secondaryCategory = "礼物",
                 type = "支出"
@@ -240,11 +241,20 @@ class DailyFragment(var date: LocalDate) : Fragment() {
             Bill(
                 date = LocalDate.now().toString(),
                 amount = 999.0,
-                account = "Wechat",
-                member = "Me",
-                primaryCategory = "Wearing",
-                secondaryCategory = "Shoes",
+                account = "微信",
+                member = "自己",
+                primaryCategory = "衣物",
+                secondaryCategory = "外套",
                 type = "支出"
+            ),
+            Bill(
+                date = LocalDate.now().toString(),
+                amount = 2000.00,
+                account = "微信",
+                member = "妈妈",
+                primaryCategory = "家",
+                secondaryCategory = "生活费",
+                type = "收入"
             ),
         )
     }

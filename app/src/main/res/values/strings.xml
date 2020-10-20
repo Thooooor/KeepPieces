@@ -56,7 +56,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-<!--    billKeyboard-->
+    <!--    billKeyboard-->
     <string name="bill_gap">-</string>
     <string name="_1">1</string>
     <string name="_2">2</string>

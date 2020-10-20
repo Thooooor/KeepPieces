@@ -90,7 +90,7 @@ class BillActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context, bill: Bill?, inMode: Int=1) {
+        fun start(context: Context, bill: Bill?=null, inMode: Int=1) {
             val intent = Intent(context, BillActivity::class.java)
             intent.putExtra("billMode", inMode)
             if (bill != null) {
