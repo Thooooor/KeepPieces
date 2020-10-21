@@ -1,3 +1,6 @@
+include ':gesture_lib'
+include ':scrollable_tab'
+include ':line_chart'
 include ':line_indicator'
 include ':pie_chart'
 include ':design_system'

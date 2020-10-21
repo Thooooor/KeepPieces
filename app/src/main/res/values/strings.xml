@@ -4,4 +4,92 @@
     <string name="label_total">total</string>
     <string name="detail">detail</string>
     <string name="billDetail" />
+    <string name="label_checking">流水</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search</string>
+    <string name="bill_top_text_make">记账</string>
+    <string name="todo">TODO</string>
+    <string name="bill_up_amount_text">金额</string>
+    <string name="_1234_55">1234.55</string>
+    <string name="bill_amount_sign">￥</string>
+    <string name="bill_time_china">时间:</string>
+    <string name="bill_time">2020–10–15</string>
+    <string name="bill_type_china">方式:</string>
+    <string name="bill_type">支出</string>
+    <string name="bill_member_china">成员:</string>
+    <string name="bill_member">自己</string>
+    <string name="bill_category_china">分类:</string>
+    <string name="bill_secondary">午餐</string>
+    <string name="bill_primary">三餐</string>
+    <string name="bill_account_china">账户:</string>
+    <string name="bill_account">微信</string>
+    <string name="bill_info_china">备注:</string>
+    <string name="bill_info">没什么好备注的</string>
+    <string name="bill_see_top_name">账单</string>
+    <string name="bill_see_top_edit">编辑</string>
+    <string name="bill_see_delete_btn">删除账单</string>
+    <string name="dailyLeftArrow">dailyLeftArrow</string>
+    <string name="dailyRightArrow">dailyRightArrow</string>
+    <string name="monthlyRightArrow">monthlyRightArrow</string>
+    <string name="monthlyLeftArrow">monthlyLeftArrow</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+<!--    billKeyboard-->
+    <string name="bill_gap">-</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="dot">.</string>
+    <string name="_0">0</string>
+    <string name="ic_delete">×</string>
+    <string name="pwdHint">密码</string>
+    <string name="loginMessage">输入密码或验证指纹</string>
+    <string name="prompt_info_title">使用生物识别解锁</string>
+    <string name="prompt_info_subtitle">请登录</string>
+    <string name="prompt_info_description">touch the fingerprint sensor</string>
+    <string name="prompt_info_use_app_password">使用密码登录</string>
+    <string name="confirm">确定</string>
+    <string name="input_second_pwd">请再次输入密码</string>
+    <string name="input_first_pwd">请输入密码</string>
+    <string name="pwd_setting">密码设置</string>
+    <string name="gesture_setting">手势密码设置</string>
+    <string name="gesture_confirm">确定手势密码</string>
+    <string name="login_gesture">手势密码</string>
+    <string name="login_pwd">密码</string>
+    <string name="appLogo">AppLogo</string>
+    <string name="appTitle">碎碎记</string>
+    <string name="guideWords">请选择登录方式:</string>
+    <string name="pwdImg">pwdImg</string>
+    <string name="pattenImg">pattenImg</string>
+    <string name="changeType">切换手势登录</string>
+    <string name="changeInputType">changeInputType</string>
+    <string name="login_fingerprint">login_fingerprint</string>
 </resources>

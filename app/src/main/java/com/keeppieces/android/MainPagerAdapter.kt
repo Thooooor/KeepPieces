@@ -1,21 +1,29 @@
 package com.keeppieces.android
 
+import android.os.Build
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.keeppieces.android.ui.daily.DailyFragment
+import com.keeppieces.android.ui.monthly.MonthlyFragment
 import com.keeppieces.android.ui.overview.OverviewFragment
+import com.keeppieces.android.ui.settings.SettingsFragment
+import java.time.LocalDate
 
 class MainPagerAdapter(
     fm: FragmentManager,
     private val tabs: List<TabUiModel>
 ) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> DailyFragment()
-            1 -> DailyFragment()
-            else -> OverviewFragment()
+            0 -> OverviewFragment()
+            1 -> DailyFragment(LocalDate.now())
+            2 -> MonthlyFragment()
+            4 -> SettingsFragment()
+            else -> MonthlyFragment()
         }
     }
 

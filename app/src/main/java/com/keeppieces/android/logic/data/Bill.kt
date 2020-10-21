@@ -1,7 +1,6 @@
 package com.keeppieces.android.logic.data
 
 import androidx.room.*
-import java.sql.Date
 
 @Entity(
     tableName = "bill",

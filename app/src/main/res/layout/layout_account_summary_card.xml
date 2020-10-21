@@ -34,7 +34,6 @@
                 android:id="@+id/account_amount_symbol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥"
                 style="?attr/textAppearanceHeadline3"
                 android:layout_marginStart="@dimen/spacing_medium"
                 />
@@ -42,24 +41,24 @@
                 android:id="@+id/account_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12132.49"
+                tools:text="12132.49"
                 style="?attr/textAppearanceHeadline3"
                 android:layout_marginStart="@dimen/spacing_medium"
                 />
         </LinearLayout>
-<!-- 暂时不做       -->
-        <TextView
-            android:id="@+id/account_line_indicator"
+
+        <com.keeppieces.line_indicator.LineIndicator
+            android:id="@+id/account_summary_line_indicator"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/orange_300"/>
+            android:layout_height="4dp"
+            tools:background="@color/blue_300"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/bill_account_overview"
+            android:id="@+id/bill_account_overview_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:itemCount="3"
-            tools:listitem="@layout/item_card" />
+            tools:listitem="@layout/item_summary_card" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/account_see_all"

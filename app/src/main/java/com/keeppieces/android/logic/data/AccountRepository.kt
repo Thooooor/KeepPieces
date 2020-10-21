@@ -52,10 +52,26 @@ class AccountRepository {
         }
         return accountList
     }
-}
 
+    fun getAccountSummary(accounts:List<Account>, color: String ):AccountSummary {
+        val accountList = mutableListOf<DailyAccount>()
+        var total:Double = 0.00
+        for (account in accounts) {
+            total += account.amount
+            val accountNameIndex = accountList.size
+            val accountNameColor = repository.getColorInt(color, accountNameIndex)
+            accountList.add(DailyAccount(account.name, account.amount, accountNameColor))
+        }
+        return AccountSummary(total,accountList)
+    }
+}
+data class AccountSummary(val total:Double ,val accounts:List<DailyAccount>)
 data class DailyAccount(
     val account: String,
     var amount: Double,
     @ColorRes val color: Int
 )
+
+fun getDailyAccountAccount(dailyAccount: DailyAccount):String = dailyAccount.account
+fun getDailyAccountAmount(dailyAccount: DailyAccount):Double = dailyAccount.amount
+fun getDailyAccountColorInt(dailyAccount: DailyAccount):Int = dailyAccount.color

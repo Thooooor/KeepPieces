@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 
+
 class ScrollableTab : RecyclerView {
 
   private val tabAdapter by lazy { TabAdapter(style = tabTextStyle) }

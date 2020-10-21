@@ -40,7 +40,7 @@
             app:layout_constraintGuide_percent=".3" />
 
         <com.keeppieces.pie_chart.PieChart
-            android:id="@+id/daily_account_overview_pie"
+            android:id="@+id/dailyAccountOverviewPie"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -51,13 +51,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/daily_account_title"
+            android:id="@+id/dailyAccountTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/daily_account_overview_pie"
-            app:layout_constraintStart_toStartOf="@id/daily_account_overview_pie"
+            app:layout_constraintEnd_toEndOf="@id/dailyAccountOverviewPie"
+            app:layout_constraintStart_toStartOf="@id/dailyAccountOverviewPie"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="账户" />
 
@@ -73,7 +73,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/daily_account_detail_recycler"
+            android:id="@+id/dailyAccountDetailRecycler"
             android:layout_width="316dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
