@@ -8,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.keeppieces.android.KeepPiecesApplication
 import com.keeppieces.android.logic.Repository
+import kotlin.math.abs
 
 
 class AccountRepository {
@@ -62,15 +63,25 @@ class AccountRepository {
         return accountList
     }
 
-    fun getAccountSummary(accounts:List<Account>, color: String ):AccountSummary {
+    fun getAccountSummary(accounts:List<Account>, positiveColor: String, negativeColor: String):AccountSummary {
         val accountList = mutableListOf<DailyAccount>()
         var total:Double = 0.00
+        var positveSize = 0
+        var negativeSize = 0
         for (account in accounts) {
             total += account.amount
-            val accountNameIndex = accountList.size
-            val accountNameColor = repository.getColorInt(color, accountNameIndex)
-            accountList.add(DailyAccount(account.name, account.amount, accountNameColor))
+            if(account.amount>=0) {
+                val accountNameColor = repository.getColorInt(positiveColor, positveSize)
+                positveSize += 1
+                accountList.add(DailyAccount(account.name, account.amount, accountNameColor))
+            }
+            else {
+                val accountNameColor = repository.getColorInt(negativeColor, negativeSize)
+                negativeSize += 1
+                accountList.add(DailyAccount(account.name, account.amount, accountNameColor))
+            }
         }
+        accountList.sortBy {it.amount }
         return AccountSummary(total,accountList)
     }
 }
@@ -82,5 +93,5 @@ data class DailyAccount(
 )
 
 fun getDailyAccountAccount(dailyAccount: DailyAccount):String = dailyAccount.account
-fun getDailyAccountAmount(dailyAccount: DailyAccount):Double = dailyAccount.amount
+fun getDailyAccountAmount(dailyAccount: DailyAccount):Double = abs(dailyAccount.amount)
 fun getDailyAccountColorInt(dailyAccount: DailyAccount):Int = dailyAccount.color

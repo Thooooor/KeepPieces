@@ -1,15 +1,18 @@
 package com.keeppieces.android.ui.overview
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
-import com.keeppieces.android.logic.data.Account
-import com.keeppieces.android.logic.data.AccountRepository
-import com.keeppieces.android.logic.data.Bill
-import com.keeppieces.android.logic.data.BillRepository
+import com.keeppieces.android.logic.data.*
 
 
 class HomepageSummaryViewModel:ViewModel() {
     private val billRepository = BillRepository()
     private val accountRepository = AccountRepository()
+    private val memberRepository = MemberRepository()
+    // 插入新账单数据或修改账单数据的时候重新加载
+    val allBillLiveData = getAllBill()
+    val allAccountLiveData = getAllAccount()
 //    @RequiresApi(Build.VERSION_CODES.O)
 //    fun getNowMonthBillList(date: LocalDate) = billRepository.getNowMonthBillList(date)
 //    fun getTodayBillList(date: LocalDate) = billRepository.getOneDayBill(date.toString())
@@ -23,7 +26,9 @@ class HomepageSummaryViewModel:ViewModel() {
 
     fun getAllAccount() = accountRepository.getAccount()
 
+    fun getAccountSummary(allAccounts:List<Account>, posituveColor:String, negativeColor:String) =  accountRepository.getAccountSummary(allAccounts, posituveColor, negativeColor)
 
-    fun getAccountSummary(allAccounts:List<Account>, color:String) =  accountRepository.getAccountSummary(allAccounts, color)
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun getMemberMonthSummary(monthBillList:List<Bill>, color:String) = memberRepository.getMemberMonthSummary(monthBillList,color)
 
 }

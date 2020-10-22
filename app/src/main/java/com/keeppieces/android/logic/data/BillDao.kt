@@ -14,7 +14,7 @@ interface BillDao {
     @Delete
     fun deleteBill(bill: Bill)
 
-    @Query("SELECT * FROM bill WHERE date = :date ORDER BY bill_id")
+    @Query("SELECT * FROM bill WHERE date = :date ORDER BY bill_id DESC")
     fun getOneDayBill(date: String): LiveData<List<Bill>>
 
 //    @Query("SELECT * FROM bill WHERE date LIKE :year+'-'+:month+'-%' ORDER BY bill_id")
