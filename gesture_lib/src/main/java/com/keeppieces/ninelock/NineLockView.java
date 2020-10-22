@@ -27,7 +27,7 @@ public class NineLockView extends View {
     private int offsetX;//x轴偏移量
     private int offsetY;//y轴偏移量
     private int step;//节点间的距离
-    private int radius=30;//节点圆圈的半径大小
+    private int radius=25;//节点圆圈的半径大小
     private int lastPointX;//最后一个节点的 x 坐标
     private int lastPointY;//最后一个节点的 y 坐标
     private float linearEndX;//触摸点的最终位置坐标
@@ -42,7 +42,7 @@ public class NineLockView extends View {
 
     private void init(){
         paint=new Paint();
-        paint.setColor(Color.parseColor("#00e5a8"));
+        paint.setColor(Color.parseColor("#21af6c"));
         paint.setAntiAlias(true);
         paint.setStrokeWidth(1);
         paint.setStrokeJoin(Paint.Join.ROUND);
@@ -140,7 +140,9 @@ public class NineLockView extends View {
                         linearEndX=i;
                         linearEndY=j;
                         code.add(new Point(i,j));
+
                     }else {
+
                         Point last=code.get(code.size() - 1);
                         //如果当前点与记录的最后一个点重复，则不再重复添加
                         if (last.x == i && last.y == j) {
@@ -175,6 +177,9 @@ public class NineLockView extends View {
         invalidate();
     }
 
+    /**
+     * 返回结果的字符串
+     */
     private void setResultCode(){
         if(lockListener!=null){
             if(code.size()==0){

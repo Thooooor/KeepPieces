@@ -17,7 +17,7 @@ class FirstActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first)
 
-        replaceFragment(WelcomeFragment())
+        addFragment(WelcomeFragment())
     }
 
     fun sendSetData(data:String){
@@ -26,6 +26,13 @@ class FirstActivity : AppCompatActivity()  {
 
     fun sendConfirmData(data:String){
          confirmData = data
+    }
+
+    private fun addFragment(fragment: Fragment){
+        val fragmentManager = supportFragmentManager //获取FragmentManager
+        val transaction = fragmentManager.beginTransaction() //开启一个事务
+        transaction.replace(R.id.welcomePage,fragment)  //替换容器内的fragment
+        transaction.commit()    //提交事务
     }
 
     fun replaceFragment(fragment: Fragment){
@@ -58,6 +65,7 @@ class FirstActivity : AppCompatActivity()  {
     private fun jump(){
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }
 
