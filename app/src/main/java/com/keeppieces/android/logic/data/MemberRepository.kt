@@ -10,6 +10,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.keeppieces.android.KeepPiecesApplication
 import com.keeppieces.android.logic.Repository
+import kotlin.math.abs
 
 
 class MemberRepository {
@@ -74,8 +75,9 @@ class MemberRepository {
             memberMonthCondition[bill.member] = Pair(memberData.first+amount,memberData.second)
         }
         val memberMonthSummary = mutableListOf<DailyMember>()
-        memberMonthCondition.forEach { member, condition ->
+        memberMonthCondition.forEach { (member, condition) ->
             memberMonthSummary.add(DailyMember(member,condition.first,condition.second)) }
+        memberMonthSummary.sortByDescending { abs(it.amount) }
         return memberMonthSummary
     }
 }

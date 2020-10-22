@@ -26,7 +26,7 @@ class HomepageSummaryViewModel:ViewModel() {
 
     fun getAllAccount() = accountRepository.getAccount()
 
-    fun getAccountSummary(allAccounts:List<Account>, color:String) =  accountRepository.getAccountSummary(allAccounts, color)
+    fun getAccountSummary(allAccounts:List<Account>, posituveColor:String, negativeColor:String) =  accountRepository.getAccountSummary(allAccounts, posituveColor, negativeColor)
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun getMemberMonthSummary(monthBillList:List<Bill>, color:String) = memberRepository.getMemberMonthSummary(monthBillList,color)
