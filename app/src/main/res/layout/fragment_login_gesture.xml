@@ -8,32 +8,74 @@
     android:layout_gravity="center"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
+        android:id="@+id/topLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="30dp"
+        android:layout_height="150dp"
+        android:layout_marginTop = "20dp"
         android:orientation="vertical"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-16dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/gesture_confirm"
-            android:textAppearance="?attr/textAppearanceSubtitle1"
-            android:textColor="@color/color_primary_variant"
-            android:textSize="28sp" />
-    </androidx.appcompat.widget.Toolbar>
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity= "center">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="98.25dp"
+                android:layout_height="82.5dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/hand_coin_line"
+                android:contentDescription="@string/appLogo" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 
     <com.keeppieces.ninelock.NineLockView
         android:id="@+id/gestureLogin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="400dp"
         android:layout_gravity="center" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/fingerprintOfGesture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_fingerprint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/loginGestureMessage"
+                android:textColor="@color/color_primary_variant"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

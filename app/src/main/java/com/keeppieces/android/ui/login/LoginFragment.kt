@@ -48,7 +48,7 @@ class LoginFragment:Fragment() {
         loginWithPassword()
 
         val biometricPrompt: BiometricPrompt = createBiometricPrompt()
-        val biometricLoginButton = loginActivity.findViewById<ImageView>(R.id.fingerprint)
+        val biometricLoginButton = loginActivity.findViewById<ImageView>(R.id.fingerprintOfPassword)
         biometricLoginButton.setOnClickListener {
             biometricPrompt.authenticate(promptInfo)
         }
@@ -60,48 +60,50 @@ class LoginFragment:Fragment() {
         val loginActivity = activity as LoginActivity
         var visible = false
         val pwd =  readPwd()
-        passwordEdit.addTextChangedListener(
-            object: TextWatcher {
+        if(pwd != ""){
+            passwordEdit.addTextChangedListener(
+                object: TextWatcher {
 
-                override fun afterTextChanged(s: Editable?) {
-                    if(s.toString() == pwd){
-                        Toast.makeText(loginActivity.applicationContext,
-                            "登录成功",Toast.LENGTH_SHORT)
-                            .show()
-                        jump()
-                    }//else{
+                    override fun afterTextChanged(s: Editable?) {
+                        if(s.toString() == pwd){
+                            Toast.makeText(loginActivity.applicationContext,
+                                "登录成功",Toast.LENGTH_SHORT)
+                                .show()
+                            jump()
+                        }//else{
 
 //                        Toast.makeText(loginActivity.applicationContext,
 //                            "密码错误",Toast.LENGTH_SHORT)
 //                            .show()
 //                   }
+                    }
+
+                    override fun beforeTextChanged(
+                        s: CharSequence?,start: Int,count: Int,after: Int) {
+
+                    }
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                    }
+
                 }
-
-                override fun beforeTextChanged(
-                    s: CharSequence?,start: Int,count: Int,after: Int) {
-
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                }
-
-            }
-        )
-
-        visibleLogo.setOnClickListener {
-
-            if(visible){
-                passwordEdit.transformationMethod = PasswordTransformationMethod.getInstance()
-                visible = false
-            }else{
-                passwordEdit.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                visible = true
-            }
+            )
         }
 
-        changeToGesture.setOnClickListener {
-            loginActivity.replaceFragment(GestureFragment())
+
+        visibleLogo.setOnClickListener {
+            val pwd =  readPwd()
+            if(pwd != ""){
+                if(visible){
+                    passwordEdit.transformationMethod = PasswordTransformationMethod.getInstance()
+                    visible = false
+                }else{
+                    passwordEdit.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    visible = true
+                }
+            }
+
         }
     }
 

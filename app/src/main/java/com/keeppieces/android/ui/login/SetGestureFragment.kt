@@ -48,9 +48,6 @@ class SetGestureFragment :Fragment(), NineLockListener{
         firstActivity.sendSetData(tempPwd)
         Toast.makeText(firstActivity,"请确认图案密码", Toast.LENGTH_SHORT).show()
         firstActivity.replaceFragment(ConfirmGestureFragment())
-        //resultDialog!!.setTitle(stringBuffer.toString())
-        //println()
-        //resultDialog!!.show()
 
     }
 
