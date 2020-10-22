@@ -80,4 +80,26 @@
     <string name="bill_max_amount">输入小于9999.99的金额</string>
     <string name="AddPrimaryCategory">一级分类:</string>
     <string name="AddSecondaryCategory">二级分类</string>
+    <string name="pwdHint">密码</string>
+    <string name="loginMessage">输入密码或验证指纹</string>
+    <string name="prompt_info_title">使用生物识别解锁</string>
+    <string name="prompt_info_subtitle">请登录</string>
+    <string name="prompt_info_description">touch the fingerprint sensor</string>
+    <string name="prompt_info_use_app_password">使用密码登录</string>
+    <string name="confirm">确定</string>
+    <string name="input_second_pwd">请再次输入密码</string>
+    <string name="input_first_pwd">请输入密码</string>
+    <string name="pwd_setting">密码设置</string>
+    <string name="gesture_setting">手势密码设置</string>
+    <string name="gesture_confirm">确定手势密码</string>
+    <string name="login_gesture">手势密码</string>
+    <string name="login_pwd">密码</string>
+    <string name="appLogo">AppLogo</string>
+    <string name="appTitle">碎碎记</string>
+    <string name="guideWords">请选择登录方式:</string>
+    <string name="pwdImg">pwdImg</string>
+    <string name="pattenImg">pattenImg</string>
+    <string name="changeType">切换手势登录</string>
+    <string name="changeInputType">changeInputType</string>
+    <string name="login_fingerprint">login_fingerprint</string>
 </resources>

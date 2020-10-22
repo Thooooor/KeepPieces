@@ -1,11 +1,13 @@
 *.iml
 .gradle
 /local.properties
+/.idea/codeStyles/Project.xml
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
+/.idea/codeStyles/Project.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
@@ -14,3 +16,4 @@
 .cxx
 /.idea/
 /gradle/
+/.idea/
