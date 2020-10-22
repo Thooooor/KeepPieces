@@ -35,7 +35,11 @@ class MemberRepository {
             var isMemberExist = false
             for (member in memberList) {
                 if (member.member == bill.member) {
-                    member.amount += bill.amount
+                    if (bill.type == "收入") {
+                        member.amount += bill.amount
+                    } else {
+                        member.amount -= bill.amount
+                    }
                     isMemberExist = true
                     break
                 } else {
@@ -45,7 +49,12 @@ class MemberRepository {
             if (!isMemberExist) {
                 val primaryIndex = memberList.size
                 val primaryColor = repository.getColorInt(color, primaryIndex)
-                memberList.add(DailyMember(bill.member, bill.amount, primaryColor))
+                if (bill.type == "收入"){
+                    memberList.add(DailyMember(bill.member, bill.amount, primaryColor))
+                } else {
+                    memberList.add(DailyMember(bill.member, -bill.amount, primaryColor))
+                }
+
             } else {
                 continue
             }

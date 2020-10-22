@@ -44,8 +44,7 @@ class OverviewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         addFab.setOnClickListener {
-            val intent = Intent(requireContext(),BillActivity::class.java)
-            startActivityForResult(intent,homepageRequestCode)
+            context?.let { it1 -> BillActivity.start(it1, null) }
         }
         setUpCardView()
     }
@@ -76,18 +75,6 @@ class OverviewFragment : Fragment() {
             val allAccountList = if(accountList.isEmpty()) tempAcountList else tempAcountList
             setUpAccountSummaryCardView(allAccountList)
         }
-    }
-
-    // 等下一次会议确定
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode) {
-            homepageRequestCode -> if(resultCode == RESULT_OK) { // 插入新数据
-                return
-            }
-            else -> return
-        }
-        return
     }
 
     private fun setUpMonthSummaryCardView(bills: List<Bill>) {  // bills：这个月的账单表

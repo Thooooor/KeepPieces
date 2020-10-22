@@ -26,7 +26,11 @@ class PrimaryCategoryRepository {
             var isPrimaryExist = false
             for (primary in primaryList) {
                 if (primary.primaryCategory == bill.primaryCategory) {
-                    primary.amount += bill.amount
+                    if (bill.type == "收入") {
+                        primary.amount += bill.amount
+                    } else {
+                        primary.amount -= bill.amount
+                    }
                     isPrimaryExist = true
                     break
                 } else {
@@ -36,7 +40,11 @@ class PrimaryCategoryRepository {
             if (!isPrimaryExist) {
                 val primaryIndex = primaryList.size
                 val primaryColor = repository.getColorInt(color, primaryIndex)
-                primaryList.add(DailyPrimary(bill.primaryCategory, bill.amount, primaryColor))
+                if (bill.type == "收入") {
+                    primaryList.add(DailyPrimary(bill.primaryCategory, bill.amount, primaryColor))
+                } else {
+                    primaryList.add(DailyPrimary(bill.primaryCategory, -bill.amount, primaryColor))
+                }
             } else {
                 continue
             }

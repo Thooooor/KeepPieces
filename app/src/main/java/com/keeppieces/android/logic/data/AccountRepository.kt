@@ -35,7 +35,11 @@ class AccountRepository {
             var isAccountExist = false
             for (account in accountList) {
                 if (account.account == bill.account) {
-                    account.amount += bill.amount
+                    if (bill.type == "收入") {
+                        account.amount += bill.amount
+                    } else {
+                        account.amount -= bill.amount
+                    }
                     isAccountExist = true
                     break
                 } else {
@@ -45,7 +49,12 @@ class AccountRepository {
             if (!isAccountExist) {
                 val primaryIndex = accountList.size
                 val primaryColor = repository.getColorInt(color, primaryIndex)
-                accountList.add(DailyAccount(bill.account, bill.amount, primaryColor))
+                if (bill.type == "收入") {
+                    accountList.add(DailyAccount(bill.account, bill.amount, primaryColor))
+                } else {
+                    accountList.add(DailyAccount(bill.account, -bill.amount, primaryColor))
+                }
+
             } else {
                 continue
             }
