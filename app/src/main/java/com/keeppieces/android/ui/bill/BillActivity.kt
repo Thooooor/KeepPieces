@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +26,7 @@ private const val BillUpdate = 1
 private const val BillAdd = 0
 const val INTEGER_COUNT = 4
 const val DECIMAL_COUNT = 2
+
 class BillActivity : AppCompatActivity(),
     BillTimeDialog.BillTimeDialogListener,
     BillTypeDialog.BillTypeDialogListener,
@@ -43,7 +46,7 @@ class BillActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bill)
 
-        setSupportActionBar(billAddToolbar)
+//        setSupportActionBar(billAddToolbar)
         setUpToolbar()
 
         viewModel = ViewModelProvider(this)[BillViewModel::class.java]
@@ -83,10 +86,15 @@ class BillActivity : AppCompatActivity(),
     }
 
     private fun setUpToolbar() {
-        setSupportActionBar(billAddToolbar)
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.title = ""
+        val toolbar: Toolbar = findViewById(R.id.billAddToolbar)
+//        setSupportActionBar(toolbar)
+//        val actionBar = supportActionBar
+//        actionBar?.setDisplayHomeAsUpEnabled(true)
+//        actionBar?.title = ""
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.title = ""
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -105,7 +113,12 @@ class BillActivity : AppCompatActivity(),
                 finish()
             }
         }
-        return true
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+//        return true
     }
 
     private fun billAdd() {
@@ -193,54 +206,6 @@ class BillActivity : AppCompatActivity(),
             }
         })
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (resultCode == RESULT_OK) {
-//            if (data != null) {
-//                val resultBill = Bill(
-//                    data.getStringExtra("billTime").toString(),
-//                    data.getDoubleExtra("billAmount", 0.00),
-//                    data.getStringExtra("billAccount").toString(),
-//                    data.getStringExtra("billMember").toString(),
-//                    data.getStringExtra("billPrimary").toString(),
-//                    data.getStringExtra("billSecondary").toString(),
-//                    data.getStringExtra("billType").toString())
-////                billSeeFragment(resultBill)
-//            } else {
-//                finish()
-//            }
-//        }
-//    }
-
-//    private fun billAddFragment() {
-//        val fragment = BillAddFragment(null)
-//        val transaction = supportFragmentManager.beginTransaction()
-//        transaction.apply {
-//            replace(R.id.bill_main, fragment)
-//            commit()
-//        }
-//    }
-
-//    private fun billAddFragmentUpdate(bill: Bill) {
-//        Log.d("BillActivity","billAddUpdate")
-//        val fragment = BillAddFragment(bill)
-//        val transaction = supportFragmentManager.beginTransaction()
-//        transaction.apply {
-//            replace(R.id.bill_main, fragment)
-//            commit()
-//        }
-//    }
-
-//    private fun billSeeFragment(bill: Bill) {
-//        Log.d("BillActivity","billSeeUpdate")
-//        val fragment = BillSeeFragment(bill)
-//        val transaction = supportFragmentManager.beginTransaction()
-//        transaction.apply {
-//            replace(R.id.bill_main, fragment)
-//            commit()
-//        }
-//    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
