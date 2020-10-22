@@ -56,7 +56,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-<!--    billKeyboard-->
+    <!--    billKeyboard-->
     <string name="bill_gap">-</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
@@ -70,6 +70,16 @@
     <string name="dot">.</string>
     <string name="_0">0</string>
     <string name="ic_delete">×</string>
+    <string name="bill_date_year">年</string>
+    <string name="bill_date_month">月</string>
+    <string name="bill_date_day">日</string>
+    <string name="billCancel">取消</string>
+    <string name="billMake">确定</string>
+    <string name="bill_add">添加</string>
+    <string name="add_dialog_max">最多两个字</string>
+    <string name="bill_max_amount">输入小于9999.99的金额</string>
+    <string name="AddPrimaryCategory">一级分类:</string>
+    <string name="AddSecondaryCategory">二级分类</string>
     <string name="pwdHint">密码</string>
     <string name="loginMessage">输入密码或验证指纹</string>
     <string name="prompt_info_title">使用生物识别解锁</string>

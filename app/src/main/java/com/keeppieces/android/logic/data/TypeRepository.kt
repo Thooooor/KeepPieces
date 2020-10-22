@@ -1,6 +1,7 @@
 package com.keeppieces.android.logic.data
 
 import androidx.annotation.ColorRes
+import androidx.lifecycle.LiveData
 import com.keeppieces.android.KeepPiecesApplication
 import com.keeppieces.android.R
 import com.keeppieces.android.logic.Repository
@@ -13,8 +14,11 @@ class TypeRepository {
 
     fun createType(type: Type) = typeDao.insertType(type)
 
-    fun getType() {
-        typeDao.getType()
+    fun getType() : ArrayList<String> {
+        val list = ArrayList<String>()
+        list.add("支出")
+        list.add("收入")
+        return list
     }
 
     fun updateType(type: Type) {

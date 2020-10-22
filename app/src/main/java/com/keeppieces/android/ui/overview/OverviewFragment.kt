@@ -41,7 +41,7 @@ class OverviewFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         setUpView()
         addFab.setOnClickListener {
-
+            context?.let { it1 -> BillActivity.start(it1, null) }
         }
     }
 
