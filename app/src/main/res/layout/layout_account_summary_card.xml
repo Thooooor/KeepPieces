@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,7 +10,8 @@
     android:layout_marginEnd="@dimen/spacing_medium"
     android:layout_marginTop="@dimen/spacing_small"
     android:layout_marginBottom="@dimen/spacing_small"
-    android:focusable="true">
+    android:focusable="true"
+    app:cardCornerRadius="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="账户情况"
+            android:text="本月账户情况"
             style="?attr/textAppearanceSubtitle2"
             android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginStart="@dimen/spacing_medium"
@@ -51,6 +52,7 @@
             android:id="@+id/account_summary_line_indicator"
             android:layout_width="match_parent"
             android:layout_height="4dp"
+            android:layout_marginBottom="@dimen/spacing_small"
             tools:background="@color/blue_300"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -61,7 +63,7 @@
             tools:listitem="@layout/item_summary_card" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/account_see_all"
+            android:id="@+id/account_see_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

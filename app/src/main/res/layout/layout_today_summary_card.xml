@@ -53,6 +53,7 @@
             android:id="@+id/today_summary_line_indicator"
             android:layout_width="match_parent"
             android:layout_height="4dp"
+            android:layout_marginBottom="@dimen/spacing_small"
             tools:background="@color/blue_300"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -63,11 +64,11 @@
             tools:listitem="@layout/item_summary_card" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/today_see_all"
+            android:id="@+id/today_see_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="查看更多"
+            android:text="查看详情"
             style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
     </LinearLayout>
