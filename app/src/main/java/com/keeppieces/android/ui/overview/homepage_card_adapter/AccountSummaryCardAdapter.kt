@@ -12,7 +12,7 @@ import com.keeppieces.android.logic.data.DailyAccount
 import com.keeppieces.line_indicator.VerticalBar
 import com.keeppieces.line_indicator.VerticalBarData
 
-class AccountSummaryCardAdapter(private val content:Context, private val accountSummaryList: List<DailyAccount>):
+class AccountSummaryCardAdapter(private val content:Context, private val accountList: List<DailyAccount>):
     RecyclerView.Adapter<AccountSummaryCardAdapter.ViewHolder>(){
     
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
@@ -29,7 +29,7 @@ class AccountSummaryCardAdapter(private val content:Context, private val account
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val accountItem = accountSummaryList[position]
+        val accountItem = accountList[position]
         holder.apply {
             accountTitle.text = accountItem.account
             // moneyType.text = if (accountItem.amount < 0) "-" else if (accountItem.amount > 0) "+" else ""
@@ -39,5 +39,5 @@ class AccountSummaryCardAdapter(private val content:Context, private val account
         }
     }
 
-    override fun getItemCount() = accountSummaryList.size
+    override fun getItemCount() = accountList.size
 }
