@@ -54,31 +54,35 @@ class BillTimeDialog(private val inputDate: String) : DialogFragment() {
             value = date.year
             wrapSelectorWheel = false
         }
-        //
         month.apply {
             maxValue = 12
             minValue = 1
             value = date.monthValue
             wrapSelectorWheel = false
         }
-        //
-        day.apply {
-            minValue = 1
-            maxValue = 31
-            value = date.dayOfMonth
-            wrapSelectorWheel = false
+        day.value = date.dayOfMonth
+
+        daySet(year.value, month.value, day)
+        year.setOnValueChangedListener { _, _, _ ->
+            daySet(year.value, month.value, day)
+        }
+
+        month.setOnValueChangedListener { _, _, _ ->
+            daySet(year.value, month.value, day)
         }
 
         builder.setTitle("日期选择")
             .setView(view)
 
-            .setPositiveButton("确定"
+            .setPositiveButton(
+                "确定"
             ) { _, _ ->
                 date = LocalDate.of(year.value, month.value, day.value)
                 listener.onDialogPositiveClickForBillTime(this)
             }
 
-            .setNegativeButton("取消"
+            .setNegativeButton(
+                "取消"
             ) { _, _ ->
                 listener.onDialogNegativeClickForBillTime(this)
             }
@@ -90,5 +94,35 @@ class BillTimeDialog(private val inputDate: String) : DialogFragment() {
         super.onResume()
         dialog?.window?.setGravity(Gravity.BOTTOM)
         dialog?.window?.setBackgroundDrawableResource(R.color.color_status_bar)
+    }
+
+    private fun daySet(year: Int, month: Int, day: NumberPicker) {
+        if (month in listOf<Int>(1,3,5,7,8,10,12)) {
+            day.apply {
+                maxValue = 31
+                minValue = 1
+                value = day.value
+            }
+        } else if (month in listOf<Int>(4,6,9,11)) {
+            day.apply {
+                maxValue = 30
+                minValue = 1
+                value = day.value
+            }
+        } else {
+            if (year%4 == 0 && year%400 != 0) {
+                day.apply {
+                    maxValue = 29
+                    minValue = 1
+                    value = day.value
+                }
+            } else {
+                day.apply {
+                    maxValue = 28
+                    minValue = 1
+                    value = day.value
+                }
+            }
+        }
     }
 }
