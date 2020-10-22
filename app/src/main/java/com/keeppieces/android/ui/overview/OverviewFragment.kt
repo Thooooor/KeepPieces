@@ -47,8 +47,7 @@ import java.time.LocalDate
 class OverviewFragment : Fragment() {
     private val viewModel by lazy { ViewModelProvider(this).get(HomepageSummaryViewModel::class.java) }
     private val addMonthBudgetDialog = AddMonthBudgetDialog()
-    private lateinit var nowMonthBillList:MutableList<Bill>
-    private lateinit var todayBillList:MutableList<Bill>
+
     private val monthBudgetFile = "month_budget"
     private val nowMonthBudgetString = "nowMonthBudget"
     private val nowMonthString = "nowMonth"
@@ -59,6 +58,7 @@ class OverviewFragment : Fragment() {
     val nowMonth = nowDate.monthValue
     @RequiresApi(Build.VERSION_CODES.O)
     val nowYear = nowDate.year
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_overview, container, false)
     }
@@ -75,10 +75,9 @@ class OverviewFragment : Fragment() {
         val savedMonthBudget = prefs.getString(nowMonthBudgetString,null)
         if (savedYear == nowYear && savedMonth == nowMonth && savedMonthBudget!=null){
             button_set_month_budget.text = StringBuilder("￥$savedMonthBudget").toString()
-//            button_set_month_budget.gravity = (Gravity.CENTER_VERTICAL.and(Gravity.START))
         }
         addFab.setOnClickListener {
-            BillActivity.start(requireContext(),null,0)
+            BillActivity.start(requireContext(),null)
         }
         today_see_more.setOnClickListener {
             getParentActivity<MainActivity>().view_pager.setCurrentItem(1, true)
@@ -92,11 +91,11 @@ class OverviewFragment : Fragment() {
         button_set_month_budget.setOnClickListener {
             addMonthBudgetDialog.show(fragmentManager,"addMonthBudget")
         }
-        setUpCardView(fragmentManager)
+        setUpCardView()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun setUpCardView(fragmentManager: FragmentManager) {
+    private fun setUpCardView() {
         val todayDate = LocalDate.now()
         val nowMonth = todayDate.monthValue
         val nowYear = todayDate.year
@@ -108,12 +107,11 @@ class OverviewFragment : Fragment() {
             // val allBillList = if (billList.isEmpty()) tempList else billList
             val allBillList = tempList  // 数据库里好像加入了2020/10/15这条数据...
             // 不从数据库中获取数据，对全表数据进行处理
-            // 需要把这两个 val 东西移走，要解决空的问题
             val nowMonthBillList = viewModel.getPeriodBillWithoutDao(
                 firstMonthDate.toString(), lastMonthDate.toString(),allBillList)
             val todayBillList = viewModel.getPeriodBillWithoutDao(
                 todayDate.toString(),todayDate.toString(),nowMonthBillList)
-            setUpMonthSummaryCardView(nowMonthBillList,fragmentManager)
+            setUpMonthSummaryCardView(nowMonthBillList)
             setUpTodaySummaryCardView(todayBillList)
             setUpMemberMonthSummaryCardView(nowMonthBillList)
         }
@@ -127,7 +125,7 @@ class OverviewFragment : Fragment() {
 
     }
 
-    private fun setUpMonthSummaryCardView(bills: List<Bill>,fragmentManager: FragmentManager) {  // bills：这个月的账单表
+    private fun setUpMonthSummaryCardView(bills: List<Bill>) {  // bills：这个月的账单表
         var monthIncome:Double = 0.00
         var monthExpenditure:Double = 0.00
         for(bill in bills) {
@@ -164,7 +162,7 @@ class OverviewFragment : Fragment() {
     }
 
     private fun setUpAccountSummaryCardView(accounts: List<Account>) {  // accounts：数据库中所有的账账户情况
-        val accountSummary = viewModel.getAccountSummary(accounts, "purple")
+        val accountSummary = viewModel.getAccountSummary(accounts, "green","purple")
         val lineIndicatorData: LineIndicatorData = getLineIndicatorData(accountSummary.accounts,
         ::getDailyAccountAccount,::getDailyAccountAmount,::getDailyAccountColorInt)
         account_summary_line_indicator.setData(lineIndicatorData)
@@ -179,7 +177,7 @@ class OverviewFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun setUpMemberMonthSummaryCardView(monthBillList:List<Bill>) {
-        val memberMonthSummary = viewModel.getMemberMonthSummary(monthBillList,"orange")
+        val memberMonthSummary = viewModel.getMemberMonthSummary(monthBillList,"yellow")
         val lineIndicatorData= getLineIndicatorData(memberMonthSummary,
             ::getDailyMemberMember,::getDailyMemberAmount,::getDailyMemberColorInt)
         member_month_summary_line_indicator.setData(lineIndicatorData)
