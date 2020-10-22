@@ -72,6 +72,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
     implementation project(path: ':gesture_lib')
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
 
     kapt "androidx.room:room-compiler:2.2.5"
     kapt "com.squareup.inject:assisted-inject-processor-dagger2:0.5.2"
