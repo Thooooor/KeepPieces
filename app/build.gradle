@@ -50,7 +50,8 @@ dependencies {
     implementation project(':line_chart')
     implementation project(':line_indicator')
     implementation project(':scrollable_tab')
-    implementation 'com.contrarywind:Android-PickerView:4.1.9'
+
+    //noinspection GradleDependency
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'androidx.core:core-ktx:1.3.2'
@@ -71,8 +72,10 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
-    implementation project(path: ':gesture_lib')
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
+    implementation project(path: ':gesture_lib')
 
     kapt "androidx.room:room-compiler:2.2.5"
     kapt "com.squareup.inject:assisted-inject-processor-dagger2:0.5.2"

@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="140dp"
-            app:srcCompat="@drawable/hand_coin_line"
-            android:contentDescription="@string/appLogo" />
+            android:contentDescription="@string/appLogo"
+            app:srcCompat="@drawable/hand_coin_line" />
 
     </LinearLayout>
 

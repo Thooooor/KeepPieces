@@ -92,7 +92,7 @@
             style="?attr/textAppearanceHeadline3" />
 
         <TextView
-            android:id="@+id/label_alert"
+            android:id="@+id/labelAlert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"

@@ -20,10 +20,10 @@ class MainPagerAdapter(
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> OverviewFragment()
-            1 -> DailyFragment(LocalDate.now())
-            2 -> MonthlyFragment()
+            1 -> DailyFragment(LocalDate.now().toString())
+            2 -> MonthlyFragment(LocalDate.now().toString(), LocalDate.now().toString())
             4 -> SettingsFragment()
-            else -> MonthlyFragment()
+            else -> DailyFragment(LocalDate.now().toString())
         }
     }
 

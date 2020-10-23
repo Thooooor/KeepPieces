@@ -26,7 +26,6 @@ private const val BillUpdate = 1
 private const val BillAdd = 0
 const val INTEGER_COUNT = 4
 const val DECIMAL_COUNT = 2
-
 class BillActivity : AppCompatActivity(),
     BillTimeDialog.BillTimeDialogListener,
     BillTypeDialog.BillTypeDialogListener,

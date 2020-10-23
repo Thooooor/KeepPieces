@@ -2,6 +2,7 @@ package com.keeppieces.android.ui.monthly
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
@@ -27,54 +29,82 @@ import kotlinx.android.synthetic.main.layout_daily_account_overview.*
 import kotlinx.android.synthetic.main.layout_daily_member_overview.*
 import kotlinx.android.synthetic.main.layout_daily_primary_overview.*
 import kotlinx.android.synthetic.main.layout_daily_type_overview.*
+import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.util.*
 
-class MonthlyFragment: Fragment() {
+class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
     private val viewModel: MonthlyViewModel by viewModels()
+    @RequiresApi(Build.VERSION_CODES.O) var startLocalDate: LocalDate = LocalDate.now()
+    @RequiresApi(Build.VERSION_CODES.O) var endLocalDate: LocalDate = LocalDate.now()
+    private var timeSpan: Long = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_monthly, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val today = Calendar.getInstance()
-        val year = today.get(Calendar.YEAR)
-        val month = today.get(Calendar.MONTH)
-        val day = today.get(Calendar.DAY_OF_MONTH)
-        val startDate = Calendar.getInstance()
-        startDate.set(year, month, 1)
-        val endDate = Calendar.getInstance()
-        endDate.set(year, month+1, 1)
-        endDate.add(Calendar.DAY_OF_MONTH, -1)
-        val date = LocalDate.now()
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun initDate() {
+        startLocalDate = LocalDate.parse(startDate)
+        endLocalDate = LocalDate.parse(endDate)
+        timeSpan = (endLocalDate.dayOfYear - startLocalDate.dayOfYear).toLong()
+    }
 
-        setUpView(date.toString())
-        monthlyLeftArrow.setOnClickListener {
-            date.plusDays(-1)
-            setUpView(date.toString())
-        }
-        monthlyRightArrow.setOnClickListener {
-            date.plusDays(1)
-            setUpView(date.toString())
-        }
+    private fun updateDate(span: Long) {
+        startLocalDate = startLocalDate.plusDays(span)
+        endLocalDate = endLocalDate.plusDays(span)
+        startDate = startLocalDate.toString()
+        endDate = endLocalDate.toString()
+        Log.d("Monthly Date Update", "$startDate ~ $endDate")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun setUpView(date: String) {
-        viewModel.billList(date, date).observe(viewLifecycleOwner) { billList ->
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initDate()
+        setUpView()
+
+        monthlyLeftArrow.setOnClickListener {
+            updateDate(-timeSpan)
+            setUpView()
+        }
+        monthlyRightArrow.setOnClickListener {
+            updateDate(timeSpan)
+            setUpView()
+        }
+
+        labelAlert.setOnClickListener {
+            val builder = MaterialDatePicker.Builder.dateRangePicker()
+            val picker = builder.build()
+            picker.show(childFragmentManager, picker.toString())
+            picker.addOnPositiveButtonClickListener {
+                labelAlert.text = picker.headerText.toString()
+                val format = SimpleDateFormat("yyyy-MM-dd")
+                timeSpan = (it.second!! - it.first!!) / (1000 * 3600 * 24)
+                Log.d("Monthly Date Picker", timeSpan.toString())
+                startDate = format.format(it.first)
+                startLocalDate = LocalDate.parse(startDate)
+                endDate = format.format(it.second)
+                endLocalDate = LocalDate.parse(endDate)
+                setUpView()
+            }
+        }
+
+        monthlyDetailBtn.setOnClickListener {
+            DetailActivity.start(it.context, LocalDate.now(), LocalDate.now(), R.color.dark_green)
+        }
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setUpView() {
+        viewModel.billList(startDate, endDate).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) tempList else billList
+            labelAlert.text = "$startDate ~ $endDate"
             setUpPieView(bills)
             setUpTypeCard(bills)
             setUpPrimaryCard(bills)
             setUpAccountCard(bills)
             setUpMemberCard(bills)
-        }
-
-        monthlyDetailBtn.setOnClickListener {
-            DetailActivity.start(it.context, LocalDate.now(), LocalDate.now(), R.color.dark_green)
         }
     }
 
@@ -177,7 +207,7 @@ class MonthlyFragment: Fragment() {
 
     private fun setUpTypeCard(bills: List<Bill>) {
         val typeList = viewModel.monthlyTypeList(bills)
-        dailyTypeDetaiRecycler.apply {
+        dailyTypeDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
