@@ -36,7 +36,8 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
     private val viewModel: MonthlyViewModel by viewModels()
     @RequiresApi(Build.VERSION_CODES.O) var startLocalDate: LocalDate = LocalDate.now()
     @RequiresApi(Build.VERSION_CODES.O) var endLocalDate: LocalDate = LocalDate.now()
-    private var timeSpan: Long = 0
+    private var timeSpan: Int = 1
+    private var cnt: Int = -1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_monthly, container, false)
@@ -46,12 +47,15 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
     private fun initDate() {
         startLocalDate = LocalDate.parse(startDate)
         endLocalDate = LocalDate.parse(endDate)
-        timeSpan = (endLocalDate.dayOfYear - startLocalDate.dayOfYear).toLong()
+        timeSpan = when (endLocalDate.dayOfYear - startLocalDate.dayOfYear) {
+            0 ->  1
+            else -> endLocalDate.dayOfYear - startLocalDate.dayOfYear
+        }
     }
 
-    private fun updateDate(span: Long) {
-        startLocalDate = startLocalDate.plusDays(span)
-        endLocalDate = endLocalDate.plusDays(span)
+    private fun updateDate(span: Int) {
+        startLocalDate = startLocalDate.plusDays(span.toLong())
+        endLocalDate = endLocalDate.plusDays(span.toLong())
         startDate = startLocalDate.toString()
         endDate = endLocalDate.toString()
         Log.d("Monthly Date Update", "$startDate ~ $endDate")
@@ -79,7 +83,8 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
             picker.addOnPositiveButtonClickListener {
                 labelAlert.text = picker.headerText.toString()
                 val format = SimpleDateFormat("yyyy-MM-dd")
-                timeSpan = (it.second!! - it.first!!) / (1000 * 3600 * 24)
+                timeSpan = ((it.second!! - it.first!!) / (1000 * 3600 * 24)).toInt()
+                timeSpan = if (timeSpan == 0) 1 else timeSpan
                 Log.d("Monthly Date Picker", timeSpan.toString())
                 startDate = format.format(it.first)
                 startLocalDate = LocalDate.parse(startDate)
@@ -97,6 +102,7 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpView() {
+        if (cnt <= 0) cnt++
         viewModel.billList(startDate, endDate).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) tempList else billList
             labelAlert.text = "$startDate ~ $endDate"
@@ -129,7 +135,7 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
         dailyPrimaryDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            addItemDecoration(getItemDecoration())
+            if (cnt == 0) addItemDecoration(getItemDecoration())
             adapter = MonthlyPrimaryOverviewAdapter(primaryList)
         }
         setUpPrimaryPieView(primaryList)
@@ -156,7 +162,7 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
         dailyAccountDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            addItemDecoration(getItemDecoration())
+            if (cnt == 0) addItemDecoration(getItemDecoration())
             adapter = MonthlyAccountOverviewAdapter(accountList)
         }
         setUpAccountPieView(accountList)
@@ -183,7 +189,7 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
         dailyMemberDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            addItemDecoration(getItemDecoration())
+            if (cnt == 0) addItemDecoration(getItemDecoration())
             adapter = MonthlyMemberOverviewAdapter(memberList)
         }
         setUpMemberPieView(memberList)
@@ -210,7 +216,7 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
         dailyTypeDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            addItemDecoration(getItemDecoration())
+            if (cnt == 0) addItemDecoration(getItemDecoration())
             adapter = MonthlyTypeOverviewAdapter(typeList)
         }
         setUpTypePieView(typeList)

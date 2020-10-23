@@ -26,9 +26,11 @@ import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
 import kotlinx.android.synthetic.main.fragment_daily.*
 import kotlinx.android.synthetic.main.layout_daily_account_overview.*
+import kotlinx.android.synthetic.main.layout_daily_account_overview.view.*
 import kotlinx.android.synthetic.main.layout_daily_member_overview.*
 import kotlinx.android.synthetic.main.layout_daily_primary_overview.*
 import kotlinx.android.synthetic.main.layout_daily_type_overview.*
+import kotlinx.android.synthetic.main.layout_daily_type_overview.view.*
 import java.time.LocalDate
 import kotlin.math.absoluteValue
 
@@ -40,6 +42,7 @@ class DailyFragment(var date: String) : Fragment() {
     private var year: Int = 0
     private var month: Int = 0
     private var day: Int = 0
+    private var cnt: Int = -1
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initSetting() {
@@ -100,6 +103,7 @@ class DailyFragment(var date: String) : Fragment() {
     }
 
     private fun setUpView() {
+        if (cnt <= 0) cnt++
         viewModel.billList(date).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) tempList else billList
             setUpPieView(bills)
@@ -132,7 +136,7 @@ class DailyFragment(var date: String) : Fragment() {
         dailyPrimaryDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            addItemDecoration(getItemDecoration())
+            if (cnt == 0) addItemDecoration(getItemDecoration())
             adapter = DailyPrimaryOverviewAdapter(primaryList)
         }
         setUpPrimaryPieView(primaryList)
@@ -159,7 +163,7 @@ class DailyFragment(var date: String) : Fragment() {
         dailyAccountDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            addItemDecoration(getItemDecoration())
+            if (cnt == 0) addItemDecoration(getItemDecoration())
             adapter = DailyAccountOverviewAdapter(accountList)
         }
         setUpAccountPieView(accountList)
@@ -186,7 +190,7 @@ class DailyFragment(var date: String) : Fragment() {
         dailyMemberDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            addItemDecoration(getItemDecoration())
+            if (cnt == 0) addItemDecoration(getItemDecoration())
             adapter = DailyMemberOverviewAdapter(memberList)
         }
         setUpMemberPieView(memberList)
@@ -213,7 +217,7 @@ class DailyFragment(var date: String) : Fragment() {
         dailyTypeDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            addItemDecoration(getItemDecoration())
+            if (cnt == 0) addItemDecoration(getItemDecoration())
             adapter = DailyTypeOverviewAdapter(typeList)
         }
         setUpTypePieView(typeList)
