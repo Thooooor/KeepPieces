@@ -21,29 +21,24 @@
 
         <include
             android:id="@+id/detailToolbar"
-            layout="@layout/include_toolbar" />
+            layout="@layout/include_detail_toolbar" />
 
         <com.keeppieces.line_chart.LineGraphChart
             android:id="@+id/detailLineChart"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="144dp"
             android:layout_gravity="center"
-            app:curveTopMargin="@dimen/spacing_large"
             app:barColor="@color/color_on_surface_20"
+            app:curveBorderColor="@color/dark_green"
             app:curveFillColor="?attr/colorSurface"
-            app:curveBorderColor="@color/dark_green" />
+            app:curveTopMargin="@dimen/spacing_large" />
 
-        <com.keeppieces.scrollable_tab.ScrollableTab
-            android:id="@+id/tab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:selectedColor="?attr/colorOnSurface"
-            app:unSelectedColor="@color/color_on_surface_20"
-            android:background="?attr/colorSurface"
-            app:tabTextAppearance="?attr/textAppearanceButton" />
+        <include
+            android:id="@+id/detailDateBar"
+            layout="@layout/include_detail_datebar"/>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/detailViewPager"
+        <FrameLayout
+            android:id="@+id/detailFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

@@ -2,7 +2,6 @@ package com.keeppieces.android.ui.detail
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.logic.data.Bill
-import kotlinx.android.synthetic.main.fragment_daily_detail.*
+import kotlinx.android.synthetic.main.fragment_detail.*
 import java.time.LocalDate
 
 
-class DailyDetailFragment : Fragment() {
+class DetailFragment(var startDate: String, var endDate: String, detailType: Int) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_daily_detail, container, false)
+        return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,14 +39,6 @@ class DailyDetailFragment : Fragment() {
     }
 
     companion object {
-        private const val KEY_MONTH = "key-month"
-        fun newInstance(): DailyDetailFragment {
-            Log.d("Detail", "begin")
-            return DailyDetailFragment().apply {
-                arguments = Bundle().apply {  }
-            }
-        }
-
         @RequiresApi(Build.VERSION_CODES.O)
         val tempList = listOf(
             Bill(

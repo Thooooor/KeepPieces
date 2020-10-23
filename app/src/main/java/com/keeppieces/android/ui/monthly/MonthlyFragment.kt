@@ -17,6 +17,7 @@ import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.*
 import com.keeppieces.android.ui.detail.DetailActivity
+import com.keeppieces.android.ui.detail.MonthlyDetail
 import com.keeppieces.android.ui.monthly.adapter.MonthlyAccountOverviewAdapter
 import com.keeppieces.android.ui.monthly.adapter.MonthlyMemberOverviewAdapter
 import com.keeppieces.android.ui.monthly.adapter.MonthlyPrimaryOverviewAdapter
@@ -81,7 +82,6 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
             val picker = builder.build()
             picker.show(childFragmentManager, picker.toString())
             picker.addOnPositiveButtonClickListener {
-                labelAlert.text = picker.headerText.toString()
                 val format = SimpleDateFormat("yyyy-MM-dd")
                 timeSpan = ((it.second!! - it.first!!) / (1000 * 3600 * 24)).toInt()
                 timeSpan = if (timeSpan == 0) 1 else timeSpan
@@ -95,7 +95,7 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
         }
 
         monthlyDetailBtn.setOnClickListener {
-            DetailActivity.start(it.context, LocalDate.now(), LocalDate.now(), R.color.dark_green)
+            DetailActivity.start(it.context, startDate, endDate, MonthlyDetail, R.color.dark_green, timeSpan)
         }
 
     }

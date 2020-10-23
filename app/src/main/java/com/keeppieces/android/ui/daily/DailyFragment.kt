@@ -20,17 +20,16 @@ import com.keeppieces.android.ui.daily.adapter.DailyAccountOverviewAdapter
 import com.keeppieces.android.ui.daily.adapter.DailyMemberOverviewAdapter
 import com.keeppieces.android.ui.daily.adapter.DailyPrimaryOverviewAdapter
 import com.keeppieces.android.ui.daily.adapter.DailyTypeOverviewAdapter
+import com.keeppieces.android.ui.detail.DailyDetail
 import com.keeppieces.android.ui.detail.DetailActivity
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
 import kotlinx.android.synthetic.main.fragment_daily.*
 import kotlinx.android.synthetic.main.layout_daily_account_overview.*
-import kotlinx.android.synthetic.main.layout_daily_account_overview.view.*
 import kotlinx.android.synthetic.main.layout_daily_member_overview.*
 import kotlinx.android.synthetic.main.layout_daily_primary_overview.*
 import kotlinx.android.synthetic.main.layout_daily_type_overview.*
-import kotlinx.android.synthetic.main.layout_daily_type_overview.view.*
 import java.time.LocalDate
 import kotlin.math.absoluteValue
 
@@ -98,7 +97,7 @@ class DailyFragment(var date: String) : Fragment() {
             datePickerDialog.show()
         }
         dailyDetailBtn.setOnClickListener {
-            DetailActivity.start(it.context, LocalDate.now(), LocalDate.now(), R.color.dark_green)
+            DetailActivity.start(it.context, date, date, DailyDetail, R.color.dark_green)
         }
     }
 
