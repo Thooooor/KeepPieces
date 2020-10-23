@@ -1,7 +1,9 @@
 package com.keeppieces.android.ui.daily
 
+import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +33,40 @@ import java.time.LocalDate
 import kotlin.math.absoluteValue
 
 
-class DailyFragment(var date: LocalDate) : Fragment() {
+class DailyFragment(var date: String) : Fragment() {
     private val viewModel: DailyViewModel by viewModels()
+    @RequiresApi(Build.VERSION_CODES.O)
+    private var today = LocalDate.now()
+    private var year: Int = 0
+    private var month: Int = 0
+    private var day: Int = 0
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun initSetting() {
+        today = LocalDate.parse(date)
+        year = today.year
+        month = today.monthValue
+        day = today.dayOfMonth
+        Log.d("Daily Init", "$year-$month-$day")
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun updateDate() {
+        date = today.toString()
+        Log.d("Daily Date Update", date)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun onDatePicker(pickerYear: Int, pickerMonth: Int, pickerDay: Int) {
+        year = pickerYear
+        month = pickerMonth + 1
+        day = pickerDay
+        today = if (month >= 10) {
+            LocalDate.parse("$year-$month-$day")
+        } else {
+            LocalDate.parse("$year-0$month-$day")
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_daily, container, false)
@@ -40,18 +74,32 @@ class DailyFragment(var date: LocalDate) : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpView(date.toString())
+        initSetting()
+        setUpView()
         dailyLeftArrow.setOnClickListener {
-            date.plusDays(-1)
-            setUpView(date.toString())
+            today = today.plusDays(-1)
+            updateDate()
+            setUpView()
         }
         dailyRightArrow.setOnClickListener {
-            date.plusDays(1)
-            setUpView(date.toString())
+            today = today.plusDays(1)
+            updateDate()
+            setUpView()
+        }
+        labelAlert.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(it.context, { _, year, month, dayOfMonth ->
+                onDatePicker(year, month, dayOfMonth)
+                updateDate()
+                setUpView()
+            }, year, month-1, day)
+            datePickerDialog.show()
+        }
+        dailyDetailBtn.setOnClickListener {
+            DetailActivity.start(it.context, LocalDate.now(), LocalDate.now(), R.color.dark_green)
         }
     }
 
-    private fun setUpView(date: String) {
+    private fun setUpView() {
         viewModel.billList(date).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) tempList else billList
             setUpPieView(bills)
@@ -60,13 +108,10 @@ class DailyFragment(var date: LocalDate) : Fragment() {
             setUpAccountCard(bills)
             setUpMemberCard(bills)
         }
-
-        dailyDetailBtn.setOnClickListener {
-            DetailActivity.start(it.context, LocalDate.now(), LocalDate.now(), R.color.dark_green)
-        }
     }
 
     private fun setUpPieView(bills: List<Bill>) {
+        labelAlert.text = date
         val dailyOverview = viewModel.dailyOverview(bills, "green")
         dailyAmount.text = dailyOverview.total.toCHINADFormatted()
         val piePortions = dailyOverview.bills.map {
@@ -165,7 +210,7 @@ class DailyFragment(var date: LocalDate) : Fragment() {
 
     private fun setUpTypeCard(bills: List<Bill>) {
         val typeList = viewModel.dailyTypeList(bills)
-        dailyTypeDetaiRecycler.apply {
+        dailyTypeDetailRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
