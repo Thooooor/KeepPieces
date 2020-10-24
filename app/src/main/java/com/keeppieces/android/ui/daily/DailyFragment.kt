@@ -104,7 +104,7 @@ class DailyFragment(var date: String) : Fragment() {
     private fun setUpView() {
         if (cnt <= 0) cnt++
         viewModel.billList(date).observe(viewLifecycleOwner) { billList ->
-            val bills = if (billList.isEmpty()) tempList else billList
+            val bills = if (billList.isEmpty()) listOf<Bill>() else billList
             setUpPieView(bills)
             setUpTypeCard(bills)
             setUpPrimaryCard(bills)

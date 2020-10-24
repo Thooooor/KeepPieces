@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
@@ -16,6 +17,8 @@ import java.time.LocalDate
 
 
 class DetailFragment(var startDate: String, var endDate: String, detailType: Int) : Fragment() {
+    private val viewModel: DetailViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,12 +33,16 @@ class DetailFragment(var startDate: String, var endDate: String, detailType: Int
     }
 
     private fun setUpRecyclerView() {
-        detail_bill_list.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            setHasFixedSize(true)
-            addItemDecoration(getItemDecoration())
-            adapter = DetailAdapter(tempList)
+        viewModel.billList(startDate, endDate).observe(viewLifecycleOwner) {billList ->
+            val bills = if (billList.isEmpty()) listOf<Bill>() else billList
+            detail_bill_list.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                setHasFixedSize(true)
+                addItemDecoration(getItemDecoration())
+                adapter = DetailAdapter(bills)
+            }
         }
+
     }
 
     companion object {
