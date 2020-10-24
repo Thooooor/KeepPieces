@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(),AddMonthBudgetDialog.SetMonthBudgetInte
         val tabs = generateTabs()
         view_pager.adapter = MainPagerAdapter(supportFragmentManager, tabs)
         view_pager.offscreenPageLimit = 0
-        tab_layout.setUpWithViewPager(view_pager, false)
+        tab_layout.setUpWithViewPager(view_pager, true)
         view_pager.setCurrentItem(0, true)
     }
 

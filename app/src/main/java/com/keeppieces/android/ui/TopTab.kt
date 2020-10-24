@@ -109,7 +109,7 @@ class TopTab @JvmOverloads constructor(
             textView.alpha = 0f
 
             refs.remove(R.id.textView)
-            refs.filterIndexed { index, viewId -> index != position }
+            refs.filterIndexed { index, _ -> index != position }
                 .forEach {
                     findViewById<MaterialButton>(it).iconTint =
                         ColorStateList.valueOf(
@@ -159,7 +159,7 @@ class TopTab @JvmOverloads constructor(
         allowSwipe: Boolean
     ) {
         this.viewPager = viewPager
-        this.viewPager?.swipeEnabled = false
+        this.viewPager?.swipeEnabled = allowSwipe
 
         this.viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
