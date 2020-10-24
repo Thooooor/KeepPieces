@@ -15,11 +15,14 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
+import com.keeppieces.android.ui.monthly.CustomMode
+import com.keeppieces.android.ui.monthly.MonthMode
 import com.keeppieces.line_chart.DataPoint
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.include_detail_datebar.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.chrono.IsoChronology
 
 const val DailyDetail = 0
 const val MonthlyDetail = 1
@@ -32,6 +35,7 @@ const val MemberDetail = 5
 class DetailActivity : AppCompatActivity() {
     private lateinit var startDate: String
     private lateinit var endDate: String
+    private var mode = MonthMode
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +65,7 @@ class DetailActivity : AppCompatActivity() {
                 startLocalDate = LocalDate.parse(startDate)
                 endDate = format.format(it.second)
                 endLocalDate = LocalDate.parse(endDate)
+                updateMode()
                 setupFragment()
             }
         }
@@ -72,11 +77,40 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun updateDate(span: Int) {
-        startLocalDate = startLocalDate.plusDays(span.toLong())
-        endLocalDate = endLocalDate.plusDays(span.toLong())
+        if (mode == MonthMode) {
+            val monthSpan = if (span > 0) 1 else -1
+            startLocalDate = startLocalDate.plusMonths(monthSpan.toLong())
+            endLocalDate = startLocalDate.plusMonths(1).plusDays(-1)
+        } else {
+            startLocalDate = startLocalDate.plusDays(span.toLong())
+            endLocalDate = endLocalDate.plusDays(span.toLong())
+        }
         startDate = startLocalDate.toString()
         endDate = endLocalDate.toString()
         Log.d("Detail Date Update", "$startDate ~ $endDate")
+    }
+
+    private fun updateMode() {
+        val year = endLocalDate.year
+        val month = endLocalDate.monthValue
+        val lastDay = endLocalDate.dayOfMonth
+        mode = if (startLocalDate.dayOfMonth == 1 && startLocalDate.monthValue == month && lastDay >= 28) {
+            when (lastDay) {
+                31 -> MonthMode
+                30 -> when (month) {
+                    4 -> MonthMode
+                    6 -> MonthMode
+                    9 -> MonthMode
+                    11 -> MonthMode
+                    else -> CustomMode
+                }
+                29 -> if (month == 2) MonthMode else CustomMode
+                28 -> if (month == 2 && IsoChronology.INSTANCE.isLeapYear(year.toLong())) MonthMode else CustomMode
+                else -> CustomMode
+            }
+        } else {
+            CustomMode
+        }
     }
 
     private fun setupFragment() {
