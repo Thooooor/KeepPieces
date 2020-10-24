@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import com.keeppieces.android.ui.overview.AddMonthBudgetDialog
-import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_month_summary_card.*
 
@@ -38,9 +37,6 @@ class MainActivity : AppCompatActivity(),AddMonthBudgetDialog.SetMonthBudgetInte
                 .alpha(1f)
                 .setDuration(300)
                 .start()
-        }
-
-        fun reloadFragment(fragment: Fragment) {
         }
     }
 

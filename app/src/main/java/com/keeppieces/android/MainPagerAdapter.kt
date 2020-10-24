@@ -1,6 +1,7 @@
 package com.keeppieces.android
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -11,17 +12,35 @@ import com.keeppieces.android.ui.monthly.MonthlyFragment
 import com.keeppieces.android.ui.overview.OverviewFragment
 import com.keeppieces.android.ui.settings.SettingsFragment
 import java.time.LocalDate
+import java.time.chrono.IsoChronology
+import java.util.*
 
 class MainPagerAdapter(
     fm: FragmentManager,
     private val tabs: List<TabUiModel>
 ) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    private val today = Calendar.getInstance()
+    private val year = today.get(Calendar.YEAR)
+    private var month = today.get(Calendar.MONTH) + 1
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getItem(position: Int): Fragment {
+        val lastDay = when(month) {
+            2 -> if (IsoChronology.INSTANCE.isLeapYear(year.toLong())) 29 else 28
+            4 -> 30
+            6 -> 30
+            9 -> 30
+            11 -> 30
+            else -> 31
+        }
+
+        val startDate = LocalDate.of(year, month, 1).toString()
+        val endDate = LocalDate.of(year, month, lastDay).toString()
+
         return when (position) {
             0 -> OverviewFragment()
             1 -> DailyFragment(LocalDate.now().toString())
-            2 -> MonthlyFragment(LocalDate.now().toString(), LocalDate.now().toString())
+            2 -> MonthlyFragment(startDate, endDate)
             4 -> SettingsFragment()
             else -> DailyFragment(LocalDate.now().toString())
         }

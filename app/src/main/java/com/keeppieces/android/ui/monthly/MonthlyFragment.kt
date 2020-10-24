@@ -32,6 +32,10 @@ import kotlinx.android.synthetic.main.layout_daily_primary_overview.*
 import kotlinx.android.synthetic.main.layout_daily_type_overview.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.chrono.IsoChronology
+
+const val MonthMode = 1
+const val CustomMode = 2
 
 class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
     private val viewModel: MonthlyViewModel by viewModels()
@@ -39,6 +43,7 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
     @RequiresApi(Build.VERSION_CODES.O) var endLocalDate: LocalDate = LocalDate.now()
     private var timeSpan: Int = 1
     private var cnt: Int = -1
+    private var mode = MonthMode
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_monthly, container, false)
@@ -55,11 +60,41 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
     }
 
     private fun updateDate(span: Int) {
-        startLocalDate = startLocalDate.plusDays(span.toLong())
-        endLocalDate = endLocalDate.plusDays(span.toLong())
+        if (mode == MonthMode) {
+            val monthSpan = if (span > 0) 1 else -1
+            startLocalDate = startLocalDate.plusMonths(monthSpan.toLong())
+            endLocalDate = startLocalDate.plusMonths(1).plusDays(-1)
+        } else {
+            startLocalDate = startLocalDate.plusDays(span.toLong())
+            endLocalDate = endLocalDate.plusDays(span.toLong())
+        }
+
         startDate = startLocalDate.toString()
         endDate = endLocalDate.toString()
         Log.d("Monthly Date Update", "$startDate ~ $endDate")
+    }
+
+    private fun updateMode() {
+        val year = endLocalDate.year
+        val month = endLocalDate.monthValue
+        val lastDay = endLocalDate.dayOfMonth
+        mode = if (startLocalDate.dayOfMonth == 1 && startLocalDate.monthValue == month && lastDay >= 28) {
+            when (lastDay) {
+                31 -> MonthMode
+                30 -> when (month) {
+                    4 -> MonthMode
+                    6 -> MonthMode
+                    9 -> MonthMode
+                    11 -> MonthMode
+                    else -> CustomMode
+                }
+                29 -> if (month == 2) MonthMode else CustomMode
+                28 -> if (month == 2 && IsoChronology.INSTANCE.isLeapYear(year.toLong())) MonthMode else CustomMode
+                else -> CustomMode
+            }
+        } else {
+            CustomMode
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -83,13 +118,13 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
             picker.show(childFragmentManager, picker.toString())
             picker.addOnPositiveButtonClickListener {
                 val format = SimpleDateFormat("yyyy-MM-dd")
-                timeSpan = ((it.second!! - it.first!!) / (1000 * 3600 * 24)).toInt()
+                timeSpan = ((it.second!! - it.first!!) / (1000 * 3600 * 24)).toInt() + 1
                 timeSpan = if (timeSpan == 0) 1 else timeSpan
-                Log.d("Monthly Date Picker", timeSpan.toString())
                 startDate = format.format(it.first)
                 startLocalDate = LocalDate.parse(startDate)
                 endDate = format.format(it.second)
                 endLocalDate = LocalDate.parse(endDate)
+                updateMode()
                 setUpView()
             }
         }
