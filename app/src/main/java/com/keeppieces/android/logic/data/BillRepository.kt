@@ -103,12 +103,15 @@ class BillRepository {
 //        val monthLastDay = monthFirstDay.plusMonths(1).minusDays(1)
 //        return billDao.getPeriodBill(monthFirstDay.toString(), monthLastDay.toString())
 //    }
+
+    fun getBillById(billId:Long) = billDao.getBillById(billId)
 }
 
 data class DailyOverview(val total: Double, val bills: List<GeneralBill>)
 data class TodaySummary(val today_total:Double, val bills:List<GeneralBill>)
 
 class GeneralBill(bill: Bill, colorInt: Int){
+    val billId : Long = bill.billId
     val date: String = bill.date
     val amount: Double = bill.amount
     val account: String = bill.account
