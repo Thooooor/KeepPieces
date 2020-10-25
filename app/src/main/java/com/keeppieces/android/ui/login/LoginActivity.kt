@@ -19,38 +19,38 @@ class LoginActivity : AppCompatActivity() {
 
         val pwd = readPwd()
         val gesture = getGesture()
-        if (pwd != ""){
+        if (pwd != "") {
             addFragment(LoginFragment())
-        }else if(gesture != ""){
+        } else if (gesture != "") {
             addFragment(GestureFragment())
         }
 
 
     }
 
-    private fun addFragment(fragment: Fragment){
+    private fun addFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager //获取FragmentManager
         val transaction = fragmentManager.beginTransaction() //开启一个事务
-        transaction.replace(R.id.loginPage,fragment)  //替换容器内的fragment
+        transaction.replace(R.id.loginPage, fragment)  //替换容器内的fragment
         //transaction.addToBackStack(null)    //返回栈,实现按下back键返回上一个fragment
         transaction.commit()    //提交事务
     }
 
-    fun replaceFragment(fragment: Fragment){
+    fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager //获取FragmentManager
         val transaction = fragmentManager.beginTransaction() //开启一个事务
-        transaction.replace(R.id.loginPage,fragment)  //替换容器内的fragment
+        transaction.replace(R.id.loginPage, fragment)  //替换容器内的fragment
         // transaction.addToBackStack(null)    //返回栈,实现按下back键返回上一个fragment
         transaction.commit()    //提交事务
     }
 
     private fun readPwd(): String {
         val prefs = getSharedPreferences("password", Context.MODE_PRIVATE)
-        val pwd = prefs.getString("pwd","")
+        val pwd = prefs.getString("pwd", "")
         return pwd.toString()
     }
 
-    private fun getGesture():String{
+    private fun getGesture(): String {
         val share = getSharedPreferences("password", Context.MODE_PRIVATE)
         val gesture = share.getString("gesture", "")
         return gesture.toString()

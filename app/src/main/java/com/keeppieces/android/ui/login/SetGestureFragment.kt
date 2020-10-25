@@ -12,7 +12,7 @@ import com.keeppieces.ninelock.NineLockListener
 import com.keeppieces.ninelock.NineLockView
 import kotlinx.android.synthetic.main.fragment_set_gesture.*
 
-class SetGestureFragment :Fragment(), NineLockListener{
+class SetGestureFragment : Fragment(), NineLockListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,14 +39,14 @@ class SetGestureFragment :Fragment(), NineLockListener{
 
     override fun onLockResult(result: IntArray?) {
         val firstActivity = context as FirstActivity
-        val stringBuffer=StringBuffer()
-        for(i in result!!.indices){
+        val stringBuffer = StringBuffer()
+        for (i in result!!.indices) {
             stringBuffer.append(result[i])
             //print("${result[i]}  -> ")
         }
         val tempPwd = stringBuffer.toString()
         firstActivity.sendSetData(tempPwd)
-        Toast.makeText(firstActivity,"请确认图案密码", Toast.LENGTH_SHORT).show()
+        Toast.makeText(firstActivity, "请确认图案密码", Toast.LENGTH_SHORT).show()
         firstActivity.replaceFragment(ConfirmGestureFragment())
 
     }

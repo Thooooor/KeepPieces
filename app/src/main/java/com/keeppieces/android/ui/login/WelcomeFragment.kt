@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.keeppieces.android.R
 import kotlinx.android.synthetic.main.fragment_welcome.*
 
-class WelcomeFragment:Fragment() {
+class WelcomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,18 +27,18 @@ class WelcomeFragment:Fragment() {
 
     }
 
-    private fun init(){
+    private fun init() {
         val firstActivity = activity as FirstActivity
         //获取登录状态，判断是否有密码
         val share = firstActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
         val pwd = share.getString("pwd", "")
-        val gesture = share.getString("gesture","")
+        val gesture = share.getString("gesture", "")
         //第一次登录
-        if (pwd == "" && gesture=="") {
-            passwordSelect?.setOnClickListener{
+        if (pwd == "" && gesture == "") {
+            passwordSelect?.setOnClickListener {
                 firstActivity.replaceFragment(SetPasswordFragment())
             }
-            gestureSelect?.setOnClickListener{
+            gestureSelect?.setOnClickListener {
                 firstActivity.replaceFragment(SetGestureFragment())
             }
         } else {
@@ -47,8 +47,8 @@ class WelcomeFragment:Fragment() {
     }
 
     //切换到登录界面
-    private fun login(){
-        val intent = Intent(activity,LoginActivity::class.java)
+    private fun login() {
+        val intent = Intent(activity, LoginActivity::class.java)
         startActivity(intent)
         activity?.finish()
     }
