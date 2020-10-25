@@ -1,13 +1,10 @@
 package com.keeppieces.android.ui.overview
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,17 +12,14 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.*
 import com.keeppieces.android.ui.bill.BillActivity
-import com.keeppieces.android.ui.daily.DailyFragment
 import com.keeppieces.android.ui.overview.homepage_card_adapter.AccountSummaryCardAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.MemberSummaryCardAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.TodaySummaryCardAdapter
@@ -36,7 +30,6 @@ import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_overview.*
-import kotlinx.android.synthetic.main.item_summary_card.*
 import kotlinx.android.synthetic.main.layout_account_summary_card.*
 import kotlinx.android.synthetic.main.layout_member_summary_card.*
 import kotlinx.android.synthetic.main.layout_month_summary_card.*
@@ -76,6 +69,7 @@ class OverviewFragment : Fragment() {
         if (savedYear == nowYear && savedMonth == nowMonth && savedMonthBudget!=null){
             button_set_month_budget.text = StringBuilder("￥$savedMonthBudget").toString()
         }
+        setUpCardView()
         addFab.setOnClickListener {
             BillActivity.start(requireContext(),null)
         }
@@ -91,7 +85,6 @@ class OverviewFragment : Fragment() {
         button_set_month_budget.setOnClickListener {
             addMonthBudgetDialog.show(fragmentManager,"addMonthBudget")
         }
-        setUpCardView()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
