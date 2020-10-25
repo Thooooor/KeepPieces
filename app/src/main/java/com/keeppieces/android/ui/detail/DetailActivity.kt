@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
 import com.keeppieces.android.ui.monthly.CustomMode
+import com.keeppieces.android.ui.monthly.DayMode
 import com.keeppieces.android.ui.monthly.MonthMode
 import com.keeppieces.line_chart.DataPoint
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -74,6 +75,10 @@ class DetailActivity : AppCompatActivity() {
     private fun initDate() {
         startDate = startLocalDate.toString()
         endDate = endLocalDate.toString()
+        mode = when (timeSpan) {
+            1 -> DayMode
+            else -> MonthMode
+        }
     }
 
     private fun updateDate(span: Int) {
@@ -108,6 +113,8 @@ class DetailActivity : AppCompatActivity() {
                 28 -> if (month == 2 && IsoChronology.INSTANCE.isLeapYear(year.toLong())) MonthMode else CustomMode
                 else -> CustomMode
             }
+        } else if (timeSpan == 1) {
+            DayMode
         } else {
             CustomMode
         }

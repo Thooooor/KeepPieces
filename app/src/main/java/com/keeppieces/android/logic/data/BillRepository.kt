@@ -108,7 +108,7 @@ class BillRepository {
 }
 
 data class DailyOverview(val total: Double, val bills: List<GeneralBill>)
-data class TodaySummary(val today_total:Double, val bills:List<GeneralBill>)
+data class TodaySummary(val today_total: Double, val bills: List<GeneralBill>)
 
 class GeneralBill(bill: Bill, colorInt: Int){
     val billId : Long = bill.billId
@@ -119,12 +119,13 @@ class GeneralBill(bill: Bill, colorInt: Int){
     val primaryCategory: String = bill.primaryCategory
     val secondaryCategory: String = bill.secondaryCategory
     val type: String = bill.type
-    @ColorRes val color: Int = colorInt
+    @ColorRes
+    val color: Int = colorInt
 }
 
-fun getGeneralBillSecondaryCategory(generalBill: GeneralBill):String = generalBill.secondaryCategory
-fun getGeneralBillAmount(generalBill: GeneralBill):Double = generalBill.amount
-fun getGeneralBillColorInt(generalBill: GeneralBill):Int = generalBill.color
+fun getGeneralBillSecondaryCategory(generalBill: GeneralBill): String = generalBill.secondaryCategory
+fun getGeneralBillAmount(generalBill: GeneralBill): Double = generalBill.amount
+fun getGeneralBillColorInt(generalBill: GeneralBill): Int = generalBill.color
 
 
 

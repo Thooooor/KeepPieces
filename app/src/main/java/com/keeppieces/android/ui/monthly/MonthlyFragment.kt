@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.chrono.IsoChronology
 
+const val DayMode = 0
 const val MonthMode = 1
 const val CustomMode = 2
 
@@ -53,10 +54,7 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
     private fun initDate() {
         startLocalDate = LocalDate.parse(startDate)
         endLocalDate = LocalDate.parse(endDate)
-        timeSpan = when (endLocalDate.dayOfYear - startLocalDate.dayOfYear) {
-            0 ->  1
-            else -> endLocalDate.dayOfYear - startLocalDate.dayOfYear
-        }
+        timeSpan = endLocalDate.dayOfYear - startLocalDate.dayOfYear + 1
     }
 
     private fun updateDate(span: Int) {
