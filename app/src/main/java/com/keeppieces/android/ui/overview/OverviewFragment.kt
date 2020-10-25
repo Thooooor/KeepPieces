@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.keeppieces.android.ui.overview
 
 import android.content.Context
@@ -97,8 +99,7 @@ class OverviewFragment : Fragment() {
 
         // 更新并展示本月、本日概要卡片
         viewModel.allBillLiveData.observe(viewLifecycleOwner) { billList ->
-            // val allBillList = if (billList.isEmpty()) tempList else billList
-            val allBillList = tempList  // 数据库里好像加入了2020/10/15这条数据...
+            val allBillList = if (billList.isEmpty()) tempList else billList
             // 不从数据库中获取数据，对全表数据进行处理
             val nowMonthBillList = viewModel.getPeriodBillWithoutDao(
                 firstMonthDate.toString(), lastMonthDate.toString(),allBillList)
@@ -111,23 +112,22 @@ class OverviewFragment : Fragment() {
 
         // 更新并展示账户卡片
         viewModel.allAccountLiveData.observe(viewLifecycleOwner) { accountList ->
-            // val allAccountList = if(accountList.isEmpty()) tempAccountList else accountList
-            val allAccountList = tempAccountList
+            val allAccountList = if(accountList.isEmpty()) tempAccountList else accountList
             setUpAccountSummaryCardView(allAccountList)
         }
 
     }
 
     private fun setUpMonthSummaryCardView(bills: List<Bill>) {  // bills：这个月的账单表
-        var monthIncome:Double = 0.00
-        var monthExpenditure:Double = 0.00
+        var monthIncome = 0.00
+        var monthExpenditure = 0.00
         for(bill in bills) {
             when(bill.type) {
                 "收入" -> monthIncome += bill.amount
                 else -> monthExpenditure += bill.amount
             }
         }
-        val piePortions = listOf<PiePortion>(
+        val piePortions = listOf(
             PiePortion("支出",monthExpenditure, ContextCompat.getColor(requireContext(), R.color.green_800)),
             PiePortion("收入",monthIncome,ContextCompat.getColor(requireContext(), R.color.green_600)))
         val pieData = PieData(portions = piePortions)
@@ -197,7 +197,6 @@ class OverviewFragment : Fragment() {
 
     companion object {
         const val TAG = "OverviewFragment"
-        private const val KEY_DAY = "key-day"
 
         @RequiresApi(Build.VERSION_CODES.O)
         val tempList = listOf(
@@ -267,7 +266,7 @@ class OverviewFragment : Fragment() {
         )
     }
 
-    val tempAccountList = listOf(
+    private val tempAccountList = listOf(
         Account("微信",999.00),
         Account("支付宝",-1230.00),
         Account("校园卡",246.40),

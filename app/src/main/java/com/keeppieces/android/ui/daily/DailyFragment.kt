@@ -104,7 +104,7 @@ class DailyFragment(var date: String) : Fragment() {
     private fun setUpView() {
         if (cnt <= 0) cnt++
         viewModel.billList(date).observe(viewLifecycleOwner) { billList ->
-            val bills = if (billList.isEmpty()) listOf<Bill>() else billList
+            val bills = if (billList.isEmpty()) listOf() else billList
             setUpPieView(bills)
             setUpTypeCard(bills)
             setUpPrimaryCard(bills)
@@ -238,72 +238,5 @@ class DailyFragment(var date: String) : Fragment() {
         dailyTypeOverviewPie.setPieData(pieData = pieData, animation = pieAnimation)
     }
 
-    companion object {
-        @RequiresApi(Build.VERSION_CODES.O)
-        val tempList = listOf(
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 6.60,
-                account = "校园卡",
-                member = "自己",
-                primaryCategory = "三餐",
-                secondaryCategory = "早餐",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 23.60,
-                account = "微信",
-                member = "自己",
-                primaryCategory = "三餐",
-                secondaryCategory = "午餐",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 47.09,
-                account = "校园卡",
-                member = "自己",
-                primaryCategory = "三餐",
-                secondaryCategory = "晚餐",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 1299.00,
-                account = "支付宝",
-                member = "妈妈",
-                primaryCategory = "衣物",
-                secondaryCategory = "鞋子",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 229.90,
-                account = "现金",
-                member = "男朋友",
-                primaryCategory = "人情",
-                secondaryCategory = "礼物",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 999.0,
-                account = "微信",
-                member = "自己",
-                primaryCategory = "衣物",
-                secondaryCategory = "外套",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 2000.00,
-                account = "微信",
-                member = "妈妈",
-                primaryCategory = "家",
-                secondaryCategory = "生活费",
-                type = "收入"
-            ),
-        )
-    }
+    companion object
 }
