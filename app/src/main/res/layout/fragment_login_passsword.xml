@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/hand_coin_line"
+                android:src="@drawable/ic_logo"
                 android:contentDescription="@string/appLogo" />
 
         </LinearLayout>
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/lock_black" />
+            android:src="@drawable/ic_lock" />
 
         <EditText
             android:id="@+id/passwordEdit"
@@ -65,8 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/trailin_icon"
-            android:contentDescription="@string/changeInputType" />
+            android:contentDescription="@string/changeInputType"
+            android:src="@drawable/ic_trailing_icon" />
 
     </LinearLayout>
 
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_fingerprint" />
+                android:src="@drawable/ic_fingerprint" />
 
             <TextView
                 android:layout_width="wrap_content"

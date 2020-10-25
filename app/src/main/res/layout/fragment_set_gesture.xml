@@ -29,30 +29,10 @@
             android:textSize="28sp" />
     </androidx.appcompat.widget.Toolbar>
 
-
     <com.keeppieces.ninelock.NineLockView
         android:id="@+id/gesture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center" />
-
-    <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/setConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/shape"
-            android:text="@string/confirm"
-
-            android:textColor="@color/color_on_primary"
-            android:textSize="20sp" />
-
-    </LinearLayout>-->
 
 </LinearLayout>
