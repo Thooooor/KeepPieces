@@ -9,7 +9,7 @@ class BillRepository {
     private val billDao = AppDatabase.getDatabase(context).billDao()
     private val repository = com.keeppieces.android.logic.Repository
 
-    fun insertBill(bill: Bill) {
+    fun insertBill(bill:Bill) {
         bill.billId = billDao.insertBill(bill)
     }
 
@@ -53,19 +53,17 @@ class BillRepository {
         billDao.deleteBill(bill)
     }
 
+    fun loadAllBillByAmount() = billDao.loadAllBillByAmount()
+
     fun getAllBill() = billDao.getAllBill()
 
-    //    // startDateString、endDataString的格式：2020-10-14，返回区间内的账单信息
-    fun getPeriodBillWithoutDao(
-        startDateString: String,
-        endDateString: String,
-        allBills: List<Bill>
-    ): MutableList<Bill> {
+//    // startDateString、endDataString的格式：2020-10-14，返回区间内的账单信息
+    fun getPeriodBillWithoutDao(startDateString: String, endDateString:String, allBills:List<Bill>):MutableList<Bill>{
         val startDate = date2Int(startDateString)
         val endDate = date2Int(endDateString)
         val periodBills = mutableListOf<Bill>()
-        for (bill in allBills) {
-            Log.d("CheckBill", bill.date)
+        for(bill in allBills){
+            Log.d("CheckBill",bill.date)
             val billDate = date2Int(bill.date)
             if (billDate in startDate..endDate) {
                 periodBills.add(bill)
@@ -74,12 +72,12 @@ class BillRepository {
         return periodBills
     }
 
-    private fun date2Int(date: String): Int = date.replace("-", "").toInt()
+   private fun date2Int(date:String):Int = date.replace("-","").toInt()
 
     fun getOneDaySummary(bills: List<Bill>, color: String): TodaySummary {
         val primaryList = mutableListOf<String>()
         val newBills = mutableListOf<GeneralBill>()
-        var total = 0.00
+        var total= 0.00
         for (bill in bills) {
             val primary = bill.primaryCategory
             if (!primaryList.contains(primary)) {
@@ -88,7 +86,7 @@ class BillRepository {
             val primaryIndex = primaryList.indexOf(primary)
             val primaryColorInt = repository.getColorInt(color, primaryIndex)
             newBills.add(GeneralBill(bill, primaryColorInt))
-            when (bill.type) {
+            when(bill.type) {
                 "收入" -> total += bill.amount
                 else -> total -= bill.amount
             }
@@ -105,12 +103,15 @@ class BillRepository {
 //        val monthLastDay = monthFirstDay.plusMonths(1).minusDays(1)
 //        return billDao.getPeriodBill(monthFirstDay.toString(), monthLastDay.toString())
 //    }
+
+    fun getBillById(billId:Long) = billDao.getBillById(billId)
 }
 
 data class DailyOverview(val total: Double, val bills: List<GeneralBill>)
 data class TodaySummary(val today_total: Double, val bills: List<GeneralBill>)
 
-class GeneralBill(bill: Bill, colorInt: Int) {
+class GeneralBill(bill: Bill, colorInt: Int){
+    val billId : Long = bill.billId
     val date: String = bill.date
     val amount: Double = bill.amount
     val account: String = bill.account
