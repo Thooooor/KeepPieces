@@ -1,13 +1,12 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.keeppieces.android.ui.overview
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,17 +14,14 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.*
 import com.keeppieces.android.ui.bill.BillActivity
-import com.keeppieces.android.ui.daily.DailyFragment
 import com.keeppieces.android.ui.overview.homepage_card_adapter.AccountSummaryCardAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.MemberSummaryCardAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.TodaySummaryCardAdapter
@@ -36,7 +32,6 @@ import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_overview.*
-import kotlinx.android.synthetic.main.item_summary_card.*
 import kotlinx.android.synthetic.main.layout_account_summary_card.*
 import kotlinx.android.synthetic.main.layout_member_summary_card.*
 import kotlinx.android.synthetic.main.layout_month_summary_card.*
@@ -76,6 +71,7 @@ class OverviewFragment : Fragment() {
         if (savedYear == nowYear && savedMonth == nowMonth && savedMonthBudget!=null){
             button_set_month_budget.text = StringBuilder("￥$savedMonthBudget").toString()
         }
+        setUpCardView()
         addFab.setOnClickListener {
             BillActivity.start(requireContext(),null)
         }
@@ -91,7 +87,6 @@ class OverviewFragment : Fragment() {
         button_set_month_budget.setOnClickListener {
             addMonthBudgetDialog.show(fragmentManager,"addMonthBudget")
         }
-        setUpCardView()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -104,8 +99,7 @@ class OverviewFragment : Fragment() {
 
         // 更新并展示本月、本日概要卡片
         viewModel.allBillLiveData.observe(viewLifecycleOwner) { billList ->
-            // val allBillList = if (billList.isEmpty()) tempList else billList
-            val allBillList = tempList  // 数据库里好像加入了2020/10/15这条数据...
+            val allBillList = if (billList.isEmpty()) tempList else billList
             // 不从数据库中获取数据，对全表数据进行处理
             val nowMonthBillList = viewModel.getPeriodBillWithoutDao(
                 firstMonthDate.toString(), lastMonthDate.toString(),allBillList)
@@ -118,23 +112,22 @@ class OverviewFragment : Fragment() {
 
         // 更新并展示账户卡片
         viewModel.allAccountLiveData.observe(viewLifecycleOwner) { accountList ->
-            // val allAccountList = if(accountList.isEmpty()) tempAccountList else accountList
-            val allAccountList = tempAccountList
+            val allAccountList = if(accountList.isEmpty()) tempAccountList else accountList
             setUpAccountSummaryCardView(allAccountList)
         }
 
     }
 
     private fun setUpMonthSummaryCardView(bills: List<Bill>) {  // bills：这个月的账单表
-        var monthIncome:Double = 0.00
-        var monthExpenditure:Double = 0.00
+        var monthIncome = 0.00
+        var monthExpenditure = 0.00
         for(bill in bills) {
             when(bill.type) {
                 "收入" -> monthIncome += bill.amount
                 else -> monthExpenditure += bill.amount
             }
         }
-        val piePortions = listOf<PiePortion>(
+        val piePortions = listOf(
             PiePortion("支出",monthExpenditure, ContextCompat.getColor(requireContext(), R.color.green_800)),
             PiePortion("收入",monthIncome,ContextCompat.getColor(requireContext(), R.color.green_600)))
         val pieData = PieData(portions = piePortions)
@@ -204,7 +197,6 @@ class OverviewFragment : Fragment() {
 
     companion object {
         const val TAG = "OverviewFragment"
-        private const val KEY_DAY = "key-day"
 
         @RequiresApi(Build.VERSION_CODES.O)
         val tempList = listOf(
@@ -274,7 +266,7 @@ class OverviewFragment : Fragment() {
         )
     }
 
-    val tempAccountList = listOf(
+    private val tempAccountList = listOf(
         Account("微信",999.00),
         Account("支付宝",-1230.00),
         Account("校园卡",246.40),

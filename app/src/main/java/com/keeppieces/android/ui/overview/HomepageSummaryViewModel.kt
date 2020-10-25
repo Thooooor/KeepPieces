@@ -19,14 +19,14 @@ class HomepageSummaryViewModel:ViewModel() {
 
     fun getTodaySummary(oneDayBills: List<Bill>, color: String) = billRepository.getOneDaySummary(oneDayBills, color)  // bills 今日账单
 
-    fun getAllBill() = billRepository.getAllBill()
+    private fun getAllBill() = billRepository.getAllBill()
 
     // 从 bills 挑选出 符合时间区间条件的 所有账单
     fun getPeriodBillWithoutDao(startDate:String, endDate:String, bills: List<Bill>) = billRepository.getPeriodBillWithoutDao(startDate,endDate,bills)
 
-    fun getAllAccount() = accountRepository.getAccount()
+    private fun getAllAccount() = accountRepository.getAccount()
 
-    fun getAccountSummary(allAccounts:List<Account>, posituveColor:String, negativeColor:String) =  accountRepository.getAccountSummary(allAccounts, posituveColor, negativeColor)
+    fun getAccountSummary(allAccounts:List<Account>, positiveColor:String, negativeColor:String) =  accountRepository.getAccountSummary(allAccounts, positiveColor, negativeColor)
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun getMemberMonthSummary(monthBillList:List<Bill>, color:String) = memberRepository.getMemberMonthSummary(monthBillList,color)

@@ -1,19 +1,20 @@
 package com.keeppieces.android.ui.detail
 
-import android.os.Build
+import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.logic.data.Bill
 import kotlinx.android.synthetic.main.fragment_detail.*
-import java.time.LocalDate
 
 
 class DetailFragment(var startDate: String, var endDate: String, detailType: Int) : Fragment() {
@@ -32,76 +33,47 @@ class DetailFragment(var startDate: String, var endDate: String, detailType: Int
         setUpRecyclerView()
     }
 
+    private val myCallback = object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean = false
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+
+            Log.d("Detail", position.toString())
+        }
+
+        override fun onChildDraw(
+            c: Canvas,
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            dX: Float,
+            dY: Float,
+            actionState: Int,
+            isCurrentlyActive: Boolean
+        ) {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            c.clipRect(0f, viewHolder.itemView.top.toFloat(), dX, viewHolder.itemView.bottom.toFloat())
+        }
+    }
+
     private fun setUpRecyclerView() {
         viewModel.billList(startDate, endDate).observe(viewLifecycleOwner) {billList ->
             val bills = if (billList.isEmpty()) listOf<Bill>() else billList
-            detail_bill_list.apply {
+            detailBillList.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
                 addItemDecoration(getItemDecoration())
                 adapter = DetailAdapter(bills)
+                val myHelper = ItemTouchHelper(myCallback)
+                myHelper.attachToRecyclerView(this)
             }
         }
 
     }
 
-    companion object {
-        @RequiresApi(Build.VERSION_CODES.O)
-        val tempList = listOf(
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 6.60,
-                account = "校园卡",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Breakfast",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 23.60,
-                account = "Wechat",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Lunch",
-                type = "支出"
-            ),
-            Bill(
-                date = "2020-10-14",
-                amount = 47.09,
-                account = "校园卡",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Dinner",
-                type = "支出"
-            ),
-            Bill(
-                date = "2020-10-14",
-                amount =1299.00,
-                account = "Alipay",
-                member = "Mom",
-                primaryCategory = "Wearing",
-                secondaryCategory = "Shoes",
-                type = "支出"
-            ),
-            Bill(
-                date = "2020-10-16",
-                amount = 229.90,
-                account = "Cash",
-                member = "boy friend",
-                primaryCategory = "人情",
-                secondaryCategory = "礼物",
-                type = "支出"
-            ),
-            Bill(
-                date = "2020-10-16",
-                amount = 999.0,
-                account = "Wechat",
-                member = "Me",
-                primaryCategory = "Wearing",
-                secondaryCategory = "Shoes",
-                type = "支出"
-            ),
-        )
-    }
+    companion object
 }
