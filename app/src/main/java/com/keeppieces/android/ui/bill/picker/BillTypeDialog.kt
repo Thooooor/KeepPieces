@@ -54,6 +54,7 @@ class BillTypeDialog : DialogFragment() {
         val cardItem: ArrayList<String> = viewModel.findTypeList()
         val adapter = ArrayWheelAdapter(cardItem)
         inType.adapter = adapter
+        type = cardItem[0]
 
         inType.setOnItemSelectedListener { index ->
             type = cardItem[index]

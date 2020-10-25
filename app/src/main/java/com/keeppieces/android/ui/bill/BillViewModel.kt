@@ -1,7 +1,5 @@
 package com.keeppieces.android.ui.bill
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.keeppieces.android.logic.data.*
@@ -21,8 +19,8 @@ class BillViewModel() : ViewModel() {
     )
 
     fun addBill(bill: Bill) {
+//        AccountRepository().createAccount(Account(bill.account, bill.amount))
         thread {
-            AccountRepository().createAccount(Account(bill.account, bill.amount))
             MemberRepository().createMember(Member(bill.member))
             PrimaryCategoryRepository().createPrimaryCategory(PrimaryCategory(bill.primaryCategory))
             SecondaryCategoryRepository().createSecondaryCategory(

@@ -19,6 +19,9 @@ class BillTimeDialog(private val inputDate: String) : DialogFragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     var date : LocalDate = LocalDate.now()
+    lateinit var year : NumberPicker
+    lateinit var month : NumberPicker
+    lateinit var day : NumberPicker
 
     private lateinit var listener : BillTimeDialogListener
     interface BillTimeDialogListener{
@@ -43,9 +46,9 @@ class BillTimeDialog(private val inputDate: String) : DialogFragment() {
         val builder = AlertDialog.Builder(activity)
         val inflater = requireActivity().layoutInflater
         val view = inflater.inflate(R.layout.bill_dialog_date, null)
-        val year : NumberPicker = view.findViewById(R.id.yearPicker)
-        val month : NumberPicker = view.findViewById(R.id.monthPicker)
-        val day : NumberPicker = view.findViewById(R.id.dayPicker)
+        year = view.findViewById(R.id.yearPicker)
+        month = view.findViewById(R.id.monthPicker)
+        day = view.findViewById(R.id.dayPicker)
 
         date = LocalDate.parse(inputDate)
         year.apply {
@@ -60,15 +63,15 @@ class BillTimeDialog(private val inputDate: String) : DialogFragment() {
             value = date.monthValue
             wrapSelectorWheel = false
         }
-        day.value = date.dayOfMonth
 
-        daySet(year.value, month.value, day)
+        daySet(date.year, date.monthValue, day, date.dayOfMonth)
+
         year.setOnValueChangedListener { _, _, _ ->
-            daySet(year.value, month.value, day)
+            daySet(year.value, month.value, day, day.value)
         }
 
         month.setOnValueChangedListener { _, _, _ ->
-            daySet(year.value, month.value, day)
+            daySet(year.value, month.value, day, day.value)
         }
 
         builder.setTitle("日期选择")
@@ -96,31 +99,35 @@ class BillTimeDialog(private val inputDate: String) : DialogFragment() {
         dialog?.window?.setBackgroundDrawableResource(R.color.color_status_bar)
     }
 
-    private fun daySet(year: Int, month: Int, day: NumberPicker) {
+    private fun daySet(year: Int, month: Int, day: NumberPicker, dayValue: Int) {
         if (month in listOf<Int>(1,3,5,7,8,10,12)) {
             day.apply {
                 maxValue = 31
                 minValue = 1
-                value = day.value
+                value = dayValue
+                wrapSelectorWheel = false
             }
         } else if (month in listOf<Int>(4,6,9,11)) {
             day.apply {
                 maxValue = 30
                 minValue = 1
-                value = day.value
+                value = dayValue
+                wrapSelectorWheel = false
             }
         } else {
             if (year%4 == 0 && year%400 != 0) {
                 day.apply {
                     maxValue = 29
                     minValue = 1
-                    value = day.value
+                    value = dayValue
+                    wrapSelectorWheel = false
                 }
             } else {
                 day.apply {
                     maxValue = 28
                     minValue = 1
-                    value = day.value
+                    value = dayValue
+                    wrapSelectorWheel = false
                 }
             }
         }

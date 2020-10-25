@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
@@ -57,6 +56,7 @@ class BillAccountDialog : DialogFragment() {
         viewModel.findAccountList().observe(this, { listTmp ->
             cardItem = if (listTmp.isEmpty()) listOf("微信") else listTmp.map { tmp -> tmp.name }
             inAccount.adapter = ArrayWheelAdapter(cardItem)
+            account = cardItem[0]
         })
 
         inAccount.setOnItemSelectedListener { index ->
