@@ -106,12 +106,15 @@ class BillRepository {
 
     fun getABill(id: Long) = billDao.getABill(id)
     fun getBillById(billId:Long) = billDao.getBillById(billId)
+    fun getBillByGeneralBill(generalBill: GeneralBill) = Bill(
+        generalBill.date,generalBill.amount, generalBill.account,generalBill.member,
+        generalBill.primaryCategory,generalBill.secondaryCategory,generalBill.type)
 }
 
 data class DailyOverview(val total: Double, val bills: List<GeneralBill>)
 data class TodaySummary(val today_total: Double, val bills: List<GeneralBill>)
 
-class GeneralBill(bill: Bill, colorInt: Int){
+class GeneralBill(bill: Bill, colorInt: Int){  // 比 Bill类多一个color
     val billId : Long = bill.billId
     val date: String = bill.date
     val amount: Double = bill.amount
