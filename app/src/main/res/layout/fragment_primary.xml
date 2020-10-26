@@ -1,131 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.monthly.MonthlyFragment">
+    tools:context=".ui.categoryDetail.PrimaryCategory.PrimaryCategoryOverviewFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".1" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".1" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".9" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".9" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/keyline_start"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/spacing_keyline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/keyLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/spacing_keyline" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/keyline_end"
-            app:layout_constraintGuide_end="@dimen/spacing_keyline"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/keyLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/spacing_keyline" />
 
-        <ImageView
-            android:id="@+id/monthlyLeftArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="160dp"
-            android:layout_marginEnd="@dimen/spacing_medium"
-            android:contentDescription="@string/monthlyLeftArrow"
-            android:src="@drawable/ic_left_arrow"
-            app:layout_constraintEnd_toEndOf="@id/guideline1"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/keyline_start"
-            app:layout_constraintBottom_toBottomOf="@id/monthlyAmount"
-            app:tint="?attr/colorPrimaryVariant" />
+            <ImageView
+                android:id="@+id/monthlyLeftArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:contentDescription="@string/monthlyLeftArrow"
+                android:src="@drawable/ic_left_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/PrimaryAmountInTimeSpan"
+                app:layout_constraintEnd_toEndOf="@id/guideline1"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/keyLineStart"
+                app:tint="?attr/colorPrimaryVariant" />
 
-        <ImageView
-            android:id="@+id/monthlyRightArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="160dp"
-            android:layout_marginEnd="@dimen/spacing_medium"
-            android:contentDescription="@string/monthlyRightArrow"
-            android:src="@drawable/ic_right_arrow"
-            app:layout_constraintEnd_toEndOf="@id/keyline_end"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/guideline2"
-            app:layout_constraintBottom_toBottomOf="@id/monthlyAmount"
-            android:tint="?attr/colorPrimaryVariant" />
+            <ImageView
+                android:id="@+id/monthlyRightArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:contentDescription="@string/monthlyRightArrow"
+                android:src="@drawable/ic_right_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/PrimaryAmountInTimeSpan"
+                app:layout_constraintEnd_toEndOf="@id/keyLineEnd"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:tint="?attr/colorPrimaryVariant" />
 
-        <com.keeppieces.pie_chart.PieChart
-            android:id="@+id/pieChart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/spacing_small"
-            app:layout_constraintEnd_toEndOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/categoryTagTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                tools:text="分类"
+                style="?attr/textAppearanceHeadline5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/monthlyAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="￥2,132.34"
-            app:layout_constraintBottom_toBottomOf="@id/pieChart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/pieChart"
-            style="?attr/textAppearanceHeadline3" />
+            <com.keeppieces.pie_chart.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/categoryTagTitle"/>
 
-        <TextView
-            android:id="@+id/labelAlert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:text="@string/label_total"
-            app:layout_constraintBottom_toTopOf="@id/monthlyAmount"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            style="?attr/textAppearanceSubtitle2" />
+            <TextView
+                android:id="@+id/PrimaryAmountInTimeSpan"
+                style="?attr/textAppearanceHeadline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/pieChart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/pieChart"
+                tools:text="￥2,132.34" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/monthlyDetailBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/monthlyAmount"
-            app:icon="@drawable/ic_info_outline"
-            style="@style/Widget.Rally.Button.IconOnly" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/primaryOverviewCardList"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            app:layout_constraintStart_toStartOf="@+id/keyline_start"
-            app:layout_constraintEnd_toEndOf="@+id/keyline_end"
-            android:layout_marginTop="@dimen/vertical_gutters_half"
-            app:layout_constraintTop_toBottomOf="@+id/pieChart"
-            tools:itemCount="3"
-            tools:listitem="@layout/layout_type_overview_card"
-            />
+            <TextView
+                android:id="@+id/timeSpanView"
+                style="?attr/textAppearanceSubtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                tools:text="时间范围"
+                app:layout_constraintBottom_toTopOf="@id/PrimaryAmountInTimeSpan"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/primaryOverviewRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/pieChart"
+                tools:itemCount="3"
+                tools:layout_editor_absoluteX="0dp"
+                tools:listitem="@layout/layout_type_overview_card" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

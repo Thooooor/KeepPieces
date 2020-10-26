@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/materialCardView"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,71 +19,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <View
-            android:id="@+id/overView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
+        <com.keeppieces.line_indicator.VerticalBar
+            android:id="@+id/cardVerticalBar"
+            android:layout_width="4dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/spacing_small"
+            app:layout_constraintBottom_toTopOf="@id/overviewInfo"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".0" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".3" />
-
-        <com.keeppieces.pie_chart.PieChart
-            android:id="@+id/cardOverviewPie"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/spacing_small"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="?attr/colorSecondary"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/cardTitle"
+            android:id="@+id/carTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/cardOverviewPie"
-            app:layout_constraintStart_toStartOf="@id/cardOverviewPie"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toTopOf="@id/overviewInfo"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="名称" />
-
-        <View
-            android:id="@+id/cardOverviewInfo"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toEndOf="@id/cardVerticalBar"
+            tools:text="title"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/overviewInfo"
-            android:layout_width="316dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="2dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/guideline2"
-
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/spacing_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="VerticalBar"
+            android:layout_marginStart="@dimen/spacing_small"
             tools:itemCount="3"
             tools:listitem="@layout/item_type_overview_info" />
     </androidx.constraintlayout.widget.ConstraintLayout>
