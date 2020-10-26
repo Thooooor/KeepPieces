@@ -65,6 +65,7 @@
         android:background="#00000000"
         android:gravity="center"
         android:src="@drawable/ic_right_arrow"
+        app:tint="?attr/colorPrimaryVariant"
         app:layout_constraintBottom_toBottomOf="@+id/money_amount_in_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/money_amount_in_item"
