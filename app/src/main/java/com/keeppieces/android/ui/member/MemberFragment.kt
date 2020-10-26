@@ -37,7 +37,7 @@ import java.time.chrono.IsoChronology
 
 
 
-class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
+class MemberFragment(var startDate: String, var endDate: String): Fragment() {
     private val viewModel: MemberViewModel by viewModels()
     @RequiresApi(Build.VERSION_CODES.O) var startLocalDate: LocalDate = LocalDate.now()
     @RequiresApi(Build.VERSION_CODES.O) var endLocalDate: LocalDate = LocalDate.now()
@@ -127,10 +127,6 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
                 updateMode()
                 setUpView()
             }
-        }
-
-        monthlyDetailBtn.setOnClickListener {
-            DetailActivity.start(it.context, startDate, endDate, MonthlyDetail, R.color.dark_green, timeSpan)
         }
 
     }

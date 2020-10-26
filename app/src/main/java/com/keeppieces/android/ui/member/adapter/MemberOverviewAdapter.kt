@@ -33,4 +33,17 @@ class MemberOverviewAdapter(private val memberList: List<DailyMember>) :
             billAmount.text = model.amount.toMoneyFormatted()
         }
     }
+
+    class CardItemViewHolder(private  val view:View) :RecyclerView.ViewHolder(view){
+        private val barView: VerticalBar = view.findViewById(R.id.card_detail_bar)
+        private val memberType: TextView = view.findViewById(R.id.billType)
+
+        //private val billAmount: TextView = view.findViewById(R.id.billAmount)
+        fun bind(model: DailyMember) {
+            barView.renderData(VerticalBarData(100f, 100f, model.color))
+            memberType.text = model.member
+            //billAmount.text = model.amount.toMoneyFormatted()
+        }
+    }
+
 }
