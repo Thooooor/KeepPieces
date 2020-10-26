@@ -15,22 +15,22 @@ import com.keeppieces.android.R
 import com.keeppieces.android.ui.bill.BillViewModel
 
 
-class BillMemberDialog : DialogFragment() {
+class BillAccountCategoryDialog : DialogFragment() {
 
-    private lateinit var listener : BillMemberDialogListener
+    private lateinit var listener : BillAccountCategoryDialogListener
     private lateinit var viewModel : BillViewModel
-    var member : String = "自己"
+     var account : String = "微信"
 
-    interface BillMemberDialogListener{
-        fun onDialogPositiveClickForBillMember(dialog: DialogFragment)
-        fun onDialogNegativeClickForBillMember(dialog: DialogFragment)
-        fun onDialogNeutralClickForBillMember(dialog: DialogFragment)
+    interface BillAccountCategoryDialogListener{
+        fun onDialogPositiveClickForBillAccountCategory(dialog: DialogFragment)
+        fun onDialogNegativeClickForBillAccountCategory(dialog: DialogFragment)
+        fun onDialogNeutralClickForBillAccountCategory(dialog: DialogFragment)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try{
-            listener = context as BillMemberDialogListener
+            listener = context as BillAccountCategoryDialogListener
         }catch (e: ClassCastException){
             throw ClassCastException(
                 (context.toString() +
@@ -44,43 +44,43 @@ class BillMemberDialog : DialogFragment() {
         val builder = AlertDialog.Builder(activity)
         val inflater = requireActivity().layoutInflater
         val view = inflater.inflate(R.layout.bill_dialog_choose, null)
-        val inMember : WheelView = view.findViewById(R.id.options1)
+        val inAccountCategory : WheelView = view.findViewById(R.id.options1)
 
-        inMember.setCyclic(false)
-        inMember.setTextColorCenter(
+        inAccountCategory.setCyclic(false)
+        inAccountCategory.setTextColorCenter(
             -0x333334 //分割线之间的文字颜色
         )
 
         viewModel = ViewModelProvider(this)[BillViewModel::class.java]
-        var cardItem: List<String> = listOf("自己","无成员")
-        viewModel.findMemberList().observe(this, { listTmp ->
-            cardItem = if (listTmp.isEmpty()) listOf("自己","无成员") else listTmp.map { tmp -> tmp.name }
-            inMember.adapter = ArrayWheelAdapter(cardItem)
-            member = cardItem[0]
+        var cardItem: List<String> = listOf("微信")
+        viewModel.findAccountList().observe(this, { listTmp ->
+            cardItem = if (listTmp.isEmpty()) listOf("微信") else listTmp.map { tmp -> tmp.name }
+            inAccountCategory.adapter = ArrayWheelAdapter(cardItem)
+            account = cardItem[0]
         })
 
-        inMember.setOnItemSelectedListener { index ->
-            member = cardItem[index]
+        inAccountCategory.setOnItemSelectedListener { index ->
+             account = cardItem[index]
         }
 
-        builder.setTitle("成员选择")
+        builder.setTitle("转入账户选择")
             .setView(view)
             .setPositiveButton(
                 "确定"
             ) { _, _ ->
-                listener.onDialogPositiveClickForBillMember(this)
+                listener.onDialogPositiveClickForBillAccountCategory(this)
             }
 
             .setNegativeButton(
                 "取消"
             ) { _, _ ->
-                listener.onDialogNegativeClickForBillMember(this)
+                listener.onDialogNegativeClickForBillAccountCategory(this)
             }
 
             .setNeutralButton(
                 "新建"
             ) { _, _ ->
-                listener.onDialogNeutralClickForBillMember(this)
+                listener.onDialogNeutralClickForBillAccountCategory(this)
             }
         builder.create()
         return builder.create()

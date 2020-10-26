@@ -1,11 +1,6 @@
 package com.keeppieces.android.logic.data
 
 import androidx.annotation.ColorRes
-import androidx.lifecycle.LiveData
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
 import com.keeppieces.android.KeepPiecesApplication
 import com.keeppieces.android.logic.Repository
 import kotlin.math.abs
@@ -21,6 +16,8 @@ class AccountRepository {
     }
 
     fun getAccount() = accountDao.getAccount()
+
+    fun getAAccount(accountName: String) = accountDao.getAAccount(accountName)
 
     fun updateAccount(account: Account) {
         accountDao.updateAccount(account)

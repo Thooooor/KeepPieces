@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "347710ea2924b487b583979f7680ac1c",
+    "identityHash": "8d168235659946feb433c571dbb77f47",
     "entities": [
       {
         "tableName": "bill",
@@ -165,8 +165,14 @@
       },
       {
         "tableName": "account",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_name` TEXT NOT NULL, `amount` REAL NOT NULL, PRIMARY KEY(`account_name`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account_name` TEXT NOT NULL, `amount` REAL NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "account_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "name",
             "columnName": "account_name",
@@ -182,17 +188,32 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "account_name"
+            "account_id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_account_account_name",
+            "unique": true,
+            "columnNames": [
+              "account_name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_account_account_name` ON `${TABLE_NAME}` (`account_name`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
         "tableName": "member",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`member_name` TEXT NOT NULL, PRIMARY KEY(`member_name`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`member_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `member_name` TEXT NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "memberId",
+            "columnName": "member_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "name",
             "columnName": "member_name",
@@ -202,17 +223,32 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "member_name"
+            "member_id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_member_member_name",
+            "unique": true,
+            "columnNames": [
+              "member_name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_member_member_name` ON `${TABLE_NAME}` (`member_name`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
         "tableName": "primaryCategory",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`primary_name` TEXT NOT NULL, PRIMARY KEY(`primary_name`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`primary_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `primary_name` TEXT NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "primaryId",
+            "columnName": "primary_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "name",
             "columnName": "primary_name",
@@ -222,17 +258,32 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "primary_name"
+            "primary_id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_primaryCategory_primary_name",
+            "unique": true,
+            "columnNames": [
+              "primary_name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_primaryCategory_primary_name` ON `${TABLE_NAME}` (`primary_name`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
         "tableName": "secondaryCategory",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`secondary_name` TEXT NOT NULL, `primary_category` TEXT NOT NULL, PRIMARY KEY(`secondary_name`), FOREIGN KEY(`primary_category`) REFERENCES `primaryCategory`(`primary_name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`secondary_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `secondary_name` TEXT NOT NULL, `primary_category` TEXT NOT NULL, FOREIGN KEY(`primary_category`) REFERENCES `primaryCategory`(`primary_name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
+          {
+            "fieldPath": "secondaryId",
+            "columnName": "secondary_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "name",
             "columnName": "secondary_name",
@@ -248,9 +299,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "secondary_name"
+            "secondary_id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [
           {
@@ -260,6 +311,14 @@
               "primary_category"
             ],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_secondaryCategory_primary_category` ON `${TABLE_NAME}` (`primary_category`)"
+          },
+          {
+            "name": "index_secondaryCategory_secondary_name",
+            "unique": true,
+            "columnNames": [
+              "secondary_name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_secondaryCategory_secondary_name` ON `${TABLE_NAME}` (`secondary_name`)"
           }
         ],
         "foreignKeys": [
@@ -278,8 +337,14 @@
       },
       {
         "tableName": "type",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`type_name` TEXT NOT NULL, PRIMARY KEY(`type_name`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`type_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type_name` TEXT NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "typeId",
+            "columnName": "type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "name",
             "columnName": "type_name",
@@ -289,18 +354,27 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "type_name"
+            "type_id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_type_type_name",
+            "unique": true,
+            "columnNames": [
+              "type_name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_type_type_name` ON `${TABLE_NAME}` (`type_name`)"
+          }
+        ],
         "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '347710ea2924b487b583979f7680ac1c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8d168235659946feb433c571dbb77f47')"
     ]
   }
 }
