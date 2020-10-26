@@ -1,6 +1,5 @@
 package com.keeppieces.android.ui.overview
 
-import android.app.Dialog
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
@@ -10,16 +9,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.keeppieces.android.R
 import kotlinx.android.synthetic.main.dialog_set_month_budget.*
-import kotlinx.android.synthetic.main.dialog_set_month_budget.view.*
-import kotlinx.android.synthetic.main.layout_month_summary_card.*
 import java.time.LocalDate
 
 class AddMonthBudgetDialog:DialogFragment() {
@@ -40,8 +34,7 @@ class AddMonthBudgetDialog:DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.dialog_set_month_budget, container, false)
-        return view
+            return inflater.inflate(R.layout.dialog_set_month_budget, container, false)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

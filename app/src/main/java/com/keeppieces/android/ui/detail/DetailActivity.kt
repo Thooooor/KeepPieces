@@ -38,6 +38,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var endDate: String
     private var mode = MonthMode
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -72,6 +73,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initDate() {
         startDate = startLocalDate.toString()
         endDate = endLocalDate.toString()
@@ -81,6 +83,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun updateDate(span: Int) {
         if (mode == MonthMode) {
             val monthSpan = if (span > 0) 1 else -1
@@ -95,6 +98,7 @@ class DetailActivity : AppCompatActivity() {
         Log.d("Detail Date Update", "$startDate ~ $endDate")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun updateMode() {
         val year = endLocalDate.year
         val month = endLocalDate.monthValue
@@ -166,6 +170,7 @@ class DetailActivity : AppCompatActivity() {
         private var detailType: Int = MonthlyDetail
         private var timeSpan: Int = 1
 
+        @RequiresApi(Build.VERSION_CODES.O)
         fun start(
             context: Context,
             date1: String,
