@@ -23,7 +23,7 @@ import com.keeppieces.android.R
 import kotlinx.android.synthetic.main.fragment_login_passsword.*
 import java.util.concurrent.Executor
 
-class LoginFragment:Fragment() {
+class LoginFragment : Fragment() {
     //private lateinit var promptInfo: BiometricPrompt.PromptInfo
     //private val TAG = "LoginActivity"
 
@@ -56,18 +56,20 @@ class LoginFragment:Fragment() {
 
     }
 
-    private fun loginWithPassword(){
+    private fun loginWithPassword() {
         val loginActivity = activity as LoginActivity
         var visible = false
-        val pwd =  readPwd()
-        if(pwd != ""){
+        val pwd = readPwd()
+        if (pwd != "") {
             passwordEdit.addTextChangedListener(
-                object: TextWatcher {
+                object : TextWatcher {
 
                     override fun afterTextChanged(s: Editable?) {
-                        if(s.toString() == pwd){
-                            Toast.makeText(loginActivity.applicationContext,
-                                "登录成功",Toast.LENGTH_SHORT)
+                        if (s.toString() == pwd) {
+                            Toast.makeText(
+                                loginActivity.applicationContext,
+                                "登录成功", Toast.LENGTH_SHORT
+                            )
                                 .show()
                             jump()
                         }//else{
@@ -79,11 +81,17 @@ class LoginFragment:Fragment() {
                     }
 
                     override fun beforeTextChanged(
-                        s: CharSequence?,start: Int,count: Int,after: Int) {
+                        s: CharSequence?, start: Int, count: Int, after: Int
+                    ) {
 
                     }
 
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
 
                     }
 
@@ -93,13 +101,14 @@ class LoginFragment:Fragment() {
 
 
         visibleLogo.setOnClickListener {
-            val pwd =  readPwd()
-            if(pwd != ""){
-                if(visible){
+            val pwd  = readPwd()
+            if (pwd != "") {
+                if (visible) {
                     passwordEdit.transformationMethod = PasswordTransformationMethod.getInstance()
                     visible = false
-                }else{
-                    passwordEdit.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                } else {
+                    passwordEdit.transformationMethod =
+                        HideReturnsTransformationMethod.getInstance()
                     visible = true
                 }
             }
@@ -110,46 +119,52 @@ class LoginFragment:Fragment() {
     private fun readPwd(): String? {
         val loginActivity = activity as LoginActivity
         val prefs = loginActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
-        return prefs.getString("pwd","")
+        return prefs.getString("pwd", "")
     }
 
-    private fun createBiometricPrompt():BiometricPrompt{
+    private fun createBiometricPrompt(): BiometricPrompt {
         val loginActivity = activity as LoginActivity
         val executor = ContextCompat.getMainExecutor(loginActivity)
         val TAG = "LoginActivity"
         val callback = @RequiresApi(Build.VERSION_CODES.P)
-        object :BiometricPrompt.AuthenticationCallback(){
+        object : BiometricPrompt.AuthenticationCallback() {
 
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
-                Log.d(TAG,"$errorCode::$errString")
-                Toast.makeText(loginActivity.applicationContext,
-                    "Authentication error:$errString", Toast.LENGTH_SHORT)
+                Log.d(TAG, "$errorCode::$errString")
+                Toast.makeText(
+                    loginActivity.applicationContext,
+                    "Authentication error:$errString", Toast.LENGTH_SHORT
+                )
                     .show()
                 loginWithPassword()
             }
 
             override fun onAuthenticationFailed() {
                 super.onAuthenticationFailed()
-                Log.d(TAG,"身法验证失败，原因未知")
-                Toast.makeText(loginActivity.applicationContext,"Authentication failed",
-                    Toast.LENGTH_SHORT)
+                Log.d(TAG, "身法验证失败，原因未知")
+                Toast.makeText(
+                    loginActivity.applicationContext, "Authentication failed",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
-                Log.d(TAG,"身份验证成功")
-                Toast.makeText(loginActivity.applicationContext,
-                    "Authentication succeeded!", Toast.LENGTH_SHORT)
+                Log.d(TAG, "身份验证成功")
+                Toast.makeText(
+                    loginActivity.applicationContext,
+                    "Authentication succeeded!", Toast.LENGTH_SHORT
+                )
                     .show()
                 jump()
             }
         }
-        return BiometricPrompt(this,executor,callback)
+        return BiometricPrompt(this, executor, callback)
     }
 
-    private fun createPromptInfo():BiometricPrompt.PromptInfo{
+    private fun createPromptInfo(): BiometricPrompt.PromptInfo {
         return BiometricPrompt.PromptInfo.Builder()
             .setTitle(getString(R.string.prompt_info_title))
             .setSubtitle(getString(R.string.prompt_info_subtitle))
@@ -160,12 +175,11 @@ class LoginFragment:Fragment() {
     }
 
     //登录成功跳转
-    private fun jump(){
+    private fun jump() {
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
         activity?.finish()
     }
-
 
 
 }

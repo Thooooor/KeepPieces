@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/setGestureToolbar"
+        android:id="@+id/resetGestureToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="30dp"
@@ -30,7 +30,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.keeppieces.ninelock.NineLockView
-        android:id="@+id/gesture"
+        android:id="@+id/gestureReset"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center" />

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_confirm_gesture.*
 import kotlinx.android.synthetic.main.fragment_set_gesture.*
 
-class ConfirmGestureFragment:Fragment(), NineLockListener {
+class ConfirmGestureFragment : Fragment(), NineLockListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +30,7 @@ class ConfirmGestureFragment:Fragment(), NineLockListener {
         init()
 
     }
+
     private fun init() {
         //val firstActivity = activity as FirstActivity
 
@@ -40,8 +41,8 @@ class ConfirmGestureFragment:Fragment(), NineLockListener {
 
     override fun onLockResult(result: IntArray?) {
         val firstActivity = context as FirstActivity
-        val stringBuffer=StringBuffer()
-        for(i in result!!.indices){
+        val stringBuffer = StringBuffer()
+        for (i in result!!.indices) {
             stringBuffer.append(result[i])
             //print("${result[i]}  -> ")
         }
