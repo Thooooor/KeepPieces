@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
 import com.keeppieces.android.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.fragment_reset_password.*
@@ -78,11 +79,11 @@ class ResetPasswordFragment : Fragment() {
 
         val min = 6
         val max = 20
-        confirm.setOnClickListener {
+        confirmReset.setOnClickListener {
             val oldPwd = oldPassword.text.toString()
             val pwd = readPwd()
             val firstPwd = passwordFirstReset.text.toString()
-            val secondPwd = passwordSecondEdit.text.toString()
+            val secondPwd = passwordSecondReset.text.toString()
             if (pwd != oldPwd) {
                 Toast.makeText(resetActivity, "旧密码错误", Toast.LENGTH_SHORT).show()
             } else {
@@ -92,7 +93,7 @@ class ResetPasswordFragment : Fragment() {
                     Toast.makeText(resetActivity, "密码最多为20位", Toast.LENGTH_SHORT).show()
                 } else {
                     if (firstPwd == secondPwd && firstPwd != "") {
-                        Toast.makeText(resetActivity, "密码设置成功！", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(resetActivity, "新密码设置成功！", Toast.LENGTH_SHORT).show()
                         val editor =
                             resetActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
                                 ?.edit()
@@ -117,8 +118,6 @@ class ResetPasswordFragment : Fragment() {
     }
 
     private fun jump() {
-        val intent = Intent(activity, LoginActivity::class.java)
-        startActivity(intent)
         activity?.finish()
     }
 }

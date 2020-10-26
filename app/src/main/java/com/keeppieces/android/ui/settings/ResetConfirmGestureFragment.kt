@@ -23,7 +23,7 @@ class ResetConfirmGestureFragment : Fragment(), NineLockListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_confirm_gesture, container, false)
+        return inflater.inflate(R.layout.fragment_confirm_reset_gesture, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
