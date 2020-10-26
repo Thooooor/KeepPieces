@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.login
+package com.keeppieces.android.ui.settings
 
 import android.content.Context
 import android.os.Bundle
@@ -10,16 +10,17 @@ import androidx.fragment.app.Fragment
 import com.keeppieces.android.R
 import com.keeppieces.ninelock.NineLockListener
 import com.keeppieces.ninelock.NineLockView
+import kotlinx.android.synthetic.main.fragment_reset_gesture.*
 import kotlinx.android.synthetic.main.fragment_set_gesture.*
 
-class SetGestureFragment : Fragment(), NineLockListener {
+class ResetGestureFragment : Fragment(), NineLockListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_set_gesture, container, false)
+        return inflater.inflate(R.layout.fragment_reset_gesture, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -32,22 +33,22 @@ class SetGestureFragment : Fragment(), NineLockListener {
     private fun init() {
 
 
-        gesture.setOnClickListener { gesture.invalidate() }
-        gesture.setLockListener(this)
+        gestureReset.setOnClickListener { gestureReset.invalidate() }
+        gestureReset.setLockListener(this)
 
     }
 
     override fun onLockResult(result: IntArray?) {
-        val firstActivity = activity as FirstActivity
+        val resetActivity = activity as ResetActivity
         val stringBuffer = StringBuffer()
         for (i in result!!.indices) {
             stringBuffer.append(result[i])
             //print("${result[i]}  -> ")
         }
         val tempPwd = stringBuffer.toString()
-        firstActivity.sendSetData(tempPwd)
-        Toast.makeText(firstActivity, "请确认图案密码", Toast.LENGTH_SHORT).show()
-        firstActivity.replaceFragment(ConfirmGestureFragment())
+        resetActivity.sendSetData(tempPwd)
+        Toast.makeText(resetActivity, "请确认图案密码", Toast.LENGTH_SHORT).show()
+        resetActivity.replaceFragment(ResetConfirmGestureFragment())
 
     }
 
