@@ -71,7 +71,7 @@ class AddAccountDialog : DialogFragment() {
                 .setPositiveButton("确定"
                 ) { _, _ ->
                     if (addAccount.toString() != "") {
-                        val account = Account(addAccount.text.toString())
+                        val account = Account(addAccount.text.toString(), 0.00)
                         viewModel.addAccount(account)
                         text = addAccount.text.toString()
                     }

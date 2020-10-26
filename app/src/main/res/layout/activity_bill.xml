@@ -58,7 +58,7 @@
                 android:id="@+id/billAmount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/_1234_55"
+                android:hint="@string/bill_up_amount_text"
                 android:background="@color/color_background"
                 android:textSize="50sp"
                 android:layout_toEndOf="@id/billAmountSign"
@@ -103,14 +103,13 @@
                     android:src="@drawable/ic_bill_time"
                     android:contentDescription="@string/todo"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:padding="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bill_time_china"
-                    android:textSize="20sp"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"/>
 
@@ -119,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bill_time"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"
                     android:inputType="" />
@@ -147,14 +146,13 @@
                     android:src="@drawable/ic_bill_type"
                     android:contentDescription="@string/todo"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:padding="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bill_type_china"
-                    android:textSize="20sp"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"/>
 
@@ -163,113 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bill_type"
-                    android:textSize="25sp"
-                    android:layout_gravity="center_vertical"
-                    android:padding="10dp"
-                    android:inputType="" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/billCardMember"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginTop="12dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_bill_member"
-                    android:contentDescription="@string/todo"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    android:padding="10dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bill_member_china"
                     android:textSize="20sp"
-                    android:layout_gravity="center_vertical"
-                    android:padding="10dp"/>
-
-                <TextView
-                    android:id="@+id/billMember"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bill_member"
-                    android:textSize="25sp"
-                    android:layout_gravity="center_vertical"
-                    android:padding="10dp"
-                    android:inputType="" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/billCardCategory"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginTop="12dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_bill_category"
-                    android:contentDescription="@string/todo"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    android:padding="10dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bill_category_china"
-                    android:textSize="20sp"
-                    android:layout_gravity="center_vertical"
-                    android:padding="10dp"/>
-
-                <TextView
-                    android:id="@+id/billPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bill_primary"
-                    android:textSize="25sp"
-                    android:layout_gravity="center_vertical"
-                    android:padding="10dp"
-                    android:inputType="" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bill_gap"
-                    android:textSize="25sp"
-                    android:layout_gravity="center_vertical"
-                    android:inputType="" />
-
-                <TextView
-                    android:id="@+id/billSecondary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bill_secondary"
-                    android:textSize="25sp"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"
                     android:inputType="" />
@@ -297,14 +189,13 @@
                     android:src="@drawable/ic_bill_account"
                     android:contentDescription="@string/todo"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:padding="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bill_account_china"
-                    android:textSize="20sp"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"/>
 
@@ -313,7 +204,111 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bill_account"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:inputType="" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/billCardCategory"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_bill_category"
+                    android:contentDescription="@string/todo"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bill_category_china"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:id="@+id/billPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bill_primary"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:inputType="" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bill_gap"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical"
+                    android:inputType="" />
+
+                <TextView
+                    android:id="@+id/billSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bill_secondary"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:inputType="" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/billCardMember"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_bill_member"
+                    android:contentDescription="@string/todo"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bill_member_china"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:id="@+id/billMember"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bill_member"
+                    android:textSize="20sp"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"
                     android:inputType="" />
@@ -341,14 +336,13 @@
                     android:src="@drawable/ic_bill_info"
                     android:contentDescription="@string/todo"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:padding="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bill_info_china"
-                    android:textSize="20sp"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"/>
 
@@ -364,7 +358,8 @@
                     android:autofillHints="@string/bill_info_china"
                     android:imeOptions="actionDone"
                     android:textCursorDrawable="@null"
-                    android:maxLines="2"/>
+                    android:maxLines="2"
+                    android:cursorVisible="true" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

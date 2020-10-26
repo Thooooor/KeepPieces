@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.login
+package com.keeppieces.android.ui.settings
 
 import android.content.Context
 import android.content.Intent
@@ -7,17 +7,20 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.keeppieces.android.R
-import com.keeppieces.ninelock.NineLockListener
+import com.keeppieces.android.ui.login.*
 
-class FirstActivity : AppCompatActivity() {
+class ResetActivity : AppCompatActivity() {
+
     private lateinit var setData: String
     private lateinit var confirmData: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_first)
+        setContentView(R.layout.activity_reset)
+        setContentView(R.layout.activity_login)
 
-        addFragment(WelcomeFragment())
+        addFragment(ResetFragment())
+
     }
 
     fun sendSetData(data: String) {
@@ -62,7 +65,7 @@ class FirstActivity : AppCompatActivity() {
                 "两次图案不一致！", Toast.LENGTH_SHORT
             )
                 .show()
-            replaceFragment(ConfirmGestureFragment())
+            replaceFragment(ResetConfirmGestureFragment())
         }
     }
 
@@ -71,5 +74,6 @@ class FirstActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-}
 
+
+}

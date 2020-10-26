@@ -17,7 +17,7 @@ import com.keeppieces.android.R
 import kotlinx.android.synthetic.main.fragment_set_password.*
 
 
-class SetPasswordFragment:Fragment() {
+class SetPasswordFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,59 +33,62 @@ class SetPasswordFragment:Fragment() {
         init()
 
     }
-    private fun init(){
+
+    private fun init() {
         val firstActivity = activity as FirstActivity
         var visible1 = false
         var visible2 = false
         visibleLogo1.setOnClickListener {
 
-            if(visible1){
+            if (visible1) {
                 passwordFirstEdit.transformationMethod = PasswordTransformationMethod.getInstance()
                 visible1 = false
-            }else{
-                passwordFirstEdit.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            } else {
+                passwordFirstEdit.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
                 visible1 = true
             }
         }
 
         visibleLogo2.setOnClickListener {
 
-            if(visible2){
+            if (visible2) {
                 passwordSecondEdit.transformationMethod = PasswordTransformationMethod.getInstance()
                 visible2 = false
-            }else{
-                passwordSecondEdit.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            } else {
+                passwordSecondEdit.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
                 visible2 = true
             }
         }
 
         val min = 6
         val max = 20
-        confirm.setOnClickListener{
+        confirm.setOnClickListener {
             val firstPwd = passwordFirstEdit.text.toString()
             val secondPwd = passwordSecondEdit.text.toString()
-            if (firstPwd.length <min){
-                Toast.makeText(activity,"密码最少为6位",Toast.LENGTH_SHORT).show()
-            }else if (firstPwd.length >max){
-                Toast.makeText(activity,"密码最多为20位",Toast.LENGTH_SHORT).show()
-            }else{
-                if(firstPwd == secondPwd && firstPwd !=""){
-                    Toast.makeText(activity,"密码设置成功！",Toast.LENGTH_SHORT).show()
-                    val editor = activity?.getSharedPreferences("password", Context.MODE_PRIVATE)
+            if (firstPwd.length < min) {
+                Toast.makeText(firstActivity, "密码最少为6位", Toast.LENGTH_SHORT).show()
+            } else if (firstPwd.length > max) {
+                Toast.makeText(activity, "密码最多为20位", Toast.LENGTH_SHORT).show()
+            } else {
+                if (firstPwd == secondPwd && firstPwd != "") {
+                    Toast.makeText(firstActivity, "密码设置成功！", Toast.LENGTH_SHORT).show()
+                    val editor = firstActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
                         ?.edit()
-                    editor?.putString("pwd",secondPwd)
+                    editor?.putString("pwd", secondPwd)
                     editor?.apply()
 
                     jump()
-                }else{
-                    Toast.makeText(activity,"两次密码不一致",Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(firstActivity, "两次密码不一致", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
     }
 
-    private fun jump(){
+    private fun jump() {
         val intent = Intent(activity, LoginActivity::class.java)
         startActivity(intent)
         activity?.finish()

@@ -23,7 +23,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="140dp"
             android:contentDescription="@string/appLogo"
-            app:srcCompat="@drawable/hand_coin_line" />
+            android:src="@drawable/ic_logo" />
 
     </LinearLayout>
 
@@ -80,11 +80,11 @@
 
             <ImageView
                 android:id="@+id/password"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"
-                app:srcCompat="@drawable/ic_password"
+                android:src="@drawable/ic_password"
                 android:contentDescription="@string/pwdImg" />
 
             <TextView
@@ -108,11 +108,11 @@
 
             <ImageView
                 android:id="@+id/patten"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"
-                app:srcCompat="@drawable/ic_patten"
+                android:src="@drawable/ic_gesture"
                 android:contentDescription="@string/pattenImg" />
 
             <TextView
