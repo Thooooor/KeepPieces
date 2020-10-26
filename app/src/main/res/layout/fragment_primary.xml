@@ -83,9 +83,12 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@id/pieChart"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/pieChart"
-                tools:text="分类" />
+                app:layout_constraintVertical_bias="0.501"
+                android:text="分类占比" />
+
 
             <TextView
                 android:id="@+id/timeSpanView"
