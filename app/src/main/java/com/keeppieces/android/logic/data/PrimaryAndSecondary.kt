@@ -8,5 +8,5 @@ data class PrimaryAndSecondary (
     val primaryCategory: PrimaryCategory,
 
     @Relation(parentColumn = "primary_name", entityColumn = "secondary_category")
-    val secondaryCategory: List<SecondaryCategory> = emptyList()
+    val secondaryCategory: List<SecondaryCategory>
 )

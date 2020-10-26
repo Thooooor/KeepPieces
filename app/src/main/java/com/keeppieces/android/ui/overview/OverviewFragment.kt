@@ -73,7 +73,7 @@ class OverviewFragment : Fragment() {
         }
         setUpCardView()
         addFab.setOnClickListener {
-            BillActivity.start(requireContext(),null)
+            BillActivity.start(requireContext())
         }
         today_see_more.setOnClickListener {
             getParentActivity<MainActivity>().view_pager.setCurrentItem(1, true)

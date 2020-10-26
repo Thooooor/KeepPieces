@@ -58,7 +58,7 @@
                 android:id="@+id/billAmount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/_1234_55"
+                android:hint="@string/bill_up_amount_text"
                 android:background="@color/color_background"
                 android:textSize="50sp"
                 android:layout_toEndOf="@id/billAmountSign"
@@ -169,7 +169,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/billCardMember"
+            android:id="@+id/billCardAccount"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="25dp"
@@ -186,7 +186,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_bill_member"
+                    android:src="@drawable/ic_bill_account"
                     android:contentDescription="@string/todo"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
@@ -195,15 +195,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bill_member_china"
+                    android:text="@string/bill_account_china"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"/>
 
                 <TextView
-                    android:id="@+id/billMember"
+                    android:id="@+id/billAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bill_member"
+                    android:text="@string/bill_account"
                     android:textSize="20sp"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"
@@ -273,7 +273,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/billCardAccount"
+            android:id="@+id/billCardMember"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="25dp"
@@ -290,7 +290,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_bill_account"
+                    android:src="@drawable/ic_bill_member"
                     android:contentDescription="@string/todo"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
@@ -299,15 +299,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bill_account_china"
+                    android:text="@string/bill_member_china"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"/>
 
                 <TextView
-                    android:id="@+id/billAccount"
+                    android:id="@+id/billMember"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bill_account"
+                    android:text="@string/bill_member"
                     android:textSize="20sp"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"

@@ -7,13 +7,13 @@ import androidx.room.*
     foreignKeys = [
         ForeignKey(entity = PrimaryCategory::class, parentColumns = ["primary_name"], childColumns = ["primary_category"])
     ],
-    indices = [Index("primary_category")]
+    indices = [Index("primary_category"),(Index(value = ["secondary_name"], unique = true))]
 )
 data class SecondaryCategory(
-    @PrimaryKey @ColumnInfo(name = "secondary_name") val name: String,
+    @ColumnInfo(name = "secondary_name") val name: String,
     @ColumnInfo(name = "primary_category") val primaryName: String
 ) {
-//    @PrimaryKey(autoGenerate = true)
-//    @ColumnInfo(name = "secondary_id")
-//    var secondaryId: Long = 0
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "secondary_id")
+    var secondaryId: Long = 0
 }

@@ -14,9 +14,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -42,7 +42,8 @@ class BillActivity : AppCompatActivity(),
     BillAccountDialog.BillAccountDialogListener,
     AddAccountDialog.AddAccountDialogListener,
     AddPrimaryDialog.AddPrimaryDialogListener,
-    AddSecondaryDialog.AddSecondaryDialogListener{
+    AddSecondaryDialog.AddSecondaryDialogListener,
+    BillAccountCategoryDialog.BillAccountCategoryDialogListener{
 
     private var mode: Int = 0
     private lateinit var bill: Bill
@@ -53,8 +54,13 @@ class BillActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bill)
 
-//        setSupportActionBar(billAddToolbar)
-        setUpToolbar()
+//        val toolbar: Toolbar = findViewById(R.id.billAddToolbar)
+        setSupportActionBar(billAddToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.title = ""
+////        setSupportActionBar(billAddToolbar)
+//        setUpToolbar()
 
         viewModel = ViewModelProvider(this)[BillViewModel::class.java]
         mode =  intent.getIntExtra("billMode", 0)
@@ -86,7 +92,11 @@ class BillActivity : AppCompatActivity(),
         }
 
         billCardCategory.setOnClickListener {
-            BillCategoryDialog().show(supportFragmentManager, "BillCategoryDialog")
+            if (billType.text == "转账") {
+                BillAccountCategoryDialog().show(supportFragmentManager, "BillAccountCategoryDialog")
+            } else {
+                BillCategoryDialog().show(supportFragmentManager, "BillCategoryDialog")
+            }
         }
 
         billCardAccount.setOnClickListener {
@@ -94,13 +104,9 @@ class BillActivity : AppCompatActivity(),
         }
     }
 
-    private fun setUpToolbar() {
-        val toolbar: Toolbar = findViewById(R.id.billAddToolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.title = ""
-    }
+//    private fun setUpToolbar() {
+//
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_bill_add, menu)
@@ -108,55 +114,68 @@ class BillActivity : AppCompatActivity(),
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.billAdd -> {
-                if (mode == BillAdd) {
-                    billAdd()
-                } else if (mode == BillUpdate) {
-                    billUpdate()
+        val nowBill = Bill(
+                date = billTime.text.toString(),
+                amount = if (billAmount.text.isEmpty()) 0.00 else billAmount.text.toString().toDouble(),
+                account = billAccount.text.toString(),
+                member = billMember.text.toString(),
+                primaryCategory = billPrimary.text.toString(),
+                secondaryCategory = billSecondary.text.toString(),
+                type = billType.text.toString()
+        )
+        if (item.itemId == R.id.billAdd) {
+            if (mode == BillAdd) {
+                if (nowBill.amount == 0.00) {
+                    Toast.makeText(this,"输入金额不能为零",Toast.LENGTH_LONG).show()
+                } else if (nowBill.account == nowBill.secondaryCategory && nowBill.type == "转账") {
+                    Toast.makeText(this,"转入转出账户不能相同",Toast.LENGTH_LONG).show()
+                } else {
+                    viewModel.addBill(nowBill)
+                    finish()
                 }
-                finish()
+            } else if (mode == BillUpdate) {
+                nowBill.billId = bill.billId
+                if (nowBill.amount == 0.00) {
+                    viewModel.deleteBill(nowBill)
+                    finish()
+                } else if (nowBill.account == nowBill.secondaryCategory && nowBill.type == "转账") {
+                    Toast.makeText(this,"转入转出账户不能相同",Toast.LENGTH_LONG).show()
+                } else {
+                    viewModel.updateBill(nowBill)
+                    finish()
+                }
             }
         }
         if (item.itemId == android.R.id.home) {
             finish()
-            return true
         }
-        return super.onOptionsItemSelected(item)
+        return true
+//        return super.onOptionsItemSelected(item)
     }
 
-    private fun billAdd() {
-        val nowBill = Bill(
-            date = billTime.text.toString(),
-            amount = if (billAmount.text.isEmpty()) 0.00 else billAmount.text.toString().toDouble(),
-            account = billAccount.text.toString(),
-            member = billMember.text.toString(),
-            primaryCategory = billPrimary.text.toString(),
-            secondaryCategory = billSecondary.text.toString(),
-            type = billType.text.toString()
-        )
-        if (nowBill.amount != 0.00) {
-            viewModel.addBill(nowBill)
-        }
-    }
-
-    private fun billUpdate() {
-        val nowBill = Bill(
-            date = billTime.text.toString(),
-            amount = billAmount.text.toString().toDouble(),
-            account = billAccount.text.toString(),
-            member = billMember.text.toString(),
-            primaryCategory = billPrimary.text.toString(),
-            secondaryCategory = billSecondary.text.toString(),
-            type = billType.text.toString()
-        )
-        nowBill.billId = bill.billId
-        if (nowBill.amount != 0.00) {
-            viewModel.updateBill(nowBill)
-        } else {
-            viewModel.deleteBill(bill)
-        }
-    }
+//    private fun billAdd(nowBill: Bill) {
+//        if (nowBill.amount == 0.00) {
+//            Toast.makeText(this,"输入金额不能为零",Toast.LENGTH_LONG).show()
+//        } else if (nowBill.account == nowBill.secondaryCategory && nowBill.type == "转账") {
+//            Toast.makeText(this,"转入转出账户不能相同",Toast.LENGTH_LONG).show()
+//        } else {
+//            viewModel.addBill(nowBill)
+//            finish()
+//        }
+//    }
+//
+//    private fun billUpdate(nowBill: Bill) {
+//        nowBill.billId = bill.billId
+//        if (nowBill.amount == 0.00) {
+//            viewModel.deleteBill(nowBill)
+//            finish()
+//        } else if (nowBill.account == nowBill.secondaryCategory && nowBill.type == "转账") {
+//            Toast.makeText(this,"转入转出账户不能相同",Toast.LENGTH_LONG).show()
+//        } else {
+//            viewModel.updateBill(nowBill)
+//            finish()
+//        }
+//    }
 
     private fun billAmountListen() {
         billAmount.addTextChangedListener(object : TextWatcher {
@@ -266,6 +285,8 @@ class BillActivity : AppCompatActivity(),
 
     override fun onDialogPositiveClickForBillType(dialog: DialogFragment) {
         billType.text = (dialog as BillTypeDialog).type
+        billPrimary.text = "转账"
+        billSecondary.text = "微信"
     }
 
     override fun onDialogNegativeClickForBillType(dialog: DialogFragment) {
@@ -320,6 +341,8 @@ class BillActivity : AppCompatActivity(),
 
     override fun onDialogPositiveClickForBillAccount(dialog: DialogFragment) {
         billAccount.text = (dialog as BillAccountDialog).account
+        billPrimary.text = "转账"
+        billSecondary.text = "微信"
     }
 
     override fun onDialogNegativeClickForBillAccount(dialog: DialogFragment) {
@@ -388,5 +411,16 @@ class BillActivity : AppCompatActivity(),
     }
 
     override fun onDialogNegativeClickForAddSecondary(dialog: DialogFragment) {
+    }
+
+    override fun onDialogPositiveClickForBillAccountCategory(dialog: DialogFragment) {
+        billSecondary.text = (dialog as BillAccountCategoryDialog).account
+    }
+
+    override fun onDialogNegativeClickForBillAccountCategory(dialog: DialogFragment) {
+    }
+
+    override fun onDialogNeutralClickForBillAccountCategory(dialog: DialogFragment) {
+        AddAccountDialog().show(supportFragmentManager, "AddAccountDialog")
     }
 }

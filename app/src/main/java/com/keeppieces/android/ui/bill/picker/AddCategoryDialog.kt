@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -96,7 +97,6 @@ class AddCategoryDialog(toPrimary: String, toSecondary: String) : DialogFragment
             addSecondary = view.findViewById(R.id.addSecondaryText)
             val primaryDialog = AddPrimaryDialog(textPrimary, this)
             val secondaryDialog = AddSecondaryDialog(textPrimary, textSecondary, this)
-
             viewModel = ViewModelProvider(this)[BillViewModel::class.java]
             addPrimaryCategory.setOnClickListener {
                 primaryDialog.show(requireActivity().supportFragmentManager, "AddPrimaryDialog")
@@ -126,6 +126,8 @@ class AddCategoryDialog(toPrimary: String, toSecondary: String) : DialogFragment
 //                    Toast.makeText(activity, "二级分类输入为空", Toast.LENGTH_LONG).show()
 //                }
             }
+            val secondaryLiveList = viewModel.findSecondaryList()
+
 
             builder.setTitle("添加类别")
                 .setView(view)
@@ -133,8 +135,16 @@ class AddCategoryDialog(toPrimary: String, toSecondary: String) : DialogFragment
                 ) { _, _ ->
 //                    addPrimary.text = textPrimary
 //                    addSecondary.text = textSecondary
-                    viewModel.addSecondary(SecondaryCategory(textSecondary, textPrimary))
-                    listener.onDialogPositiveClickForAddCategory(this)
+                    secondaryLiveList.observe(this, { tmp ->
+                        val secondaryList = tmp.map { t -> t.name }
+                        if (textSecondary in secondaryList) {
+                            Toast.makeText(activity, "已存在该二级分类", Toast.LENGTH_LONG).show()
+                            listener.onDialogPositiveClickForAddCategory(this)
+                        } else {
+                            viewModel.addSecondary(SecondaryCategory(textSecondary, textPrimary))
+                            listener.onDialogPositiveClickForAddCategory(this)
+                        }
+                    })
                 }
                 .setNegativeButton("取消"
                 ) { _, _ ->
