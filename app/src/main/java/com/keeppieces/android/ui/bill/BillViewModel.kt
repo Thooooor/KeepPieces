@@ -1,13 +1,10 @@
 package com.keeppieces.android.ui.bill
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.keeppieces.android.logic.data.*
 import kotlin.concurrent.thread
 
-class BillViewModel() : ViewModel() {
-    private val billLiveData = MutableLiveData<Bill>()
-
+class BillViewModel : ViewModel() {
     var bill = Bill(
         System.currentTimeMillis().toString(),
         0.00,
@@ -27,9 +24,17 @@ class BillViewModel() : ViewModel() {
                 val inAccount = Account(account.name, account.amount-bill.amount)
                 inAccount.accountId = account.accountId
                 updateAccount(inAccount)
-            } else {
+            } else if(bill.type == "收入"){
                 val inAccount = Account(account.name, account.amount+bill.amount)
                 inAccount.accountId = account.accountId
+                updateAccount(inAccount)
+            } else {
+                val accountSecondary = AccountRepository().getAAccount(bill.secondaryCategory)
+                var inAccount = Account(account.name, account.amount-bill.amount)
+                inAccount.accountId = account.accountId
+                updateAccount(inAccount)
+                inAccount = Account(accountSecondary.name, accountSecondary.amount+bill.amount)
+                inAccount.accountId = accountSecondary.accountId
                 updateAccount(inAccount)
             }
             MemberRepository().createMember(Member(bill.member))
@@ -56,18 +61,34 @@ class BillViewModel() : ViewModel() {
                 val inAccount = Account(pastBill.account, pastAccount.amount + pastBill.amount)
                 inAccount.accountId = pastAccount.accountId
                 updateAccount(inAccount)
-            } else {
+            } else if (pastBill.type == "收入") {
                 val inAccount = Account(pastBill.account, pastAccount.amount - pastBill.amount)
                 inAccount.accountId = pastAccount.accountId
+                updateAccount(inAccount)
+            } else {
+                val accountSecondary = AccountRepository().getAAccount(pastBill.secondaryCategory)
+                var inAccount = Account(pastAccount.name, pastAccount.amount+pastBill.amount)
+                inAccount.accountId = pastAccount.accountId
+                updateAccount(inAccount)
+                inAccount = Account(accountSecondary.name, accountSecondary.amount-pastBill.amount)
+                inAccount.accountId = accountSecondary.accountId
                 updateAccount(inAccount)
             }
             if (bill.type == "支出") {
                 val inAccount = Account(bill.account, nowAccount.amount - bill.amount)
                 inAccount.accountId = nowAccount.accountId
                 updateAccount(inAccount)
-            } else {
+            } else if (pastBill.type == "收入") {
                 val inAccount = Account(bill.account, nowAccount.amount + bill.amount)
                 inAccount.accountId = nowAccount.accountId
+                updateAccount(inAccount)
+            } else {
+                val accountSecondary = AccountRepository().getAAccount(bill.secondaryCategory)
+                var inAccount = Account(nowAccount.name, nowAccount.amount-bill.amount)
+                inAccount.accountId = nowAccount.accountId
+                updateAccount(inAccount)
+                inAccount = Account(accountSecondary.name, accountSecondary.amount+bill.amount)
+                inAccount.accountId = accountSecondary.accountId
                 updateAccount(inAccount)
             }
             BillRepository().updateBill(bill)
@@ -82,9 +103,17 @@ class BillViewModel() : ViewModel() {
                 val inAccount = Account(pastBill.account, nowAccount.amount + pastBill.amount)
                 inAccount.accountId = nowAccount.accountId
                 updateAccount(inAccount)
-            } else {
+            } else if (pastBill.type == "收入"){
                 val inAccount = Account(pastBill.account, nowAccount.amount - pastBill.amount)
                 inAccount.accountId = nowAccount.accountId
+                updateAccount(inAccount)
+            } else {
+                val accountSecondary = AccountRepository().getAAccount(pastBill.secondaryCategory)
+                var inAccount = Account(nowAccount.name, nowAccount.amount+pastBill.amount)
+                inAccount.accountId = nowAccount.accountId
+                updateAccount(inAccount)
+                inAccount = Account(accountSecondary.name, accountSecondary.amount-pastBill.amount)
+                inAccount.accountId = accountSecondary.accountId
                 updateAccount(inAccount)
             }
             BillRepository().deleteBill(bill)
@@ -123,6 +152,7 @@ class BillViewModel() : ViewModel() {
     fun addAccount(account: Account) {
         thread {
             AccountRepository().createAccount(account)
+            SecondaryCategoryRepository().createSecondaryCategory(SecondaryCategory(account.name,"转账"))
         }
     }
 }

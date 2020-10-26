@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlin.concurrent.thread
 
 @Database(
-    version = 4,
+    version = 5,
     entities = [Bill::class, Account::class, Member::class, PrimaryCategory::class, SecondaryCategory::class, Type::class]
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -34,13 +34,15 @@ abstract class AppDatabase : RoomDatabase() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                         thread {
-                            instance?.accountDao()?.insertAccount(Account("其他",0.00))
                             instance?.accountDao()?.insertAccount(Account("微信",0.00))
                             instance?.accountDao()?.insertAccount(Account("支付宝",0.00))
                             instance?.memberDao()?.insertMember(Member("无成员"))
                             instance?.memberDao()?.insertMember(Member("自己"))
                             instance?.primaryCategoryDao()?.insertPrimaryCategory(PrimaryCategory("其他"))
+                            instance?.primaryCategoryDao()?.insertPrimaryCategory(PrimaryCategory("转账"))
                             instance?.secondaryCategoryDao()?.insertSecondaryCategory(SecondaryCategory("其他", "其他"))
+                            instance?.secondaryCategoryDao()?.insertSecondaryCategory(SecondaryCategory("微信", "转账"))
+                            instance?.secondaryCategoryDao()?.insertSecondaryCategory(SecondaryCategory("支付宝", "转账"))
                             instance?.typeDao()?.insertType(Type("支出"))
                             instance?.typeDao()?.insertType(Type("收入"))
                             instance?.typeDao()?.insertType(Type("转账"))

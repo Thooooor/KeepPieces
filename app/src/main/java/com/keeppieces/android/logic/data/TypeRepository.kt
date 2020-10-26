@@ -3,13 +3,12 @@ package com.keeppieces.android.logic.data
 import androidx.annotation.ColorRes
 import com.keeppieces.android.KeepPiecesApplication
 import com.keeppieces.android.R
-import com.keeppieces.android.logic.Repository
 
 
 class TypeRepository {
     private val context = KeepPiecesApplication.context
     private val typeDao = AppDatabase.getDatabase(context).typeDao()
-    private val repository = Repository
+//    private val repository = Repository
 
     fun createType(type: Type) = typeDao.insertType(type)
 

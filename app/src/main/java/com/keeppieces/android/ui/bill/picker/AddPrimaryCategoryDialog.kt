@@ -74,7 +74,7 @@ class AddPrimaryDialog(toSecondary: String, inDialogBefore: DialogFragment) : Di
                 .setPositiveButton(
                     "确定"
                 ) { _, _ ->
-                    if (addPrimary.text.toString() != "") {
+                    if (addPrimary.text.toString() != "" && addPrimary.text.toString() != "转账") {
                         val secondaryDialog = AddSecondaryDialog(addPrimary.text.toString(), textSecondary, dialogBefore)
                         secondaryDialog.show(requireActivity().supportFragmentManager, "AddSecondaryDialog")
 //                        textPrimary = secondaryDialog.textPrimary
@@ -87,8 +87,10 @@ class AddPrimaryDialog(toSecondary: String, inDialogBefore: DialogFragment) : Di
 //                        } else {
 //                            Toast.makeText(activity, "二级分类输入为空", Toast.LENGTH_LONG).show()
 //                        }
-                    } else {
+                    } else if (addPrimary.text.toString() == ""){
                         Toast.makeText(activity, "一级分类输入为空", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(activity, "禁止设置转账分类", Toast.LENGTH_LONG).show()
                     }
                     imm.hideSoftInputFromWindow(addPrimary.applicationWindowToken, 0)
                     listener.onDialogPositiveClickForAddPrimary(this)

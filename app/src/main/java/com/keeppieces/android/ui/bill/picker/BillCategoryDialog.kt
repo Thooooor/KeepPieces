@@ -68,6 +68,9 @@ class BillCategoryDialog : DialogFragment() {
         secondaryLiveData.observe(this, { secondaryTmp ->
             connectItem.clear()
             for (item in secondaryTmp) {
+                if (item.primaryName == "转账") {
+                    continue
+                }
                 if (connectItem[item.primaryName] == null) {
                     connectItem[item.primaryName] = listOf(item.name)
                 } else {
