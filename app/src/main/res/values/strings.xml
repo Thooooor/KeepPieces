@@ -108,5 +108,9 @@
     <string name="changeType">切换手势登录</string>
     <string name="changeInputType">changeInputType</string>
     <string name="login_fingerprint">login_fingerprint</string>
+    <string name="add_primary_btn">添加一级分类</string>
+    <string name="add_secondary_btn">添加二级分类</string>
+    <string name="add_secondary_text1">添加</string>
+    <string name="add_secondary_text2">的二级分类</string>
     <string name="resetSelect">请选择要重置的密码</string>
 </resources>

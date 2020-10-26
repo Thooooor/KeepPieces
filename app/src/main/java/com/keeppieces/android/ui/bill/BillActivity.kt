@@ -1,5 +1,6 @@
 package com.keeppieces.android.ui.bill
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -7,9 +8,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -22,10 +26,12 @@ import com.keeppieces.android.ui.bill.picker.*
 import kotlinx.android.synthetic.main.activity_bill.*
 import java.time.LocalDate
 
+
 private const val BillUpdate = 1
 private const val BillAdd = 0
 const val INTEGER_COUNT = 4
 const val DECIMAL_COUNT = 2
+
 class BillActivity : AppCompatActivity(),
     BillTimeDialog.BillTimeDialogListener,
     BillTypeDialog.BillTypeDialogListener,
@@ -34,7 +40,9 @@ class BillActivity : AppCompatActivity(),
     BillCategoryDialog.BillCategoryDialogListener,
     AddCategoryDialog.AddCategoryDialogListener,
     BillAccountDialog.BillAccountDialogListener,
-    AddAccountDialog.AddAccountDialogListener{
+    AddAccountDialog.AddAccountDialogListener,
+    AddPrimaryDialog.AddPrimaryDialogListener,
+    AddSecondaryDialog.AddSecondaryDialogListener{
 
     private var mode: Int = 0
     private lateinit var bill: Bill
@@ -50,14 +58,16 @@ class BillActivity : AppCompatActivity(),
 
         viewModel = ViewModelProvider(this)[BillViewModel::class.java]
         mode =  intent.getIntExtra("billMode", 0)
-        bill = Bill(intent.getStringExtra("billTime").toString(),
+        bill = Bill(
+            intent.getStringExtra("billTime").toString(),
             intent.getDoubleExtra("billAmount", 0.00),
             intent.getStringExtra("billAccount").toString(),
             intent.getStringExtra("billMember").toString(),
             intent.getStringExtra("billPrimary").toString(),
             intent.getStringExtra("billSecondary").toString(),
-            intent.getStringExtra("billType").toString())
-        bill.billId = intent.getLongExtra("billId",0)
+            intent.getStringExtra("billType").toString()
+        )
+        bill.billId = intent.getLongExtra("billId", 0)
 
         billAmount.setRawInputType(InputType.TYPE_CLASS_NUMBER)
         billAmountListen()
@@ -86,10 +96,6 @@ class BillActivity : AppCompatActivity(),
 
     private fun setUpToolbar() {
         val toolbar: Toolbar = findViewById(R.id.billAddToolbar)
-//        setSupportActionBar(toolbar)
-//        val actionBar = supportActionBar
-//        actionBar?.setDisplayHomeAsUpEnabled(true)
-//        actionBar?.title = ""
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
@@ -106,7 +112,7 @@ class BillActivity : AppCompatActivity(),
             R.id.billAdd -> {
                 if (mode == BillAdd) {
                     billAdd()
-                } else if (mode == BillUpdate){
+                } else if (mode == BillUpdate) {
                     billUpdate()
                 }
                 finish()
@@ -117,7 +123,6 @@ class BillActivity : AppCompatActivity(),
             return true
         }
         return super.onOptionsItemSelected(item)
-//        return true
     }
 
     private fun billAdd() {
@@ -228,7 +233,7 @@ class BillActivity : AppCompatActivity(),
     }
 
     companion object {
-        fun start(context: Context, bill: Bill?=null) {
+        fun start(context: Context, bill: Bill? = null) {
             val intent = Intent(context, BillActivity::class.java)
             if (bill != null) {
                 intent.apply {
@@ -296,7 +301,9 @@ class BillActivity : AppCompatActivity(),
     }
 
     override fun onDialogNeutralClickForBillCategory(dialog: DialogFragment) {
-        AddCategoryDialog().show(supportFragmentManager,"AddCategoryDialog")
+        val textPrimary = (dialog as BillCategoryDialog).primaryCategory
+        val textSecondary = dialog.secondaryCategory
+        AddCategoryDialog(textPrimary, textSecondary).show(supportFragmentManager, "AddCategoryDialog")
     }
 
     override fun onDialogPositiveClickForAddCategory(dialog: DialogFragment) {
@@ -307,6 +314,7 @@ class BillActivity : AppCompatActivity(),
             billSecondary.text = textSecondary
         }
     }
+
     override fun onDialogNegativeClickForAddCategory(dialog: DialogFragment) {
     }
 
@@ -329,5 +337,56 @@ class BillActivity : AppCompatActivity(),
     }
 
     override fun onDialogNegativeClickForAddAccount(dialog: DialogFragment) {
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        when (ev.action) {
+            MotionEvent.ACTION_DOWN -> {
+                val view = currentFocus
+                KeyboardUtils.hideKeyboard(ev, view, this)
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    object KeyboardUtils {
+        fun hideKeyboard(event: MotionEvent, view: View?, activity: Activity) {
+            try {
+                if (view != null && view is EditText) {
+                    val location = intArrayOf(0, 0)
+                    view.getLocationInWindow(location)
+                    val left = location[0]
+                    val top = location[1]
+                    val right = (left
+                            + view.getWidth())
+                    val bottom = top + view.getHeight()
+                    // （判断是不是EditText获得焦点）判断焦点位置坐标是否在控件所在区域内，如果位置在控件区域外，则隐藏键盘
+                    if (event.rawX < left || event.rawX > right || event.y < top || event.rawY > bottom) {
+                        // 隐藏键盘
+                        val token = view.getWindowToken()
+                        val inputMethodManager =
+                            activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                        inputMethodManager.hideSoftInputFromWindow(
+                            token,
+                            InputMethodManager.HIDE_NOT_ALWAYS
+                        )
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    override fun onDialogPositiveClickForAddPrimary(dialog: DialogFragment) {
+    }
+
+    override fun onDialogNegativeClickForAddPrimary(dialog: DialogFragment) {
+    }
+
+    override fun onDialogPositiveClickForAddSecondary(dialog: DialogFragment, dialogBefore: DialogFragment) {
+    }
+
+    override fun onDialogNegativeClickForAddSecondary(dialog: DialogFragment) {
     }
 }

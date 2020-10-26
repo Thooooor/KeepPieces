@@ -32,4 +32,7 @@ interface BillDao {
     @Query("SELECT * FROM bill")
     fun getAllBill(): LiveData<List<Bill>>
 
+    @Query("SELECT * FROM bill WHERE bill_id = :billId ")
+    fun getBillById(billId:Long):LiveData<Bill>
+
 }
