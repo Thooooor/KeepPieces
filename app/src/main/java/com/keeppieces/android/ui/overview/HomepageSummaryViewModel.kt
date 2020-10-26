@@ -11,7 +11,7 @@ class HomepageSummaryViewModel:ViewModel() {
     private val accountRepository = AccountRepository()
     private val memberRepository = MemberRepository()
     // 插入新账单数据或修改账单数据的时候重新加载
-    val allBillLiveData = getAllBill()
+    val allBillLiveData=  getAllBill()
     val allAccountLiveData = getAllAccount()
 //    @RequiresApi(Build.VERSION_CODES.O)
 //    fun getNowMonthBillList(date: LocalDate) = billRepository.getNowMonthBillList(date)

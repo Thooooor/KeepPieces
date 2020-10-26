@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
@@ -50,13 +51,14 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
         return inflater.inflate(R.layout.fragment_monthly, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initDate() {
         startLocalDate = LocalDate.parse(startDate)
         endLocalDate = LocalDate.parse(endDate)
         timeSpan = endLocalDate.dayOfYear - startLocalDate.dayOfYear + 1
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun updateDate(span: Int) {
         if (mode == MonthMode) {
             val monthSpan = if (span > 0) 1 else -1
@@ -72,6 +74,7 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
         Log.d("Monthly Date Update", "$startDate ~ $endDate")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun updateMode() {
         val year = endLocalDate.year
         val month = endLocalDate.monthValue
