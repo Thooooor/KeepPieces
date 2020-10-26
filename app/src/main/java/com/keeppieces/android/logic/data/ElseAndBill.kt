@@ -8,7 +8,7 @@ data class AccountAndBill (
     val account: Account,
 
     @Relation(parentColumn = "account_name", entityColumn = "account")
-    val accountListFromBill: List<Account> = emptyList()
+    val accountListFromBill: List<Account>
 )
 
 data class MemberAndBill (
@@ -16,7 +16,7 @@ data class MemberAndBill (
     val member: Member,
 
     @Relation(parentColumn = "member_name", entityColumn = "member")
-    val memberListFromBill: List<Member> = emptyList()
+    val memberListFromBill: List<Member>
 )
 
 data class PrimaryCategoryAndBill (
@@ -24,7 +24,7 @@ data class PrimaryCategoryAndBill (
     val primaryCategory: PrimaryCategory,
 
     @Relation(parentColumn = "primary_name", entityColumn = "primary_category")
-    val primaryListFromBill: List<PrimaryCategory> = emptyList()
+    val primaryListFromBill: List<PrimaryCategory>
 )
 
 data class SecondCategoryAndBill (
@@ -32,7 +32,7 @@ data class SecondCategoryAndBill (
     val secondaryCategory: SecondaryCategory,
 
     @Relation(parentColumn = "secondary_name", entityColumn = "secondary_category")
-    val secondaryListFromBill: List<SecondaryCategory> = emptyList()
+    val secondaryListFromBill: List<SecondaryCategory>
 )
 
 data class TypeAndBill (
@@ -40,5 +40,5 @@ data class TypeAndBill (
     val type: Type,
 
     @Relation(parentColumn = "type_name", entityColumn = "type")
-    val typeListFromBill: List<Type> = emptyList()
+    val typeListFromBill: List<Type>
 )

@@ -19,7 +19,7 @@ class BillMemberDialog : DialogFragment() {
 
     private lateinit var listener : BillMemberDialogListener
     private lateinit var viewModel : BillViewModel
-     var member : String = "自己"
+    var member : String = "自己"
 
     interface BillMemberDialogListener{
         fun onDialogPositiveClickForBillMember(dialog: DialogFragment)
@@ -52,9 +52,9 @@ class BillMemberDialog : DialogFragment() {
         )
 
         viewModel = ViewModelProvider(this)[BillViewModel::class.java]
-        var cardItem: List<String> = listOf("自己")
+        var cardItem: List<String> = listOf("自己","无成员")
         viewModel.findMemberList().observe(this, { listTmp ->
-            cardItem = if (listTmp.isEmpty()) listOf("自己") else listTmp.map { tmp -> tmp.name }
+            cardItem = if (listTmp.isEmpty()) listOf("自己","无成员") else listTmp.map { tmp -> tmp.name }
             inMember.adapter = ArrayWheelAdapter(cardItem)
             member = cardItem[0]
         })

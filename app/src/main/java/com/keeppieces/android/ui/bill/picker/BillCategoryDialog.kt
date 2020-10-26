@@ -66,12 +66,16 @@ class BillCategoryDialog : DialogFragment() {
         val connectItem : MutableMap<String, List<String>> = HashMap()
 
         secondaryLiveData.observe(this, { secondaryTmp ->
+            connectItem.clear()
             for (item in secondaryTmp) {
                 if (connectItem[item.primaryName] == null) {
                     connectItem[item.primaryName] = listOf(item.name)
                 } else {
                     connectItem[item.primaryName]?.plus(listOf(item.name))?.let { connectItem.put(item.primaryName, it) }
                 }
+            }
+            if (secondaryTmp.isEmpty()) {
+                connectItem["其他"] = listOf("其他")
             }
             primaryItem = connectItem.keys.toList()
             secondaryItem = connectItem[primaryItem[0]]!!

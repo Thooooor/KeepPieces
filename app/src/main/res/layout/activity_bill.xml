@@ -58,7 +58,7 @@
                 android:id="@+id/billAmount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/_1234_55"
+                android:hint="@string/bill_up_amount_text"
                 android:background="@color/color_background"
                 android:textSize="50sp"
                 android:layout_toEndOf="@id/billAmountSign"

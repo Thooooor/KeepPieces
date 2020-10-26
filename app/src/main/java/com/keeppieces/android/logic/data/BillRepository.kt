@@ -104,6 +104,7 @@ class BillRepository {
 //        return billDao.getPeriodBill(monthFirstDay.toString(), monthLastDay.toString())
 //    }
 
+    fun getABill(id: Long) = billDao.getABill(id)
     fun getBillById(billId:Long) = billDao.getBillById(billId)
 }
 
