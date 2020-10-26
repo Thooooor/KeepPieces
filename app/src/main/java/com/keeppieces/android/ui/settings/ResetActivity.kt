@@ -2,12 +2,14 @@ package com.keeppieces.android.ui.settings
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
-import com.keeppieces.android.ui.login.*
 
 class ResetActivity : AppCompatActivity() {
 
@@ -17,10 +19,17 @@ class ResetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset)
-        setContentView(R.layout.activity_login)
 
         addFragment(ResetFragment())
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            super.onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun sendSetData(data: String) {
@@ -34,14 +43,14 @@ class ResetActivity : AppCompatActivity() {
     private fun addFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager //获取FragmentManager
         val transaction = fragmentManager.beginTransaction() //开启一个事务
-        transaction.replace(R.id.welcomePage, fragment)  //替换容器内的fragment
+        transaction.replace(R.id.resetPage, fragment)  //替换容器内的fragment
         transaction.commit()    //提交事务
     }
 
     fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager //获取FragmentManager
         val transaction = fragmentManager.beginTransaction() //开启一个事务
-        transaction.replace(R.id.welcomePage, fragment)  //替换容器内的fragment
+        transaction.replace(R.id.resetPage, fragment)  //替换容器内的fragment
         transaction.addToBackStack(null)    //返回栈,实现按下back键返回上一个fragment
         transaction.commit()    //提交事务
     }
@@ -51,7 +60,7 @@ class ResetActivity : AppCompatActivity() {
         if (setData == confirmData) {
             Toast.makeText(
                 applicationContext,
-                "设置成功！", Toast.LENGTH_SHORT
+                "密码修改成功！", Toast.LENGTH_SHORT
             )
                 .show()
             val editor = getSharedPreferences("password", Context.MODE_PRIVATE)
@@ -70,8 +79,6 @@ class ResetActivity : AppCompatActivity() {
     }
 
     private fun jump() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
         finish()
     }
 
