@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.toMoneyFormatted
@@ -35,10 +33,7 @@ class TodaySummaryCardAdapter(private val content:Context, private val billList:
         viewHolder.billMoreInformationButton.setOnClickListener {
             val position = viewHolder.adapterPosition
             val bill = billList[position]
-            val billId = bill.billId
-            BillRepository().getBillById(billId).observe(content as LifecycleOwner) {
-                BillActivity.start(content,it)
-            }
+            BillActivity.start(content,BillRepository().getBillByGeneralBill(bill))
         }
         return viewHolder
     }
