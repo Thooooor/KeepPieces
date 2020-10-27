@@ -66,7 +66,7 @@ class AddAccountDialog : DialogFragment() {
                 }
             })
 
-            builder.setTitle("添加成员")
+            builder.setTitle("添加账户")
                 .setView(view)
                 .setPositiveButton("确定"
                 ) { _, _ ->

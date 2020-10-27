@@ -26,7 +26,8 @@ data class Bill(
     @ColumnInfo(name = "member") val member: String,
     @ColumnInfo(name = "primary_category") val primaryCategory: String,
     @ColumnInfo(name = "secondary_category") val secondaryCategory: String,
-    @ColumnInfo(name = "type") val type: String
+    @ColumnInfo(name = "type") val type: String,
+    val info: String="",
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "bill_id")

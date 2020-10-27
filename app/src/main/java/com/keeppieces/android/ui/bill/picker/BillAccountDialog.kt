@@ -63,7 +63,7 @@ class BillAccountDialog : DialogFragment() {
              account = cardItem[index]
         }
 
-        builder.setTitle("成员选择")
+        builder.setTitle("账户选择")
             .setView(view)
             .setPositiveButton(
                 "确定"

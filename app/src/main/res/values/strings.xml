@@ -114,4 +114,5 @@
     <string name="add_secondary_text2">的二级分类</string>
     <string name="resetSelect">请选择要重置的密码</string>
     <string name="resetPwd">修改密码</string>
+    <string name="account">账户</string>
 </resources>

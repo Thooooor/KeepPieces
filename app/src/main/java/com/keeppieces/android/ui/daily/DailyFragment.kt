@@ -74,6 +74,7 @@ class DailyFragment(var date: String) : Fragment() {
         return inflater.inflate(R.layout.fragment_daily, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initSetting()

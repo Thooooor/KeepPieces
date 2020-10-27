@@ -71,7 +71,8 @@ class BillActivity : AppCompatActivity(),
             intent.getStringExtra("billMember").toString(),
             intent.getStringExtra("billPrimary").toString(),
             intent.getStringExtra("billSecondary").toString(),
-            intent.getStringExtra("billType").toString()
+            intent.getStringExtra("billType").toString(),
+            intent.getStringExtra("billInfo").toString()
         )
         bill.billId = intent.getLongExtra("billId", 0)
 
@@ -121,7 +122,8 @@ class BillActivity : AppCompatActivity(),
                 member = billMember.text.toString(),
                 primaryCategory = billPrimary.text.toString(),
                 secondaryCategory = billSecondary.text.toString(),
-                type = billType.text.toString()
+                type = billType.text.toString(),
+                info = billInfo.text.toString()
         )
         if (item.itemId == R.id.billAdd) {
             if (mode == BillAdd) {
@@ -240,6 +242,7 @@ class BillActivity : AppCompatActivity(),
             billPrimary.text = bill.secondaryCategory
             billSecondary.text = bill.primaryCategory
             billType.text = bill.type
+            billInfo.setText(bill.info)
         } else {
             billTime.text = LocalDate.now().toString()
             billAmount.setText("")
@@ -264,6 +267,7 @@ class BillActivity : AppCompatActivity(),
                     putExtra("billPrimary", bill.primaryCategory)
                     putExtra("billSecondary", bill.secondaryCategory)
                     putExtra("billType", bill.type)
+                    putExtra("billInfo", bill.info)
                     putExtra("billId", bill.billId)
                 }
             } else {
@@ -285,8 +289,10 @@ class BillActivity : AppCompatActivity(),
 
     override fun onDialogPositiveClickForBillType(dialog: DialogFragment) {
         billType.text = (dialog as BillTypeDialog).type
-        billPrimary.text = "转账"
-        billSecondary.text = "微信"
+        if (billType.text == "转账") {
+            billPrimary.text = "转账"
+            billSecondary.text = "微信"
+        }
     }
 
     override fun onDialogNegativeClickForBillType(dialog: DialogFragment) {

@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlin.concurrent.thread
 
 @Database(
-    version = 5,
+    version = 6,
     entities = [Bill::class, Account::class, Member::class, PrimaryCategory::class, SecondaryCategory::class, Type::class]
 )
 abstract class AppDatabase : RoomDatabase() {
