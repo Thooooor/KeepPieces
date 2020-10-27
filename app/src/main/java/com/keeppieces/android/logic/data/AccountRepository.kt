@@ -64,13 +64,13 @@ class AccountRepository {
     fun getAccountSummary(accounts:List<Account>, positiveColor: String, negativeColor: String):AccountSummary {
         val accountList = mutableListOf<DailyAccount>()
         var total = 0.00
-        var positveSize = 0
+        var positiveSize = 0
         var negativeSize = 0
         for (account in accounts) {
             total += account.amount
             if(account.amount>=0) {
-                val accountNameColor = repository.getColorInt(positiveColor, positveSize)
-                positveSize += 1
+                val accountNameColor = repository.getColorInt(positiveColor, positiveSize)
+                positiveSize += 1
                 accountList.add(DailyAccount(account.name, account.amount, accountNameColor))
             }
             else {
