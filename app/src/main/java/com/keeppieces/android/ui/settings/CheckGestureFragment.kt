@@ -60,8 +60,8 @@ class CheckGestureFragment : Fragment(), NineLockListener {
     }
 
     private fun getGesture(): String {
-        val loginActivity = activity as LoginActivity
-        val share = loginActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
+        val resetActivity = activity as ResetActivity
+        val share = resetActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
         val gesture = share.getString("gesture", "")
         return gesture.toString()
     }

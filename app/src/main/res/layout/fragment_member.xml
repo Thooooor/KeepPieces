@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.categoryDetail.primaryCategory.PrimaryCategoryOverviewFragment">
+    tools:context=".ui.member.MemberFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -83,12 +83,9 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@id/pieChart"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/pieChart"
-                app:layout_constraintVertical_bias="0.501"
-                android:text="分类占比" />
-
+                tools:text="成员" />
 
             <TextView
                 android:id="@+id/timeSpanView"
@@ -103,7 +100,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/primaryOverviewRecyclerView"
+                android:id="@+id/memberOverviewRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/pieChart"

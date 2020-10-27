@@ -1,12 +1,12 @@
 package com.keeppieces.android
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.keeppieces.android.ui.categoryDetail.primaryCategory.PrimaryCategoryOverviewFragment
 import com.keeppieces.android.ui.daily.DailyFragment
 import com.keeppieces.android.ui.monthly.MonthlyFragment
 import com.keeppieces.android.ui.overview.OverviewFragment
@@ -21,7 +21,7 @@ class MainPagerAdapter(
 ) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val today = Calendar.getInstance()
     private val year = today.get(Calendar.YEAR)
-    private var month = today.get(Calendar.MONTH) + 1
+    private var month = today.get(Calendar.MONTH) + 1 // Calendar.MONTH 范围为 0~11
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getItem(position: Int): Fragment {
@@ -41,6 +41,7 @@ class MainPagerAdapter(
             0 -> OverviewFragment()
             1 -> DailyFragment(LocalDate.now().toString())
             2 -> MonthlyFragment(startDate, endDate)
+            3 -> PrimaryCategoryOverviewFragment(startDate,endDate)
             4 -> SettingsFragment()
             else -> DailyFragment(LocalDate.now().toString())
         }

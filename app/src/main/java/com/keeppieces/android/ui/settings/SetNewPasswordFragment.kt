@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.login
+package com.keeppieces.android.ui.settings
 
 import android.app.VoiceInteractor.Prompt
 import android.content.Context
@@ -11,11 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
 import kotlinx.android.synthetic.main.fragment_set_password.*
 
 
-class SetPasswordFragment : Fragment() {
+class SetNewPasswordFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +34,7 @@ class SetPasswordFragment : Fragment() {
     }
 
     private fun init() {
-        val firstActivity = activity as FirstActivity
+        val resetActivity = activity as ResetActivity
         var visible1 = false
         var visible2 = false
         visibleLogo1.setOnClickListener {
@@ -66,20 +67,20 @@ class SetPasswordFragment : Fragment() {
             val firstPwd = passwordFirstEdit.text.toString()
             val secondPwd = passwordSecondEdit.text.toString()
             if (firstPwd.length < min) {
-                Toast.makeText(firstActivity, "密码最少为6位", Toast.LENGTH_SHORT).show()
+                Toast.makeText(resetActivity, "密码最少为6位", Toast.LENGTH_SHORT).show()
             } else if (firstPwd.length > max) {
                 Toast.makeText(activity, "密码最多为20位", Toast.LENGTH_SHORT).show()
             } else {
                 if (firstPwd == secondPwd && firstPwd != "") {
-                    Toast.makeText(firstActivity, "密码设置成功！", Toast.LENGTH_SHORT).show()
-                    val editor = firstActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
+                    Toast.makeText(resetActivity, "密码设置成功！", Toast.LENGTH_SHORT).show()
+                    val editor = resetActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
                         ?.edit()
                     editor?.putString("pwd", secondPwd)
                     editor?.apply()
 
                     jump()
                 } else {
-                    Toast.makeText(firstActivity, "两次密码不一致", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(resetActivity, "两次密码不一致", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -87,7 +88,7 @@ class SetPasswordFragment : Fragment() {
     }
 
     private fun jump() {
-        val intent = Intent(activity, LoginActivity::class.java)
+        val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
         activity?.finish()
     }

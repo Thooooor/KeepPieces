@@ -3,6 +3,7 @@ package com.keeppieces.android
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.ui.overview.AddMonthBudgetDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_month_summary_card.*
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity(),AddMonthBudgetDialog.SetMonthBudgetInte
     }
 
     override fun setMonthBudgetButtonText(monthBudget: String) {
-        button_set_month_budget.text = monthBudget
+        button_set_month_budget.text = monthBudget.toDouble().toCHINADFormatted()
     }
 
 }
