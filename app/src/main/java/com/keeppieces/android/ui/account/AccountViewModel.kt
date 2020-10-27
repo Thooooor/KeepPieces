@@ -21,8 +21,8 @@ class AccountViewModel @ViewModelInject internal constructor(): ViewModel() {
 
     fun getAccountClassification(bills:List<Bill>) = AccountRepository().getAccountClassification(bills)
 
-    fun getAccountSummary(accountClassification: MutableMap<String, Pair<List<Bill>, Int>> , positiveColor:String, negativeColor:String) : MutableList<AccountDetail> {
-        return AccountRepository().getAccountSummaryInAccount(accountClassification, positiveColor, negativeColor)
+    fun getAccountSummary(bills: List<Bill>, positiveColor: String, negativeColor: String) : MutableList<AccountDetail> {
+        return AccountRepository().getAccountSummaryInAccount(bills, positiveColor, negativeColor)
     }
 }
 
@@ -31,7 +31,7 @@ data class AccountDetail(
     var inAmount: Double,
     var outAmount: Double,
     var lastAmount : Double,
-    var finalAmount : Double,
+//    var finalAmount : Double,
     @ColorRes val color: Int,
     var outMaxCategory : String,
     var inMaxCategory : String,

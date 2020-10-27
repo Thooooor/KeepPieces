@@ -23,7 +23,12 @@ import com.keeppieces.android.ui.monthly.MonthMode
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
-import kotlinx.android.synthetic.main.fragment_monthly.*
+import kotlinx.android.synthetic.main.fragment_account.*
+import kotlinx.android.synthetic.main.fragment_monthly.monthlyLeftArrow
+import kotlinx.android.synthetic.main.fragment_monthly.monthlyRightArrow
+import kotlinx.android.synthetic.main.fragment_monthly.pieChart
+import kotlinx.android.synthetic.main.fragment_primary.*
+import kotlinx.android.synthetic.main.fragment_primary.timeSpanView
 import kotlinx.android.synthetic.main.layout_daily_account_overview.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -38,10 +43,11 @@ class AccountFragment(var startDate: String, var endDate: String): Fragment() {
     private var timeSpan: Int = 1
     private var cnt: Int = -1
     private var mode = MonthMode
-    lateinit var primaryClassification: MutableMap<String,Pair<List<Bill>,Int>>
+//    lateinit var primaryClassification: MutableMap<String,Pair<List<Bill>,Int>>
     private lateinit var accountSummary : MutableList<AccountDetail>
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_primary, container, false)
+        return inflater.inflate(R.layout.fragment_account, container, false)
     }
 
 
@@ -108,7 +114,7 @@ class AccountFragment(var startDate: String, var endDate: String): Fragment() {
             setUpView()
         }
 
-        labelAlert.setOnClickListener {
+        timeSpanView.setOnClickListener {
             val builder = MaterialDatePicker.Builder.dateRangePicker()
             val picker = builder.build()
             picker.show(childFragmentManager, picker.toString())
@@ -134,9 +140,9 @@ class AccountFragment(var startDate: String, var endDate: String): Fragment() {
         if (cnt <= 0) cnt++
         viewModel.billList(startDate, endDate).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) listOf() else billList
-            primaryClassification = viewModel.getAccountClassification(bills)
-            accountSummary = viewModel.getAccountSummary(primaryClassification, "blue", "yellow")
-            labelAlert.text = "$startDate ~ $endDate"
+//            accountClassification = viewModel.getAccountClassification(bills)
+            accountSummary = viewModel.getAccountSummary(bills, "blue", "yellow")
+            timeSpanView.text = StringBuilder("$startDate ~ $endDate").toString()
             setUpPieView()
             setUpAccountCard()
         }
@@ -163,7 +169,7 @@ class AccountFragment(var startDate: String, var endDate: String): Fragment() {
             inAmount += item.inAmount
             outAmount += item.outAmount
         }
-        dailyAccountDetailRecycler.apply {
+        accountOverviewRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
 //            setHasFixedSize(true)
             if (cnt == 0) addItemDecoration(getItemDecoration())

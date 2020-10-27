@@ -61,16 +61,16 @@ class AccountOverviewAdapter(
                 oneAccountDetail.inAmount.toCHINADFormatted()))
         }
         if (outAmount != 0.00) {
-            description.add(Pair("收入(占总收入比)：",
+            description.add(Pair("支出(占总收入比)：",
                 oneAccountDetail.outAmount.toCHINADFormatted()+"("+String.format("%.2f",oneAccountDetail.outAmount/outAmount*100)+"%)"))
         } else {
-            description.add(Pair("收入：",
+            description.add(Pair("支出：",
                 oneAccountDetail.outAmount.toCHINADFormatted()))
         }
         description.add(Pair("总计：",
             oneAccountDetail.lastAmount.toCHINADFormatted()))
-        description.add(Pair("余额：",
-            oneAccountDetail.finalAmount.toCHINADFormatted()))
+//        description.add(Pair("余额：",
+//            oneAccountDetail.finalAmount.toCHINADFormatted()))
         if (oneAccountDetail.outAmount != 0.00) {
             description.add(Pair("支出最多分类：",
                 oneAccountDetail.outMaxCategory))

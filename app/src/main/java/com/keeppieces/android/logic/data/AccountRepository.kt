@@ -63,7 +63,7 @@ class AccountRepository {
 
     fun getAccountSummary(accounts:List<Account>, positiveColor: String, negativeColor: String):AccountSummary {
         val accountList = mutableListOf<DailyAccount>()
-        var total:Double = 0.00
+        var total = 0.00
         var positveSize = 0
         var negativeSize = 0
         for (account in accounts) {
@@ -105,19 +105,20 @@ class AccountRepository {
         return accountClassification
     }
 
-    fun getAccountSummaryInAccount(accountClassification: MutableMap<String,Pair<List<Bill>,Int>>,
-                                   positiveColor: String,
-                                   negativeColor: String)
-            : MutableList<AccountDetail> {
+    fun getAccountSummaryInAccount(
+        bills: List<Bill>,
+        positiveColor: String,
+        negativeColor: String
+    ): MutableList<AccountDetail> {
         val accountList = mutableListOf<AccountDetail>()
-
+        val accountClassification = getAccountClassification(bills)
         for (accountBill in accountClassification) {
             var inAmount = 0.00
             var outAmount = 0.00
-            val outCategoryAmount = mutableMapOf<String, Double>()
-            val inCategoryAmount = mutableMapOf<String, Double>()
-            val outMemberAmount = mutableMapOf<String, Double>()
-            val inMemberAmount = mutableMapOf<String, Double>()
+            val outCategoryAmount = HashMap<String, Double>()
+            val inCategoryAmount = HashMap<String, Double>()
+            val outMemberAmount = HashMap<String, Double>()
+            val inMemberAmount = HashMap<String, Double>()
             for (bill in accountBill.value.first) {
                 if (bill.type == "收入" || (bill.type == "转账" && bill.secondaryCategory == accountBill.key)) {
                     inAmount += bill.amount
@@ -145,18 +146,20 @@ class AccountRepository {
                     }
                 }
             }
-            val account = getAAccount(accountBill.key)
+//            val account = getAAccount(accountBill.key)
             val accountColor = repository.getColorInt(
                 if (inAmount-outAmount>=0) {positiveColor} else {negativeColor}, accountBill.value.second)
-            val inMaxCategory = inCategoryAmount.maxOf { tmp -> tmp.key}
-            val outMaxCategory = outCategoryAmount.maxOf { tmp -> tmp.key}
-            val inMaxMember = inMemberAmount.maxOf { tmp -> tmp.key}
-            val outMaxMember = outMemberAmount.maxOf { tmp -> tmp.key}
+//            val inMaxCategory = inCategoryAmount.maxOf { tmp -> tmp.key}
+//            val inMaxCategory = inCategoryAmount.
+            val inMaxCategory = getMapMax(inCategoryAmount)
+            val outMaxCategory = getMapMax(outCategoryAmount)
+            val inMaxMember = getMapMax(inMemberAmount)
+            val outMaxMember = getMapMax(outMemberAmount)
             accountList.add(AccountDetail(accountBill.key,
                 inAmount,
                 outAmount,
                 inAmount-outAmount,
-                account.amount,
+//                accountBill.,
                 accountColor,
                 outMaxCategory,
                 inMaxCategory,
@@ -164,6 +167,18 @@ class AccountRepository {
                 inMaxMember))
         }
         return accountList
+    }
+
+    private fun getMapMax(map: HashMap<String, Double>) : String {
+        var maxValue = 0.00
+        var maxText = ""
+        for (item in map) {
+            if (item.value > maxValue) {
+                maxValue = item.value
+                maxText = item.key
+            }
+        }
+        return maxText
     }
 }
 
