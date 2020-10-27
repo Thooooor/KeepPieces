@@ -152,6 +152,7 @@ class BillViewModel : ViewModel() {
     fun addAccount(account: Account) {
         thread {
             AccountRepository().createAccount(account)
+            PrimaryCategoryRepository().createPrimaryCategory(PrimaryCategory("转账"))
             SecondaryCategoryRepository().createSecondaryCategory(SecondaryCategory(account.name,"转账"))
         }
     }
