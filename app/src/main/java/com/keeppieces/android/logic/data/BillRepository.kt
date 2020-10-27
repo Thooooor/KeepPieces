@@ -53,8 +53,6 @@ class BillRepository {
         billDao.deleteBill(bill)
     }
 
-    fun loadAllBillByAmount() = billDao.loadAllBillByAmount()
-
     fun getAllBill() = billDao.getAllBill()
 
 //    // startDateString、endDataString的格式：2020-10-14，返回区间内的账单信息
@@ -106,9 +104,13 @@ class BillRepository {
 
     fun getABill(id: Long) = billDao.getABill(id)
     fun getBillById(billId:Long) = billDao.getBillById(billId)
-    fun getBillByGeneralBill(generalBill: GeneralBill) = Bill(
-        generalBill.date,generalBill.amount, generalBill.account,generalBill.member,
-        generalBill.primaryCategory,generalBill.secondaryCategory,generalBill.type)
+    fun getBillByGeneralBill(generalBill: GeneralBill): Bill {
+        val bill = Bill(
+            generalBill.date,generalBill.amount, generalBill.account,generalBill.member,
+            generalBill.primaryCategory,generalBill.secondaryCategory,generalBill.type)
+        bill.billId = generalBill.billId
+        return bill
+    }
 }
 
 data class DailyOverview(val total: Double, val bills: List<GeneralBill>)
