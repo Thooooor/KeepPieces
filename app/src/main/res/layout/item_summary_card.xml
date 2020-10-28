@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/more_information"
     android:background="?attr/selectableItemBackground">
 
     <com.keeppieces.line_indicator.VerticalBar
@@ -58,7 +59,6 @@
         app:layout_constraintTop_toTopOf="@+id/money_amount_in_item" />
 
     <ImageButton
-        android:id="@+id/more_information"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="16dp"
@@ -70,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/money_amount_in_item"
         app:layout_constraintVertical_bias="0.461"
-        android:contentDescription="more_information" />
+        android:contentDescription="@string/more_information" />
 
     <TextView
         android:id="@+id/money_amount_in_item"

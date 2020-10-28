@@ -124,12 +124,13 @@ class OverviewFragment : Fragment() {
             setUpMonthSummaryCardView(nowMonthBillList)
             setUpTodaySummaryCardView(todayBillList)
             setUpMemberMonthSummaryCardView(nowMonthBillList)
+            setUpAccountSummaryCardView(nowMonthBillList)
         }
-
-        // 更新并展示账户卡片
-        viewModel.allAccountLiveData.observe(viewLifecycleOwner) { accountList ->
-            setUpAccountSummaryCardView(accountList)
-        }
+//
+//        // 更新并展示账户卡片
+//        viewModel.allAccountLiveData.observe(viewLifecycleOwner) { accountList ->
+//
+//        }
 
     }
 
@@ -180,20 +181,34 @@ class OverviewFragment : Fragment() {
         }
     }
 
-    private fun setUpAccountSummaryCardView(accounts: List<Account>) {  // accounts：数据库中所有的账账户情况
-        val accountSummary = viewModel.getAccountSummary(accounts, "green", "purple")
-        val lineIndicatorData: LineIndicatorData = getLineIndicatorData(
-            accountSummary.accounts,
+    private fun setUpAccountSummaryCardView(bills: MutableList<Bill>) {  // accounts：数据库中所有的账账户情况
+        val accountListAbout = viewModel.getAccountClassification(bills)
+        val accountSummary = viewModel.getAccountSummary(accountListAbout, "green", "purple")
+        val lineIndicatorData = getLineIndicatorData(
+            accountSummary,
             ::getDailyAccountAccount, ::getDailyAccountAmount, ::getDailyAccountColorInt
         )
+        var amount = 0.00
+        for (item in accountSummary) {
+            amount += item.amount
+        }
         account_summary_line_indicator.setData(lineIndicatorData)
-        account_amount.text = accountSummary.total.toCHINADFormatted()
+        account_amount.text = amount.toCHINADFormatted()
         bill_account_overview_recyclerview.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
-            adapter = AccountSummaryCardAdapter(requireContext(), accountSummary.accounts)
+            adapter = AccountSummaryCardAdapter(requireContext(), accountSummary)
         }
+//        account_summary_line_indicator.setData(lineIndicatorData)
+//        account_amount.text = accountSummary.total.toCHINADFormatted()
+//        bill_account_overview_recyclerview.apply {
+//            layoutManager = LinearLayoutManager(requireContext())
+//            setHasFixedSize(true)
+//            addItemDecoration(getItemDecoration())
+//            adapter = AccountSummaryCardAdapter(requireContext(), accountSummary.accounts)
+//        }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

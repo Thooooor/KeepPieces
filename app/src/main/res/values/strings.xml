@@ -120,4 +120,5 @@
     <string name="account_detail">账户详情</string>
     <string name="Income">收入</string>
     <string name="Outcome">支出</string>
+    <string name="more_information">more_information</string>
 </resources>

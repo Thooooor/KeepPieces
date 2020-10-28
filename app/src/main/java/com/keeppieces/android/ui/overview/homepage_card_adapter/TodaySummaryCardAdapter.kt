@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.toMoneyFormatted
@@ -24,7 +24,7 @@ class TodaySummaryCardAdapter(private val content:Context, private val billList:
         val moneySymbol:TextView = view.findViewById(R.id.money_symbol_in_item)
         val moneyAmount:TextView = view.findViewById(R.id.money_amount_in_item)
         val bar:VerticalBar = view.findViewById(R.id.item_vertical_bar)
-        val billMoreInformationButton:ImageButton = view.findViewById(R.id.more_information)
+        val billMoreInformationButton: ConstraintLayout = view.findViewById(R.id.more_information)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
