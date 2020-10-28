@@ -116,7 +116,6 @@ class AccountActivity() : AppCompatActivity() {
 
     private fun setUpAmount() {
         viewModel.getAccountPeriodList(startDate, endDate, account).observe(this) {billList ->
-//            val bills = if (billList.isEmpty()) listOf() else
             inAmount = 0.00
             outAmount = 0.00
             billsInFilter.clear()
@@ -137,8 +136,8 @@ class AccountActivity() : AppCompatActivity() {
     }
 
     private fun setUpPieView() {
-        val accountPieList = listOf<accountPie>(accountPie("支出", outAmount, Repository.getColorInt("yellow", 0)),
-                                                accountPie("收入", inAmount, Repository.getColorInt("blue", 1)))
+        val accountPieList = listOf<AccountPie>(AccountPie("支出", outAmount, Repository.getColorInt("yellow", 0)),
+                                                AccountPie("收入", inAmount, Repository.getColorInt("blue", 1)))
         val piePortions = accountPieList.map {
             PiePortion(
                     it.name, abs(it.amount), ContextCompat.getColor(this, it.color)
@@ -239,4 +238,4 @@ class AccountActivity() : AppCompatActivity() {
     }
 }
 
-data class accountPie(val name: String, val amount: Double, val color: Int)
+data class AccountPie(val name: String, val amount: Double, val color: Int)

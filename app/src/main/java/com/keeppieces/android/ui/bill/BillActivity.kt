@@ -105,10 +105,6 @@ class BillActivity : AppCompatActivity(),
         }
     }
 
-//    private fun setUpToolbar() {
-//
-//    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_bill_add, menu)
         return true
@@ -152,32 +148,8 @@ class BillActivity : AppCompatActivity(),
             finish()
         }
         return true
-//        return super.onOptionsItemSelected(item)
     }
 
-//    private fun billAdd(nowBill: Bill) {
-//        if (nowBill.amount == 0.00) {
-//            Toast.makeText(this,"输入金额不能为零",Toast.LENGTH_LONG).show()
-//        } else if (nowBill.account == nowBill.secondaryCategory && nowBill.type == "转账") {
-//            Toast.makeText(this,"转入转出账户不能相同",Toast.LENGTH_LONG).show()
-//        } else {
-//            viewModel.addBill(nowBill)
-//            finish()
-//        }
-//    }
-//
-//    private fun billUpdate(nowBill: Bill) {
-//        nowBill.billId = bill.billId
-//        if (nowBill.amount == 0.00) {
-//            viewModel.deleteBill(nowBill)
-//            finish()
-//        } else if (nowBill.account == nowBill.secondaryCategory && nowBill.type == "转账") {
-//            Toast.makeText(this,"转入转出账户不能相同",Toast.LENGTH_LONG).show()
-//        } else {
-//            viewModel.updateBill(nowBill)
-//            finish()
-//        }
-//    }
 
     private fun billAmountListen() {
         billAmount.addTextChangedListener(object : TextWatcher {
@@ -292,6 +264,9 @@ class BillActivity : AppCompatActivity(),
         if (billType.text == "转账") {
             billPrimary.text = "转账"
             billSecondary.text = "微信"
+        } else {
+            billPrimary.text = "其他"
+            billSecondary.text = "其他"
         }
     }
 
