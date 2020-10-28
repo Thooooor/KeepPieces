@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.categoryDetail.primaryCategory
+package com.keeppieces.android.ui.PrimaryCategory
 
 import android.os.Build
 import android.os.Bundle
@@ -13,7 +13,8 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
-import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.ui.PrimaryCategory.adapter.PrimaryCategoryOverviewAdapter
+import com.keeppieces.android.ui.PrimaryCategory.viewmodel.PrimaryCategoryOverViewViewModel
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
@@ -31,7 +32,8 @@ const val MonthMode = 1
 const val CustomMode = 2
 
 class PrimaryCategoryOverviewFragment(var startDate: String, var endDate: String): Fragment() {
-    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(PrimaryCategoryOverViewViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(
+        PrimaryCategoryOverViewViewModel::class.java) }
     private lateinit var startLocalDate: LocalDate
     private lateinit var endLocalDate: LocalDate
     private var timeSpan: Int = 1

@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.categoryDetail.primaryCategory
+package com.keeppieces.android.ui.PrimaryCategory
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.ui.PrimaryCategory.adapter.SecondaryCategoryBillFlowFragmentAdapter
 
 class SecondaryCategoryBillFlowFragment(val billList:List<Bill>, var cnt:Int = -1):Fragment() {
     override fun onCreateView(

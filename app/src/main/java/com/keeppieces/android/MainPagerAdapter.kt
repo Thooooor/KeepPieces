@@ -6,8 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.keeppieces.android.ui.account.AccountFragment
-import com.keeppieces.android.ui.categoryDetail.primaryCategory.PrimaryCategoryOverviewFragment
+import com.keeppieces.android.ui.PrimaryCategory.PrimaryCategoryOverviewFragment
 import com.keeppieces.android.ui.daily.DailyFragment
 import com.keeppieces.android.ui.member.MemberFragment
 import com.keeppieces.android.ui.monthly.MonthlyFragment
@@ -41,13 +40,13 @@ class MainPagerAdapter(
 
         return when (position) {
             0 -> OverviewFragment()
-            1 -> DailyFragment(LocalDate.now().toString())
+            1 -> DailyFragment()
             2 -> MonthlyFragment(startDate, endDate)
             3 -> PrimaryCategoryOverviewFragment(startDate, endDate)
             //3 -> AccountFragment(startDate,endDate)
             //3-> MemberFragment(startDate,endDate)
             4 -> SettingsFragment()
-            else -> DailyFragment(LocalDate.now().toString())
+            else -> DailyFragment()
         }
     }
 

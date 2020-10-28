@@ -40,7 +40,7 @@ class AccountPagerAdapter(
         return when (position) {
             0 -> AccountDetailFragment(startDate, endDate, account, "支出")
             1 -> AccountDetailFragment(startDate, endDate, account, "收入")
-            else -> DailyFragment(LocalDate.now().toString())
+            else -> DailyFragment()
         }
     }
 

@@ -1,10 +1,11 @@
-package com.keeppieces.android.ui.categoryDetail.primaryCategory
+package com.keeppieces.android.ui.PrimaryCategory.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.ui.PrimaryCategory.SecondaryCategoryBillFlowFragment
 
 class PrimaryCategoryDetailActivityAdapter(
     private val fm: FragmentManager,

@@ -9,6 +9,8 @@ import com.keeppieces.android.R
 import com.keeppieces.android.extension.inflate
 import com.keeppieces.android.extension.toMoneyFormatted
 import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.logic.data.BillRepository
+import com.keeppieces.android.ui.bill.BillActivity
 
 class DetailAdapter(private val items: List<Bill>) : RecyclerView.Adapter<DetailItemViewHolder>() {
     override fun getItemCount() = items.size
@@ -44,6 +46,9 @@ class DetailItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
             "收入" -> "+"
             "支出" -> "-"
             else -> "￥"
+        }
+        view.setOnClickListener {
+            BillActivity.start(it.context, model)
         }
     }
 }

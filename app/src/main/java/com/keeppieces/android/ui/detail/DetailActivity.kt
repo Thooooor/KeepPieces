@@ -27,10 +27,6 @@ import java.time.chrono.IsoChronology
 
 const val DailyDetail = 0
 const val MonthlyDetail = 1
-const val TypeDetail = 2
-const val CategoryDetail = 3
-const val AccountDetail = 4
-const val MemberDetail = 5
 
 
 class DetailActivity : AppCompatActivity() {

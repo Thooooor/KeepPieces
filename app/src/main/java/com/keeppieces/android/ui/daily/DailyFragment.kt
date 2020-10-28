@@ -34,7 +34,7 @@ import java.time.LocalDate
 import kotlin.math.absoluteValue
 
 
-class DailyFragment(var date: String) : Fragment() {
+class DailyFragment : Fragment() {
     private val viewModel: DailyViewModel by viewModels()
     @RequiresApi(Build.VERSION_CODES.O)
     private var today = LocalDate.now()
@@ -42,13 +42,15 @@ class DailyFragment(var date: String) : Fragment() {
     private var month: Int = 0
     private var day: Int = 0
     private var cnt: Int = -1
+    private lateinit var date: String
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initSetting() {
-        today = LocalDate.parse(date)
+        today = LocalDate.now()
         year = today.year
         month = today.monthValue
         day = today.dayOfMonth
+        date = today.toString()
         Log.d("Daily Init", "$year-$month-$day")
     }
 
