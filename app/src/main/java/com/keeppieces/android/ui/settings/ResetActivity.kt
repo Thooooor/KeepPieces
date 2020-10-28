@@ -1,15 +1,13 @@
 package com.keeppieces.android.ui.settings
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
+import com.keeppieces.android.ui.login.LoginFragment
 
 class ResetActivity : AppCompatActivity() {
 
@@ -20,7 +18,13 @@ class ResetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset)
 
-        addFragment(ResetFragment())
+        val pwd = getPwd()
+        val gesture = getGesture()
+        if (pwd != "") {
+            addFragment(ResetPasswordFragment())
+        } else if (gesture != "") {
+            addFragment(CheckGestureFragment())
+        }
 
     }
 
@@ -40,7 +44,7 @@ class ResetActivity : AppCompatActivity() {
         confirmData = data
     }
 
-    private fun addFragment(fragment: Fragment) {
+    fun addFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager //获取FragmentManager
         val transaction = fragmentManager.beginTransaction() //开启一个事务
         transaction.replace(R.id.resetPage, fragment)  //替换容器内的fragment
@@ -65,6 +69,9 @@ class ResetActivity : AppCompatActivity() {
                 .show()
             val editor = getSharedPreferences("password", Context.MODE_PRIVATE)
                 .edit()
+            if (getPwd().toString() != "") {
+                editor.putString("pwd", "")
+            }
             editor.putString("gesture", confirmData)
             editor.apply()
             jump()
@@ -74,7 +81,7 @@ class ResetActivity : AppCompatActivity() {
                 "两次图案不一致！", Toast.LENGTH_SHORT
             )
                 .show()
-            replaceFragment(ResetConfirmGestureFragment())
+            //replaceFragment(ResetConfirmGestureFragment())
         }
     }
 
@@ -82,5 +89,16 @@ class ResetActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun getPwd(): String {
+        val prefs = getSharedPreferences("password", Context.MODE_PRIVATE)
+        val pwd = prefs.getString("pwd", "")
+        return pwd.toString()
+    }
+
+    private fun getGesture(): String {
+        val share = getSharedPreferences("password", Context.MODE_PRIVATE)
+        val gesture = share.getString("gesture", "")
+        return gesture.toString()
+    }
 
 }

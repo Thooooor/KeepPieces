@@ -94,7 +94,7 @@
     <string name="input_old_pwd">请输入旧密码</string>
     <string name="input_new_first_pwd">请输入新密码</string>
     <string name="pwd_setting">密码设置</string>
-    <string name="pwd_reset">密码重置</string>
+    <string name="pwd_reset">请输入原有密码</string>
     <string name="gesture_setting">手势密码设置</string>
     <string name="gesture_reset">请绘制原手势密码</string>
     <string name="gesture_confirm">确定手势密码</string>
@@ -112,7 +112,7 @@
     <string name="add_secondary_btn">添加二级分类</string>
     <string name="add_secondary_text1">添加</string>
     <string name="add_secondary_text2">的二级分类</string>
-    <string name="resetSelect">请选择要重置的密码</string>
+    <string name="resetSelect">请选择新的密码</string>
     <string name="resetPwd">修改密码</string>
     <string name="account">账户</string>
     <string name="member">成员占比</string>
