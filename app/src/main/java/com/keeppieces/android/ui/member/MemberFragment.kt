@@ -9,44 +9,43 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
-import com.keeppieces.android.extension.toCHINADFormatted
-import com.keeppieces.android.logic.data.*
-import com.keeppieces.android.ui.detail.DetailActivity
-import com.keeppieces.android.ui.detail.MonthlyDetail
+import com.keeppieces.android.logic.data.MemberDetail
 import com.keeppieces.android.ui.monthly.CustomMode
 import com.keeppieces.android.ui.monthly.MonthMode
 import com.keeppieces.android.ui.member.adapter.MemberOverviewAdapter
-import com.keeppieces.android.ui.monthly.adapter.MonthlyPrimaryOverviewAdapter
-import com.keeppieces.android.ui.monthly.adapter.MonthlyTypeOverviewAdapter
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
+import kotlinx.android.synthetic.main.fragment_member.*
 import kotlinx.android.synthetic.main.fragment_monthly.*
-import kotlinx.android.synthetic.main.layout_daily_account_overview.*
-import kotlinx.android.synthetic.main.layout_daily_member_overview.*
-import kotlinx.android.synthetic.main.layout_daily_primary_overview.*
-import kotlinx.android.synthetic.main.layout_daily_type_overview.*
+import kotlinx.android.synthetic.main.fragment_monthly.monthlyLeftArrow
+import kotlinx.android.synthetic.main.fragment_monthly.monthlyRightArrow
+import kotlinx.android.synthetic.main.fragment_monthly.pieChart
+import kotlinx.android.synthetic.main.fragment_primary.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.chrono.IsoChronology
-
+import kotlin.math.abs
 
 
 class MemberFragment(var startDate: String, var endDate: String): Fragment() {
-    private val viewModel: MemberViewModel by viewModels()
+    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(MemberViewModel::class.java) }
     @RequiresApi(Build.VERSION_CODES.O) var startLocalDate: LocalDate = LocalDate.now()
     @RequiresApi(Build.VERSION_CODES.O) var endLocalDate: LocalDate = LocalDate.now()
+
+    private lateinit var memberSummary : MutableList<MemberDetail>
     private var timeSpan: Int = 1
     private var cnt: Int = -1
     private var mode = MonthMode
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_primary, container, false)
+        return inflater.inflate(R.layout.fragment_member, container, false)
     }
 
 
@@ -112,7 +111,7 @@ class MemberFragment(var startDate: String, var endDate: String): Fragment() {
             setUpView()
         }
 
-        labelAlert.setOnClickListener {
+        memberTimeSpanView.setOnClickListener {
             val builder = MaterialDatePicker.Builder.dateRangePicker()
             val picker = builder.build()
             picker.show(childFragmentManager, picker.toString())
@@ -136,22 +135,20 @@ class MemberFragment(var startDate: String, var endDate: String): Fragment() {
     private fun setUpView() {
         if (cnt <= 0) cnt++
         viewModel.billList(startDate, endDate).observe(viewLifecycleOwner) { billList ->
-            val bills = if (billList.isEmpty()) tempList else billList
-            labelAlert.text = "$startDate ~ $endDate"
-            setUpPieView(bills)
-            setUpMemberCard(bills)
+            val bills = if (billList.isEmpty()) listOf() else billList
+            memberSummary = viewModel.getMemberSummary(bills, "red", "blue")
+            memberTimeSpanView.text =  StringBuilder("$startDate ~ $endDate").toString()
+            setUpMemberPieView()
+            setUpMemberRecyclerView()
         }
     }
 
-    private fun setUpPieView(bills: List<Bill>) {
-        val monthlyOverview = viewModel.monthlyOverview(bills, "green")
-        monthlyAmount.text = monthlyOverview.total.toCHINADFormatted()
-        val piePortions = monthlyOverview.bills.map {
+    private fun setUpMemberPieView() {
+        val piePortions = memberSummary.map {
             PiePortion(
-                it.secondaryCategory, it.amount, ContextCompat.getColor(requireContext(), it.color)
-            )
+                it.member, abs(it.lastAmount), ContextCompat.getColor(requireContext(), it.color)
+            )// 这里的amount正负由颜色确定
         }.toList()
-
         val pieData = PieData(portions = piePortions)
         val pieAnimation = PieAnimation(pieChart).apply {
             duration = 600
@@ -159,90 +156,23 @@ class MemberFragment(var startDate: String, var endDate: String): Fragment() {
         pieChart.setPieData(pieData = pieData, animation = pieAnimation)
     }
 
-    private fun setUpMemberCard(bills: List<Bill>) {
-        val memberList = viewModel.monthlyMemberList(bills, "orange")
-        dailyMemberDetailRecycler.apply {
+    private fun setUpMemberRecyclerView() {
+        var income = 0.00
+        var expenditure = 0.00
+        for (item in memberSummary) {
+            income += item.income
+            expenditure += item.expenditure
+        }
+        memberOverviewRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             if (cnt == 0) addItemDecoration(getItemDecoration())
-            adapter = MemberOverviewAdapter(memberList)
-        }
-        setUpMemberPieView(memberList)
-    }
-
-    private fun setUpMemberPieView(memberList: List<DailyMember>) {
-        dailyMemberTitle.text = "成员"
-        val piePortions = memberList.map {
-            PiePortion(
-                it.member, it.amount, ContextCompat.getColor(requireContext(), it.color)
-            )
-        }.toList()
-
-        val pieData = PieData(portions = piePortions)
-        val pieAnimation = PieAnimation(dailyMemberOverviewPie).apply {
-            duration = 600
+            adapter = MemberOverviewAdapter(memberSummary,
+                income,expenditure)
         }
 
-        dailyMemberOverviewPie.setPieData(pieData = pieData, animation = pieAnimation)
+
     }
 
-    companion object {
-        @RequiresApi(Build.VERSION_CODES.O)
-        val tempList = listOf(
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 6.60,
-                account = "校园卡",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Breakfast",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 23.60,
-                account = "Wechat",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Lunch",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 47.09,
-                account = "校园卡",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Dinner",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount =1299.00,
-                account = "Alipay",
-                member = "Mom",
-                primaryCategory = "Wearing",
-                secondaryCategory = "Shoes",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 229.90,
-                account = "Cash",
-                member = "boy friend",
-                primaryCategory = "人情",
-                secondaryCategory = "礼物",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 999.0,
-                account = "Wechat",
-                member = "Me",
-                primaryCategory = "Wearing",
-                secondaryCategory = "Shoes",
-                type = "支出"
-            ),
-        )
-    }
+
 }

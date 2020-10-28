@@ -2,6 +2,7 @@ package com.keeppieces.android.logic.data
 
 import android.util.Log
 import androidx.annotation.ColorRes
+import androidx.lifecycle.LiveData
 import com.keeppieces.android.KeepPiecesApplication
 
 class BillRepository {
@@ -30,6 +31,10 @@ class BillRepository {
 
     fun getPeriodBill(startDate: String, endDate: String) =
         billDao.getPeriodBill(startDate, endDate)
+
+    fun getAccountPeriodBill(startDate: String, endDate: String, account: String) : LiveData<List<Bill>> {
+        return billDao.getPeriodAccountBill(startDate, endDate, account)
+    }
 
     private fun billToNew(bills: List<Bill>, color: String): MutableList<GeneralBill> {
         val primaryList = mutableListOf<String>()

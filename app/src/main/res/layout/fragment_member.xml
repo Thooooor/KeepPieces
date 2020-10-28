@@ -85,10 +85,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/pieChart"
-                tools:text="成员" />
+                android:text="@string/member" />
 
             <TextView
-                android:id="@+id/timeSpanView"
+                android:id="@+id/memberTimeSpanView"
                 style="?attr/textAppearanceSubtitle2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

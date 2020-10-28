@@ -5,6 +5,7 @@ import androidx.room.*
 
 @Dao
 interface BillDao {
+
     @Insert
     fun insertBill(bill: Bill) : Long
 
@@ -22,6 +23,9 @@ interface BillDao {
 
     @Query("SELECT * FROM bill WHERE date >= :startDate and date <= :endDate")
     fun getPeriodBill(startDate: String, endDate: String): LiveData<List<Bill>>
+
+    @Query("SELECT * FROM bill WHERE date >= :startDate and date <= :endDate and (account = :account or secondary_category = :account)")
+    fun getPeriodAccountBill(startDate: String, endDate: String, account: String): LiveData<List<Bill>>
 
 //    @Query("SELECT * FROM bill where DATETIME(date) BETWEEN DATETIME(:startDate) AND DATETIME(:endDate)")
 //    fun getPeriodBill(startDate:String,endDate:String):LiveData<List<Bill>>
