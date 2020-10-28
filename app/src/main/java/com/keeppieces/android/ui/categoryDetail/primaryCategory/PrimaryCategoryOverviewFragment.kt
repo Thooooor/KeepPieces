@@ -126,8 +126,7 @@ class PrimaryCategoryOverviewFragment(var startDate: String, var endDate: String
         if (cnt <= 0) cnt++
         val billListInTimeSpan = viewModel.billList(startDate,endDate)
         billListInTimeSpan.observe(viewLifecycleOwner) { billList ->
-            val bills = billList
-            viewModel.getPrimaryClassification(bills) // 对 bill 按一级类分类，分类结果保存在viewModel中
+            viewModel.getPrimaryClassification(billList) // 对 bill 按一级类分类，分类结果保存在viewModel中
             viewModel.getPrimarySummary("blue","yellow")
             timeSpanView.text = StringBuilder("$startDate ~ $endDate").toString()
             setUpPrimaryPieView()
@@ -154,69 +153,9 @@ class PrimaryCategoryOverviewFragment(var startDate: String, var endDate: String
 //            if (cnt == 0) addItemDecoration(getItemDecoration())
             adapter = PrimaryCategoryOverviewAdapter(viewModel.primarySummary,
                 viewModel.primaryTotalIncomeExpenditure.second,
-                viewModel.primaryTotalIncomeExpenditure.third)
+                viewModel.primaryTotalIncomeExpenditure.third,
+                startDate,endDate
+            )
         }
-    }
-
-
-
-    companion object {
-        @RequiresApi(Build.VERSION_CODES.O)
-        val tempList = listOf(
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 6.60,
-                account = "校园卡",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Breakfast",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 23.60,
-                account = "Wechat",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Lunch",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 47.09,
-                account = "校园卡",
-                member = "Me",
-                primaryCategory = "Food",
-                secondaryCategory = "Dinner",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount =1299.00,
-                account = "Alipay",
-                member = "Mom",
-                primaryCategory = "Wearing",
-                secondaryCategory = "Shoes",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 229.90,
-                account = "Cash",
-                member = "boy friend",
-                primaryCategory = "人情",
-                secondaryCategory = "礼物",
-                type = "支出"
-            ),
-            Bill(
-                date = LocalDate.now().toString(),
-                amount = 999.0,
-                account = "Wechat",
-                member = "Me",
-                primaryCategory = "Wearing",
-                secondaryCategory = "Shoes",
-                type = "支出"
-            ),
-        )
     }
 }
