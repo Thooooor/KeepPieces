@@ -13,12 +13,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.keeppieces.android.R
+import com.keeppieces.android.*
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.logic.data.Bill
 import com.keeppieces.android.ui.account.adapter.AccountOverviewAdapter
+import com.keeppieces.android.ui.blank.BlankFragment
+import com.keeppieces.android.ui.blank.CategoryPage
 import com.keeppieces.android.ui.monthly.CustomMode
 import com.keeppieces.android.ui.monthly.MonthMode
+import com.keeppieces.android.ui.overview.getParentActivity
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
@@ -124,6 +127,13 @@ class AccountFragment(var startDate: String, var endDate: String): Fragment() {
                 setUpView()
             }
         }
+
+//        accountTagTitle.setOnClickListener {
+//            val parentFragment:BlankFragment = getParentActivity<MainActivity>().supportFragmentManager.findFragmentById(R.id.blankFragment) as BlankFragment
+//            // val parentFragment:BlankFragment = this.parentFragment as BlankFragment
+//            parentFragment.setFragment(CategoryPage, startDate, endDate)
+//            Log.d("Account", "Click Change")
+//        }
     }
 
     //修改

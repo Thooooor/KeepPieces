@@ -116,6 +116,7 @@
     <string name="resetPwd">修改密码</string>
     <string name="account">账户</string>
     <string name="member">成员占比</string>
+    <string name="member_detail">成员详情</string>
     <string name="account_detail">账户详情</string>
     <string name="Income">收入</string>
     <string name="Outcome">支出</string>

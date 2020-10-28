@@ -7,8 +7,13 @@ import com.keeppieces.android.logic.data.*
 
 class MemberViewModel @ViewModelInject internal constructor(): ViewModel() {
     private val memberRepository = MemberRepository()
-    fun billList(startDate: String, endDate: String) = BillRepository().getPeriodBill(startDate, endDate)
+    fun billList(startDate: String, endDate: String) = BillRepository().getPeriodBill(
+        startDate,
+        endDate
+    )
 
+    fun getMemberPeriodList(startDate: String, endDate: String, member: String) =
+        BillRepository().getMemberPeriodBill(startDate, endDate, member)
 
 
     fun getMemberSummary(bills: List<Bill>, positiveColor: String, negativeColor: String) : MutableList<MemberDetail> {

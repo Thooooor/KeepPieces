@@ -36,6 +36,14 @@ class BillRepository {
         return billDao.getPeriodAccountBill(startDate, endDate, account)
     }
 
+    fun getMemberPeriodBill(
+        startDate: String,
+        endDate: String,
+        member: String
+    ): LiveData<List<Bill>> {
+        return billDao.getPeriodMemberBill(startDate, endDate, member)
+    }
+
     private fun billToNew(bills: List<Bill>, color: String): MutableList<GeneralBill> {
         val primaryList = mutableListOf<String>()
         val newBillList = mutableListOf<GeneralBill>()
