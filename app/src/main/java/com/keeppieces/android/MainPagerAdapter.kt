@@ -40,13 +40,13 @@ class MainPagerAdapter(
 
         return when (position) {
             0 -> OverviewFragment()
-            1 -> DailyFragment(LocalDate.now().toString())
+            1 -> DailyFragment()
             2 -> MonthlyFragment(startDate, endDate)
             3 -> PrimaryCategoryOverviewFragment(startDate, endDate)
             //3 -> AccountFragment(startDate,endDate)
             //3-> MemberFragment(startDate,endDate)
             4 -> SettingsFragment()
-            else -> DailyFragment(LocalDate.now().toString())
+            else -> DailyFragment()
         }
     }
 
