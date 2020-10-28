@@ -13,15 +13,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.logic.data.MemberDetail
+import com.keeppieces.android.logic.data.PrimaryCategory
+import com.keeppieces.android.ui.PrimaryCategory.PrimaryCategoryOverviewFragment
 import com.keeppieces.android.ui.monthly.CustomMode
 import com.keeppieces.android.ui.monthly.MonthMode
 import com.keeppieces.android.ui.member.adapter.MemberOverviewAdapter
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_member.*
 import kotlinx.android.synthetic.main.fragment_monthly.*
 import kotlinx.android.synthetic.main.fragment_monthly.monthlyLeftArrow
@@ -136,7 +140,6 @@ class MemberFragment(var startDate: String, var endDate: String) : Fragment() {
                 setUpView()
             }
         }
-
     }
 
     //修改
@@ -145,7 +148,7 @@ class MemberFragment(var startDate: String, var endDate: String) : Fragment() {
         if (cnt <= 0) cnt++
         viewModel.billList(startDate, endDate).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) listOf() else billList
-            memberSummary = viewModel.getMemberSummary(bills, "purple", "blue")
+            memberSummary = viewModel.getMemberSummary(bills, "blue", "yellow")
             memberTimeSpanView.text = StringBuilder("$startDate ~ $endDate").toString()
             setUpMemberPieView()
             setUpMemberRecyclerView()

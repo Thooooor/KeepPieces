@@ -62,6 +62,8 @@ class MemberOverviewAdapter(
             MemberActivity.start(it.context, startDate, endDate, oneMember.member)
         }
 
+
+
     }
 
     class BillItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
