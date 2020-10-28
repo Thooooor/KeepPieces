@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.keeppieces.android.ui.account.AccountFragment
 import com.keeppieces.android.ui.categoryDetail.primaryCategory.PrimaryCategoryOverviewFragment
 import com.keeppieces.android.ui.daily.DailyFragment
+import com.keeppieces.android.ui.member.MemberFragment
 import com.keeppieces.android.ui.monthly.MonthlyFragment
 import com.keeppieces.android.ui.overview.OverviewFragment
 import com.keeppieces.android.ui.settings.SettingsFragment
