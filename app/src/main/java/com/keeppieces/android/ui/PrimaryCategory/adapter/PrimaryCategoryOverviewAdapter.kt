@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.categoryDetail.primaryCategory
+package com.keeppieces.android.ui.PrimaryCategory.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +10,7 @@ import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.GeneralPrimary
+import com.keeppieces.android.ui.PrimaryCategory.PrimaryCategoryDetailActivity
 import com.keeppieces.line_indicator.VerticalBarData
 import kotlin.math.abs
 
@@ -53,14 +54,15 @@ class PrimaryCategoryOverviewAdapter(
             }
             adapter = PrimaryCategoryOverviewCardAdapter(primaryDescription)
         }
-        holder.materialCardView.setOnClickListener {
-            PrimaryCategoryDetailActivity.start(
-                it.context,
-                startDate,
-                endDate,
-                onePrimaryCategory.primaryCategory
-            )
-        }
+//        holder.materialCardView.setOnClickListener {
+//            PrimaryCategoryDetailActivity.start(
+//                it.context,
+//                startDate,
+//                endDate,
+//                onePrimaryCategory.primaryCategory,
+//                false
+//            )
+//        }
 
     }
 
@@ -71,7 +73,7 @@ class PrimaryCategoryOverviewAdapter(
         if (abs(primaryIncome - 0) > 0.01 && abs(onePrimaryBillList.income - 0) > 0.01) {
             description.add(
                 Pair(
-                    "${onePrimaryBillList.primaryCategory}收入(占总收入比)：",
+                    "收入(占总收入比)：",
                     onePrimaryBillList.income.toCHINADFormatted() + "(" + String.format(
                         "%.2f",
                         onePrimaryBillList.income / primaryIncome * 100
@@ -82,7 +84,7 @@ class PrimaryCategoryOverviewAdapter(
         if (abs(primaryExpenditure - 0) > 0.01 && abs(onePrimaryBillList.expenditure - 0) > 0.01) {
             description.add(
                 Pair(
-                    "${onePrimaryBillList.primaryCategory}支出(占总支出比)：",
+                    "支出(占总支出比)：",
                     onePrimaryBillList.expenditure.toCHINADFormatted() + "(" + String.format(
                         "%.2f",
                         onePrimaryBillList.expenditure / primaryExpenditure * 100
@@ -92,7 +94,7 @@ class PrimaryCategoryOverviewAdapter(
         }
         description.add(
             Pair(
-                "${onePrimaryBillList.primaryCategory}下的二级类个数:",
+                "其下二级类个数:",
                 onePrimaryBillList.secondaryNum.toString()
             )
         )

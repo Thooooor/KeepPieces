@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.categoryDetail.primaryCategory
+package com.keeppieces.android.ui.PrimaryCategory
 
 import android.content.Context
 import android.content.Intent
@@ -14,6 +14,8 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.ui.PrimaryCategory.adapter.PrimaryCategoryDetailActivityAdapter
+import com.keeppieces.android.ui.PrimaryCategory.viewmodel.PrimaryCategoryDetailActivityViewModel
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
@@ -23,12 +25,14 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.chrono.IsoChronology
 import kotlin.math.abs
+import kotlin.properties.Delegates
 
 
 class PrimaryCategoryDetailActivity : AppCompatActivity() {
     private lateinit var startDate: String
     private lateinit var endDate: String
     private lateinit var primaryCategory: String
+    private var primaryOrSecondaryFlag by Delegates.notNull<Boolean>()
     private val viewModel: PrimaryCategoryDetailActivityViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -47,6 +51,7 @@ class PrimaryCategoryDetailActivity : AppCompatActivity() {
         startDate = intent.getStringExtra("startDate") ?: LocalDate.now().toString()
         endDate = intent.getStringExtra("endDate") ?: LocalDate.now().toString()
         primaryCategory = intent.getStringExtra("primaryCategory") ?: "出了点错误"
+        primaryOrSecondaryFlag = intent.getBooleanExtra("primaryOrSecondaryFlag",false)
         initDate()  // 在这里会初始化好timeSpan
         if (savedInstanceState == null) runEnterAnimation()
         setUpView()
@@ -182,11 +187,12 @@ class PrimaryCategoryDetailActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context, startDate: String, endDate: String, primaryCategory: String) {
+        fun start(context: Context, startDate: String, endDate: String, primaryCategory: String, primaryOrSecondaryFlag:Boolean) {
             val intent = Intent(context, PrimaryCategoryDetailActivity::class.java)
             intent.putExtra("startDate", startDate)
             intent.putExtra("endDate", endDate)
             intent.putExtra("primaryCategory", primaryCategory)
+            intent.putExtra("primaryOrSecondaryFlag",primaryOrSecondaryFlag)
             startActivity(context, intent, null)
         }
     }
