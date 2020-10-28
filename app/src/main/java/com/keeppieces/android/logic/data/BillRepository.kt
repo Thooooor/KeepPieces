@@ -118,10 +118,14 @@ class BillRepository {
 
     fun getBillById(billId: Long) = billDao.getBillById(billId)
 
-    fun getBillByGeneralBill(generalBill: GeneralBill) = Bill(
-        generalBill.date, generalBill.amount, generalBill.account, generalBill.member,
-        generalBill.primaryCategory, generalBill.secondaryCategory, generalBill.type
-    )
+    fun getBillByGeneralBill(generalBill: GeneralBill):Bill {
+        val bill = Bill(
+            generalBill.date, generalBill.amount, generalBill.account, generalBill.member,
+            generalBill.primaryCategory, generalBill.secondaryCategory, generalBill.type
+        )
+        bill.billId = generalBill.billId
+        return bill
+    }
 
     fun getPrimaryCategoryBillInTimeSpan(
         startDate: String,

@@ -24,7 +24,7 @@ class PrimaryCategoryOverViewViewModel:ViewModel() {
         for (summary in primarySummary) {
             total += summary.amount // amount有正有负
             income += summary.income
-            expenditure = summary.expenditure
+            expenditure += summary.expenditure
         }
         primaryTotalIncomeExpenditure = Triple(total,income,expenditure)
     }
