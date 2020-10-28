@@ -3,10 +3,16 @@ package com.keeppieces.android
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.keeppieces.android.extension.toCHINADFormatted
+import com.keeppieces.android.ui.PrimaryCategory.PrimaryCategoryOverviewFragment
+import com.keeppieces.android.ui.account.AccountFragment
+import com.keeppieces.android.ui.member.MemberFragment
 import com.keeppieces.android.ui.overview.AddMonthBudgetDialog
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.tab_layout
+import kotlinx.android.synthetic.main.activity_main.view_pager
 import kotlinx.android.synthetic.main.layout_month_summary_card.*
+import java.time.LocalDate
 
 @Suppress("COMPATIBILITY_WARNING")
 class MainActivity : AppCompatActivity(),AddMonthBudgetDialog.SetMonthBudgetInterface {
@@ -26,6 +32,7 @@ class MainActivity : AppCompatActivity(),AddMonthBudgetDialog.SetMonthBudgetInte
         view_pager.offscreenPageLimit = 0
         tab_layout.setUpWithViewPager(view_pager, true)
         view_pager.setCurrentItem(0, true)
+        view_pager.adapter
     }
 
     private fun runEnterAnimation() {
@@ -44,5 +51,4 @@ class MainActivity : AppCompatActivity(),AddMonthBudgetDialog.SetMonthBudgetInte
     override fun setMonthBudgetButtonText(monthBudget: String) {
         button_set_month_budget.text = monthBudget.toDouble().toCHINADFormatted()
     }
-
 }

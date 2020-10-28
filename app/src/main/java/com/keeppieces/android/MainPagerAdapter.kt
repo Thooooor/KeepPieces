@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.keeppieces.android.ui.PrimaryCategory.PrimaryCategoryOverviewFragment
+import com.keeppieces.android.ui.account.AccountFragment
+import com.keeppieces.android.ui.blank.BlankFragment
 import com.keeppieces.android.ui.daily.DailyFragment
 import com.keeppieces.android.ui.member.MemberFragment
 import com.keeppieces.android.ui.monthly.MonthlyFragment
@@ -15,6 +17,7 @@ import com.keeppieces.android.ui.settings.SettingsFragment
 import java.time.LocalDate
 import java.time.chrono.IsoChronology
 import java.util.*
+
 
 class MainPagerAdapter(
     fm: FragmentManager,
@@ -42,9 +45,7 @@ class MainPagerAdapter(
             0 -> OverviewFragment()
             1 -> DailyFragment()
             2 -> MonthlyFragment(startDate, endDate)
-            3 -> PrimaryCategoryOverviewFragment(startDate, endDate)
-            //3 -> AccountFragment(startDate,endDate)
-            //3-> MemberFragment(startDate,endDate)
+            3 -> BlankFragment(startDate, endDate)
             4 -> SettingsFragment()
             else -> DailyFragment()
         }

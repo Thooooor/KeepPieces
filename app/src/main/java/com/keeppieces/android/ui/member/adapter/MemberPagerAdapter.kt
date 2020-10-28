@@ -38,7 +38,7 @@ class MemberPagerAdapter(
         return when (position) {
             0 -> MemberDetailFragment(startDate, endDate, member, "支出")
             1 -> MemberDetailFragment(startDate, endDate, member, "收入")
-            else -> DailyFragment(LocalDate.now().toString())
+            else -> DailyFragment()
         }
     }
 
