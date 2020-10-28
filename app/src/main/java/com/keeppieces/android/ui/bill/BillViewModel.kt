@@ -86,13 +86,13 @@ class BillViewModel : ViewModel() {
                     updateAccount(inAccount)
                 }
             }
-            when {
-                bill.type == "支出" -> {
+            when (bill.type){
+                "支出" -> {
                     val inAccount = Account(bill.account, nowAccount.amount - bill.amount)
                     inAccount.accountId = nowAccount.accountId
                     updateAccount(inAccount)
                 }
-                pastBill.type == "收入" -> {
+                "收入" -> {
                     val inAccount = Account(bill.account, nowAccount.amount + bill.amount)
                     inAccount.accountId = nowAccount.accountId
                     updateAccount(inAccount)

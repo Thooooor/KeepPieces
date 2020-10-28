@@ -30,7 +30,8 @@
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintTop_toTopOf="@id/guideline2"
         app:srcCompat="@drawable/ic_add"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="16dp"
+        android:contentDescription="@string/todo" />
 
     <FrameLayout
         android:layout_width="match_parent"
