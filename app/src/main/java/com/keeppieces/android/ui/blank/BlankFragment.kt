@@ -1,17 +1,17 @@
 package com.keeppieces.android.ui.blank
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
 import com.keeppieces.android.ui.PrimaryCategory.PrimaryCategoryOverviewFragment
 import com.keeppieces.android.ui.account.AccountFragment
 import com.keeppieces.android.ui.member.MemberFragment
 import com.keeppieces.android.ui.overview.getParentActivity
-import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_blank.*
 
 
@@ -41,6 +41,7 @@ class BlankFragment(var startDate: String, var endDate: String) : Fragment() {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setFragment(typePage:Int, startDate: String, endDate: String) {
         val fragmentManager = getParentActivity<MainActivity>().supportFragmentManager
         val transition = fragmentManager.beginTransaction()
@@ -49,6 +50,11 @@ class BlankFragment(var startDate: String, var endDate: String) : Fragment() {
             MemberPage -> MemberFragment(startDate, endDate)
             CategoryPage -> PrimaryCategoryOverviewFragment(startDate, endDate)
             else -> PrimaryCategoryOverviewFragment(startDate, endDate)
+        }
+        when (typePage) {
+            AccountPage -> changeFab.setImageDrawable(resources.getDrawable(R.drawable.ic_bill_account, resources.newTheme()))
+            MemberPage -> changeFab.setImageDrawable(resources.getDrawable(R.drawable.ic_bill_member, resources.newTheme()))
+            CategoryPage -> changeFab.setImageDrawable(resources.getDrawable(R.drawable.ic_bill_category, resources.newTheme()))
         }
         transition.replace(R.id.childBlankFragment, newFragment)
         transition.commit()

@@ -214,8 +214,8 @@ class BillActivity : AppCompatActivity(),
             billAmount.setText(bill.amount.toString())
             billAccount.text = bill.account
             billMember.text = bill.member
-            billPrimary.text = bill.secondaryCategory
-            billSecondary.text = bill.primaryCategory
+            billPrimary.text = bill.primaryCategory
+            billSecondary.text = bill.secondaryCategory
             billType.text = bill.type
             billInfo.setText(bill.info)
         } else {
@@ -325,8 +325,6 @@ class BillActivity : AppCompatActivity(),
 
     override fun onDialogPositiveClickForBillAccount(dialog: DialogFragment) {
         billAccount.text = (dialog as BillAccountDialog).account
-        billPrimary.text = "转账"
-        billSecondary.text = "微信"
     }
 
     override fun onDialogNegativeClickForBillAccount(dialog: DialogFragment) {

@@ -108,9 +108,10 @@ class AccountActivity() : AppCompatActivity() {
     }
 
     private fun setUpViewPager() {
-        view_pager.adapter = AccountPagerAdapter(supportFragmentManager, startDate, endDate, account)
+        view_pager.adapter = AccountPagerAdapter(supportFragmentManager, 2, billsInFilter, billsOutFilter)
         view_pager.offscreenPageLimit = 0
-        tab_layout.setUpWithViewPager(view_pager, true)
+        view_pager.swipeEnabled = true
+        account_tab_layout.setupWithViewPager(view_pager, true)
         view_pager.setCurrentItem(0, true)
     }
 
@@ -163,10 +164,10 @@ class AccountActivity() : AppCompatActivity() {
     }
 
     private fun runEnterAnimation() {
-        tab_layout.post {
-            tab_layout.translationY -= tab_layout.height.toFloat()
-            tab_layout.alpha = 0f
-            tab_layout.animate()
+        account_tab_layout.post {
+            account_tab_layout.translationY -= account_tab_layout.height.toFloat()
+            account_tab_layout.alpha = 0f
+            account_tab_layout.animate()
                     .translationY(0f)
                     .setInterpolator(AccelerateDecelerateInterpolator())
                     .alpha(1f)

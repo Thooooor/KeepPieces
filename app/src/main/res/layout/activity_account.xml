@@ -116,11 +116,12 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <com.keeppieces.android.ui.account.AccountTab
-            android:id="@+id/tab_layout"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/account_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/colorPrimary" />
 
         <com.keeppieces.android.ui.viewpager.SwipeControllableViewPager
             android:id="@+id/view_pager"
@@ -128,8 +129,4 @@
             android:layout_height="match_parent"
             />
     </LinearLayout>
-
-
 </LinearLayout>
-
-

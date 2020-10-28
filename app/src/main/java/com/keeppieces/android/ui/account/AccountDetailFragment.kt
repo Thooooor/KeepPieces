@@ -18,7 +18,7 @@ import com.keeppieces.android.ui.detail.DetailAdapter
 import kotlinx.android.synthetic.main.fragment_account_flow_view.*
 
 
-class AccountDetailFragment(var startDate: String, var endDate: String, var account: String, val type: String) : Fragment() {
+class AccountDetailFragment(private val billsFilter: MutableList<Bill>, val type: String) : Fragment() {
     private val viewModel: AccountViewModel by viewModels()
 
     override fun onCreateView(
@@ -62,38 +62,34 @@ class AccountDetailFragment(var startDate: String, var endDate: String, var acco
     }
 
     private fun setUpRecyclerView() {
-        viewModel.getAccountPeriodList(startDate, endDate, account).observe(viewLifecycleOwner) {billList ->
-            val bills = if (billList.isEmpty()) listOf() else getBillsFilter(billList)
-
-            bill_flow_recycler_view.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                setHasFixedSize(true)
-                addItemDecoration(getItemDecoration())
-                adapter = DetailAdapter(bills)
-                val myHelper = ItemTouchHelper(myCallback)
-                myHelper.attachToRecyclerView(this)
-            }
+        bill_flow_recycler_view.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            addItemDecoration(getItemDecoration())
+            adapter = DetailAdapter(billsFilter)
+            val myHelper = ItemTouchHelper(myCallback)
+            myHelper.attachToRecyclerView(this)
         }
     }
-
-
-    private fun getBillsFilter(billList: List<Bill>) : List<Bill> {
-        val billsFilter = mutableListOf<Bill>()
-        if (type == "收入") {
-            for (item in billList) {
-                if (item.secondaryCategory == account || item.type == type) {
-                    billsFilter += listOf(item)
-                }
-            }
-        } else {
-            for (item in billList) {
-                if (item.type == type) {
-                    billsFilter += listOf(item)
-                }
-            }
-        }
-        return billsFilter
-    }
+//
+//
+//    private fun getBillsFilter(billList: List<Bill>) : List<Bill> {
+//        val billsFilter = mutableListOf<Bill>()
+//        if (type == "收入") {
+//            for (item in billList) {
+//                if (item.secondaryCategory == account || item.type == type) {
+//                    billsFilter += listOf(item)
+//                }
+//            }
+//        } else {
+//            for (item in billList) {
+//                if (item.type == type) {
+//                    billsFilter += listOf(item)
+//                }
+//            }
+//        }
+//        return billsFilter
+//    }
 
     companion object
 }
