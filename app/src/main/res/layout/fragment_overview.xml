@@ -29,7 +29,8 @@
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintTop_toTopOf="@id/guideline2"
         app:srcCompat="@drawable/ic_add"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="16dp"
+        android:contentDescription="@string/todo" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -49,9 +50,12 @@
 
             <include layout="@layout/layout_member_summary_card" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

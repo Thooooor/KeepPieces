@@ -18,9 +18,9 @@ import kotlinx.android.synthetic.main.fragment_blank.*
 const val AccountPage = 1
 const val MemberPage = 2
 const val CategoryPage = 3
+var currentType: Int = CategoryPage
 
 class BlankFragment(var startDate: String, var endDate: String) : Fragment() {
-    var currentType: Int = AccountPage
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,7 +30,7 @@ class BlankFragment(var startDate: String, var endDate: String) : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setFragment(AccountPage, startDate, endDate)
+        setFragment(currentType, startDate, endDate)
         changeFab.setOnClickListener {
             when (currentType) {
                 AccountPage -> setFragment(CategoryPage, startDate, endDate)
@@ -42,7 +42,7 @@ class BlankFragment(var startDate: String, var endDate: String) : Fragment() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun setFragment(typePage:Int, startDate: String, endDate: String) {
+    fun setFragment(typePage:Int, startDate: String, endDate: String) {
         val fragmentManager = getParentActivity<MainActivity>().supportFragmentManager
         val transition = fragmentManager.beginTransaction()
         val newFragment = when (typePage) {
