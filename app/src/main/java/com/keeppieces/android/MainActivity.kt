@@ -3,16 +3,10 @@ package com.keeppieces.android
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.keeppieces.android.extension.toCHINADFormatted
-import com.keeppieces.android.ui.PrimaryCategory.PrimaryCategoryOverviewFragment
-import com.keeppieces.android.ui.account.AccountFragment
-import com.keeppieces.android.ui.member.MemberFragment
 import com.keeppieces.android.ui.overview.AddMonthBudgetDialog
-import kotlinx.android.synthetic.main.activity_main.tab_layout
-import kotlinx.android.synthetic.main.activity_main.view_pager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_month_summary_card.*
-import java.time.LocalDate
 
 @Suppress("COMPATIBILITY_WARNING")
 class MainActivity : AppCompatActivity(),AddMonthBudgetDialog.SetMonthBudgetInterface {

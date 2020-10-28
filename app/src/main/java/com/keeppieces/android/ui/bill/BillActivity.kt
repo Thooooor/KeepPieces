@@ -263,13 +263,14 @@ class BillActivity : AppCompatActivity(),
     }
 
     override fun onDialogPositiveClickForBillType(dialog: DialogFragment) {
+        if (billType.text == "转账") {
+            billPrimary.text = "其他"
+            billSecondary.text = "其他"
+        }
         billType.text = (dialog as BillTypeDialog).type
         if (billType.text == "转账") {
             billPrimary.text = "转账"
             billSecondary.text = "微信"
-        } else {
-            billPrimary.text = "其他"
-            billSecondary.text = "其他"
         }
     }
 

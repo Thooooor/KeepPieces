@@ -23,6 +23,9 @@ import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.*
 import com.keeppieces.android.ui.bill.BillActivity
+import com.keeppieces.android.ui.blank.AccountPage
+import com.keeppieces.android.ui.blank.MemberPage
+import com.keeppieces.android.ui.blank.currentType
 import com.keeppieces.android.ui.overview.homepage_card_adapter.AccountSummaryCardAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.MemberSummaryCardAdapter
 import com.keeppieces.android.ui.overview.homepage_card_adapter.TodaySummaryCardAdapter
@@ -89,9 +92,11 @@ class OverviewFragment : Fragment() {
             getParentActivity<MainActivity>().view_pager.setCurrentItem(1, true)
         }
         account_see_more.setOnClickListener {
+            currentType = AccountPage
             getParentActivity<MainActivity>().view_pager.setCurrentItem(3, true)
         }
         member_see_more.setOnClickListener {
+            currentType = MemberPage
             getParentActivity<MainActivity>().view_pager.setCurrentItem(3, true)
         }
         button_set_month_budget.setOnClickListener {
