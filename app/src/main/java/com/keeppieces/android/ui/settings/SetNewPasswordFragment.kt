@@ -73,8 +73,12 @@ class SetNewPasswordFragment : Fragment() {
             } else {
                 if (firstPwd == secondPwd && firstPwd != "") {
                     Toast.makeText(resetActivity, "密码设置成功！", Toast.LENGTH_SHORT).show()
-                    val editor = resetActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
-                        ?.edit()
+                    val editor =
+                        resetActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
+                            ?.edit()
+                    if (getGesture().toString() != "") {
+                        editor?.putString("gesture", "")
+                    }
                     editor?.putString("pwd", secondPwd)
                     editor?.apply()
 
@@ -88,8 +92,13 @@ class SetNewPasswordFragment : Fragment() {
     }
 
     private fun jump() {
-        val intent = Intent(activity, MainActivity::class.java)
-        startActivity(intent)
         activity?.finish()
+    }
+
+    private fun getGesture(): String {
+        val resetActivity = activity as ResetActivity
+        val share = resetActivity.getSharedPreferences("password", Context.MODE_PRIVATE)
+        val gesture = share.getString("gesture", "")
+        return gesture.toString()
     }
 }

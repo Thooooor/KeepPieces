@@ -21,6 +21,8 @@ class AccountViewModel @ViewModelInject internal constructor(): ViewModel() {
 
     fun getAccountClassification(bills:List<Bill>) = AccountRepository().getAccountClassification(bills)
 
+    fun getAccountPeriodList(startDate: String, endDate: String, account: String) = BillRepository().getAccountPeriodBill(startDate, endDate, account)
+
     fun getAccountSummary(bills: List<Bill>, positiveColor: String, negativeColor: String) : MutableList<AccountDetail> {
         return AccountRepository().getAccountSummaryInAccount(bills, positiveColor, negativeColor)
     }

@@ -21,7 +21,6 @@ import androidx.fragment.app.Fragment
 import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
 import kotlinx.android.synthetic.main.fragment_login_passsword.*
-import java.util.concurrent.Executor
 
 class LoginFragment : Fragment() {
     //private lateinit var promptInfo: BiometricPrompt.PromptInfo
@@ -101,7 +100,7 @@ class LoginFragment : Fragment() {
 
 
         visibleLogo.setOnClickListener {
-            val pwd  = readPwd()
+            val pwd = readPwd()
             if (pwd != "") {
                 if (visible) {
                     passwordEdit.transformationMethod = PasswordTransformationMethod.getInstance()

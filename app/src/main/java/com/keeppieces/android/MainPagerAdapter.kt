@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.keeppieces.android.ui.account.AccountFragment
+import com.keeppieces.android.ui.categoryDetail.primaryCategory.PrimaryCategoryOverviewFragment
 import com.keeppieces.android.ui.daily.DailyFragment
 import com.keeppieces.android.ui.monthly.MonthlyFragment
 import com.keeppieces.android.ui.overview.OverviewFragment
@@ -25,7 +25,7 @@ class MainPagerAdapter(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getItem(position: Int): Fragment {
-        val lastDay = when(month) {
+        val lastDay = when (month) {
             2 -> if (IsoChronology.INSTANCE.isLeapYear(year.toLong())) 29 else 28
             4 -> 30
             6 -> 30
@@ -41,8 +41,9 @@ class MainPagerAdapter(
             0 -> OverviewFragment()
             1 -> DailyFragment()
             2 -> MonthlyFragment(startDate, endDate)
-//            3 -> PrimaryCategoryOverviewFragment(startDate,endDate)
-            3 -> AccountFragment(startDate,endDate)
+            3 -> PrimaryCategoryOverviewFragment(startDate, endDate)
+            //3 -> AccountFragment(startDate,endDate)
+            //3-> MemberFragment(startDate,endDate)
             4 -> SettingsFragment()
             else -> DailyFragment()
         }
