@@ -1,16 +1,13 @@
 package com.keeppieces.android.ui.categoryDetail.primaryCategory
 
 import androidx.lifecycle.ViewModel
-import com.keeppieces.android.logic.data.Bill
-import com.keeppieces.android.logic.data.BillRepository
-import com.keeppieces.android.logic.data.DailyPrimary
-import com.keeppieces.android.logic.data.PrimaryCategoryRepository
+import com.keeppieces.android.logic.data.*
 
 class PrimaryCategoryOverViewViewModel:ViewModel() {
     private val billRepository = BillRepository()
     private val primaryCategoryRepository = PrimaryCategoryRepository()
     lateinit var primaryClassification:MutableMap<String,Pair<List<Bill>,Int>>  // 一级类 -> (一级类下所有的二级类账单（名字重复）,颜色)
-    lateinit var primarySummary:MutableList<DailyPrimary>  // 一级类 -> 它的名字，它的收支总和，它的颜色；用于展示大圆环
+    lateinit var primarySummary:MutableList<GeneralPrimary>  // 一级类 -> 它的名字，它的收支总和，它的颜色；用于展示大圆环
     lateinit var primaryTotalIncomeExpenditure:Triple<Double,Double,Double>
     fun billList(startDate: String, endDate: String) = billRepository.getPeriodBill(startDate, endDate)
 

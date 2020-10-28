@@ -41,4 +41,11 @@ interface BillDao {
 
     @Query("SELECT * FROM bill WHERE bill_id == :id")
     fun getABill(id: Long): Bill
+
+    @Query("SELECT * FROM bill WHERE primary_category == :primaryCategory AND date >= :startDate and date <= :endDate")
+    fun getPrimaryCategoryBillInTimeSpan(
+        startDate: String,
+        endDate: String,
+        primaryCategory: String
+    ): LiveData<List<Bill>>
 }
