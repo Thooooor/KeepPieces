@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -130,6 +131,7 @@ class BillActivity : AppCompatActivity(),
                 } else {
                     viewModel.addBill(nowBill)
                     finish()
+                    Log.d("Bill", "After Add")
                 }
             } else if (mode == BillUpdate) {
                 nowBill.billId = bill.billId
@@ -141,6 +143,7 @@ class BillActivity : AppCompatActivity(),
                 } else {
                     viewModel.updateBill(nowBill)
                     finish()
+                    Log.d("Bill", "After update")
                 }
             }
         }
