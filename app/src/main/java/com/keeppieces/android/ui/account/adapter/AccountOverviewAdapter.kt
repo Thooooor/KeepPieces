@@ -6,17 +6,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
+import com.keeppieces.android.ui.account.AccountActivity
 import com.keeppieces.android.ui.account.AccountDetail
 import com.keeppieces.line_indicator.VerticalBar
 import com.keeppieces.line_indicator.VerticalBarData
 
 class AccountOverviewAdapter(
-    private val accountList: MutableList<AccountDetail>,
-    private val inAmount: Double,
-    val outAmount: Double
+        private val accountList: MutableList<AccountDetail>,
+        private val inAmount: Double,
+        private val outAmount: Double,
+        private val startDate: String,
+        private val endDate: String
 ) :
     RecyclerView.Adapter<AccountOverviewAdapter.ViewHolder>() {
 
@@ -24,7 +28,7 @@ class AccountOverviewAdapter(
         val cardTitle:TextView = view.findViewById(R.id.carTitle)
         val cardVerticalBar: VerticalBar=view.findViewById(R.id.cardVerticalBar)
         val overviewInfo: RecyclerView = view.findViewById(R.id.overviewInfo)
-        val materialCardView:com.google.android.material.card.MaterialCardView =view.findViewById(R.id.materialCardView)
+        val materialCardView: MaterialCardView =view.findViewById(R.id.materialCardView)
     }
 
     override fun getItemCount(): Int = accountList.size
@@ -48,6 +52,10 @@ class AccountOverviewAdapter(
                 addItemDecoration(getItemDecoration())
             }
             adapter = AccountOverviewCardAdapter(description)
+        }
+
+        holder.materialCardView.setOnClickListener {
+            AccountActivity.start(it.context, startDate, endDate, oneAccount.account)
         }
     }
 

@@ -16,7 +16,6 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.logic.data.Bill
-import com.keeppieces.android.logic.data.DailyAccount
 import com.keeppieces.android.ui.account.adapter.AccountOverviewAdapter
 import com.keeppieces.android.ui.monthly.CustomMode
 import com.keeppieces.android.ui.monthly.MonthMode
@@ -24,12 +23,6 @@ import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
 import kotlinx.android.synthetic.main.fragment_account.*
-import kotlinx.android.synthetic.main.fragment_monthly.monthlyLeftArrow
-import kotlinx.android.synthetic.main.fragment_monthly.monthlyRightArrow
-import kotlinx.android.synthetic.main.fragment_monthly.pieChart
-import kotlinx.android.synthetic.main.fragment_primary.*
-import kotlinx.android.synthetic.main.fragment_primary.timeSpanView
-import kotlinx.android.synthetic.main.layout_daily_account_overview.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.chrono.IsoChronology
@@ -109,6 +102,7 @@ class AccountFragment(var startDate: String, var endDate: String): Fragment() {
             updateDate(-timeSpan)
             setUpView()
         }
+
         monthlyRightArrow.setOnClickListener {
             updateDate(timeSpan)
             setUpView()
@@ -130,7 +124,6 @@ class AccountFragment(var startDate: String, var endDate: String): Fragment() {
                 setUpView()
             }
         }
-
     }
 
     //修改
@@ -173,25 +166,25 @@ class AccountFragment(var startDate: String, var endDate: String): Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
 //            setHasFixedSize(true)
             if (cnt == 0) addItemDecoration(getItemDecoration())
-            adapter = AccountOverviewAdapter(accountSummary, inAmount, outAmount)
+            adapter = AccountOverviewAdapter(accountSummary, inAmount, outAmount, startDate, endDate)
         }
     }
 
-    private fun setUpAccountPieView(accountList: List<DailyAccount>) {
-        dailyAccountTitle.text = "成员"
-        val piePortions = accountList.map {
-            PiePortion(
-                it.account, it.amount, ContextCompat.getColor(requireContext(), it.color)
-            )
-        }.toList()
-
-        val pieData = PieData(portions = piePortions)
-        val pieAnimation = PieAnimation(dailyAccountOverviewPie).apply {
-            duration = 600
-        }
-
-        dailyAccountOverviewPie.setPieData(pieData = pieData, animation = pieAnimation)
-    }
+//    private fun setUpAccountPieView(accountList: List<DailyAccount>) {
+//        dailyAccountTitle.text = "成员"
+//        val piePortions = accountList.map {
+//            PiePortion(
+//                it.account, it.amount, ContextCompat.getColor(requireContext(), it.color)
+//            )
+//        }.toList()
+//
+//        val pieData = PieData(portions = piePortions)
+//        val pieAnimation = PieAnimation(dailyAccountOverviewPie).apply {
+//            duration = 600
+//        }
+//
+//        dailyAccountOverviewPie.setPieData(pieData = pieData, animation = pieAnimation)
+//    }
 
     companion object {
         @RequiresApi(Build.VERSION_CODES.O)
