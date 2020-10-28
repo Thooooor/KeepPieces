@@ -50,10 +50,10 @@ class CheckGestureFragment : Fragment(), NineLockListener {
                 "图案错误", Toast.LENGTH_SHORT
             )
                 .show()
-            resetActivity.replaceFragment(CheckGestureFragment())
+            resetActivity.addFragment(CheckGestureFragment())
         } else {
-            Toast.makeText(resetActivity, "请绘制新图案密码", Toast.LENGTH_SHORT).show()
-            resetActivity.replaceFragment(ResetGestureFragment())
+            Toast.makeText(resetActivity, "验证成功！", Toast.LENGTH_SHORT).show()
+            resetActivity.addFragment(ResetFragment())
         }
 
 
