@@ -1,6 +1,7 @@
 package com.keeppieces.android.logic.data
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
@@ -71,6 +72,7 @@ class MemberRepository {
         for(bill in monthBillList) {
             val amount = if (bill.type == "收入") bill.amount else -bill.amount
             val colorInt = repository.getColorInt(color, memberMonthCondition.size)
+            Log.d("checkMemberPoint",memberMonthCondition.size.toString())
             val memberData = memberMonthCondition.getOrDefault(bill.member,Pair(0.00,colorInt))
             memberMonthCondition[bill.member] = Pair(memberData.first+amount,memberData.second)
         }

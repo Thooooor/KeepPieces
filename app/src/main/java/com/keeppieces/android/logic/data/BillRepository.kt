@@ -28,7 +28,8 @@ class BillRepository {
         return DailyOverview(total, dailyBills)
     }
 
-    fun getPeriodBill(startDate: String, endDate: String) = billDao.getPeriodBill(startDate, endDate)
+    fun getPeriodBill(startDate: String, endDate: String) =
+        billDao.getPeriodBill(startDate, endDate)
 
     private fun billToNew(bills: List<Bill>, color: String): MutableList<GeneralBill> {
         val primaryList = mutableListOf<String>()
@@ -57,13 +58,17 @@ class BillRepository {
 
     fun getAllBill() = billDao.getAllBill()
 
-//    // startDateString、endDataString的格式：2020-10-14，返回区间内的账单信息
-    fun getPeriodBillWithoutDao(startDateString: String, endDateString:String, allBills:List<Bill>):MutableList<Bill>{
+    //    // startDateString、endDataString的格式：2020-10-14，返回区间内的账单信息
+    fun getPeriodBillWithoutDao(
+        startDateString: String,
+        endDateString: String,
+        allBills: List<Bill>
+    ): MutableList<Bill> {
         val startDate = date2Int(startDateString)
         val endDate = date2Int(endDateString)
         val periodBills = mutableListOf<Bill>()
-        for(bill in allBills){
-            Log.d("CheckBill",bill.date)
+        for (bill in allBills) {
+            Log.d("CheckBill", bill.date)
             val billDate = date2Int(bill.date)
             if (billDate in startDate..endDate) {
                 periodBills.add(bill)
@@ -72,12 +77,12 @@ class BillRepository {
         return periodBills
     }
 
-   private fun date2Int(date:String):Int = date.replace("-","").toInt()
+    private fun date2Int(date: String): Int = date.replace("-", "").toInt()
 
     fun getOneDaySummary(bills: List<Bill>, color: String): TodaySummary {
         val primaryList = mutableListOf<String>()
         val newBills = mutableListOf<GeneralBill>()
-        var total= 0.00
+        var total = 0.00
         for (bill in bills) {
             val primary = bill.primaryCategory
             if (!primaryList.contains(primary)) {
@@ -86,7 +91,7 @@ class BillRepository {
             val primaryIndex = primaryList.indexOf(primary)
             val primaryColorInt = repository.getColorInt(color, primaryIndex)
             newBills.add(GeneralBill(bill, primaryColorInt))
-            when(bill.type) {
+            when (bill.type) {
                 "收入" -> total += bill.amount
                 else -> total -= bill.amount
             }
@@ -105,17 +110,26 @@ class BillRepository {
 //    }
 
     fun getABill(id: Long) = billDao.getABill(id)
-    fun getBillById(billId:Long) = billDao.getBillById(billId)
+
+    fun getBillById(billId: Long) = billDao.getBillById(billId)
+
     fun getBillByGeneralBill(generalBill: GeneralBill) = Bill(
-        generalBill.date,generalBill.amount, generalBill.account,generalBill.member,
-        generalBill.primaryCategory,generalBill.secondaryCategory,generalBill.type)
+        generalBill.date, generalBill.amount, generalBill.account, generalBill.member,
+        generalBill.primaryCategory, generalBill.secondaryCategory, generalBill.type
+    )
+
+    fun getPrimaryCategoryBillInTimeSpan(
+        startDate: String,
+        endDate: String,
+        primaryCategory: String
+    ) = billDao.getPrimaryCategoryBillInTimeSpan(startDate, endDate, primaryCategory)
 }
 
 data class DailyOverview(val total: Double, val bills: List<GeneralBill>)
 data class TodaySummary(val today_total: Double, val bills: List<GeneralBill>)
 
-class GeneralBill(bill: Bill, colorInt: Int){  // 比 Bill类多一个color
-    val billId : Long = bill.billId
+class GeneralBill(bill: Bill, colorInt: Int) {  // 比 Bill类多一个color
+    val billId: Long = bill.billId
     val date: String = bill.date
     val amount: Double = bill.amount
     val account: String = bill.account
@@ -123,11 +137,14 @@ class GeneralBill(bill: Bill, colorInt: Int){  // 比 Bill类多一个color
     val primaryCategory: String = bill.primaryCategory
     val secondaryCategory: String = bill.secondaryCategory
     val type: String = bill.type
+
     @ColorRes
     val color: Int = colorInt
 }
 
-fun getGeneralBillSecondaryCategory(generalBill: GeneralBill): String = generalBill.secondaryCategory
+fun getGeneralBillSecondaryCategory(generalBill: GeneralBill): String =
+    generalBill.secondaryCategory
+
 fun getGeneralBillAmount(generalBill: GeneralBill): Double = generalBill.amount
 fun getGeneralBillColorInt(generalBill: GeneralBill): Int = generalBill.color
 
