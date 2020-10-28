@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.categoryDetail.primaryCategory
+package com.keeppieces.android.ui.PrimaryCategory.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +10,7 @@ import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.GeneralPrimary
+import com.keeppieces.android.ui.PrimaryCategory.PrimaryCategoryDetailActivity
 import com.keeppieces.line_indicator.VerticalBarData
 import kotlin.math.abs
 
@@ -53,14 +54,15 @@ class PrimaryCategoryOverviewAdapter(
             }
             adapter = PrimaryCategoryOverviewCardAdapter(primaryDescription)
         }
-        holder.materialCardView.setOnClickListener {
-            PrimaryCategoryDetailActivity.start(
-                it.context,
-                startDate,
-                endDate,
-                onePrimaryCategory.primaryCategory
-            )
-        }
+//        holder.materialCardView.setOnClickListener {
+//            PrimaryCategoryDetailActivity.start(
+//                it.context,
+//                startDate,
+//                endDate,
+//                onePrimaryCategory.primaryCategory,
+//                false
+//            )
+//        }
 
     }
 
