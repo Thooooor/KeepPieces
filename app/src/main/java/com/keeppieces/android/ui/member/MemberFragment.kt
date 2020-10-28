@@ -34,17 +34,25 @@ import java.time.chrono.IsoChronology
 import kotlin.math.abs
 
 
-class MemberFragment(var startDate: String, var endDate: String): Fragment() {
+class MemberFragment(var startDate: String, var endDate: String) : Fragment() {
     private val viewModel by lazy { ViewModelProvider(requireActivity()).get(MemberViewModel::class.java) }
-    @RequiresApi(Build.VERSION_CODES.O) var startLocalDate: LocalDate = LocalDate.now()
-    @RequiresApi(Build.VERSION_CODES.O) var endLocalDate: LocalDate = LocalDate.now()
 
-    private lateinit var memberSummary : MutableList<MemberDetail>
+    @RequiresApi(Build.VERSION_CODES.O)
+    var startLocalDate: LocalDate = LocalDate.now()
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    var endLocalDate: LocalDate = LocalDate.now()
+
+    private lateinit var memberSummary: MutableList<MemberDetail>
     private var timeSpan: Int = 1
     private var cnt: Int = -1
     private var mode = MonthMode
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_member, container, false)
     }
 
@@ -77,23 +85,24 @@ class MemberFragment(var startDate: String, var endDate: String): Fragment() {
         val year = endLocalDate.year
         val month = endLocalDate.monthValue
         val lastDay = endLocalDate.dayOfMonth
-        mode = if (startLocalDate.dayOfMonth == 1 && startLocalDate.monthValue == month && lastDay >= 28) {
-            when (lastDay) {
-                31 -> MonthMode
-                30 -> when (month) {
-                    4 -> MonthMode
-                    6 -> MonthMode
-                    9 -> MonthMode
-                    11 -> MonthMode
+        mode =
+            if (startLocalDate.dayOfMonth == 1 && startLocalDate.monthValue == month && lastDay >= 28) {
+                when (lastDay) {
+                    31 -> MonthMode
+                    30 -> when (month) {
+                        4 -> MonthMode
+                        6 -> MonthMode
+                        9 -> MonthMode
+                        11 -> MonthMode
+                        else -> CustomMode
+                    }
+                    29 -> if (month == 2) MonthMode else CustomMode
+                    28 -> if (month == 2 && IsoChronology.INSTANCE.isLeapYear(year.toLong())) MonthMode else CustomMode
                     else -> CustomMode
                 }
-                29 -> if (month == 2) MonthMode else CustomMode
-                28 -> if (month == 2 && IsoChronology.INSTANCE.isLeapYear(year.toLong())) MonthMode else CustomMode
-                else -> CustomMode
+            } else {
+                CustomMode
             }
-        } else {
-            CustomMode
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -136,8 +145,8 @@ class MemberFragment(var startDate: String, var endDate: String): Fragment() {
         if (cnt <= 0) cnt++
         viewModel.billList(startDate, endDate).observe(viewLifecycleOwner) { billList ->
             val bills = if (billList.isEmpty()) listOf() else billList
-            memberSummary = viewModel.getMemberSummary(bills, "red", "blue")
-            memberTimeSpanView.text =  StringBuilder("$startDate ~ $endDate").toString()
+            memberSummary = viewModel.getMemberSummary(bills, "purple", "blue")
+            memberTimeSpanView.text = StringBuilder("$startDate ~ $endDate").toString()
             setUpMemberPieView()
             setUpMemberRecyclerView()
         }
@@ -167,8 +176,10 @@ class MemberFragment(var startDate: String, var endDate: String): Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             if (cnt == 0) addItemDecoration(getItemDecoration())
-            adapter = MemberOverviewAdapter(memberSummary,
-                income,expenditure)
+            adapter = MemberOverviewAdapter(
+                memberSummary,
+                income, expenditure, startDate, endDate
+            )
         }
 
 

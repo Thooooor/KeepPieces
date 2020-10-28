@@ -29,6 +29,8 @@ interface BillDao {
 
 //    @Query("SELECT * FROM bill where DATETIME(date) BETWEEN DATETIME(:startDate) AND DATETIME(:endDate)")
 //    fun getPeriodBill(startDate:String,endDate:String):LiveData<List<Bill>>
+    @Query("SELECT * FROM bill WHERE date >= :startDate and date <= :endDate and member == :member ")
+    fun getPeriodMemberBill(startDate: String, endDate: String, member: String): LiveData<List<Bill>>
 
     @Query("SELECT * FROM bill ORDER BY amount")
     fun loadAllBillByAmount(): LiveData<List<Bill>>
