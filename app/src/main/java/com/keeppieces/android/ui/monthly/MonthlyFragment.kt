@@ -131,7 +131,7 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
         }
 
         monthlyDetailBtn.setOnClickListener {
-            DetailActivity.start(it.context, startDate, endDate, MonthlyDetail, R.color.dark_green, timeSpan)
+            DetailActivity.start(it.context, startDate, endDate, MonthlyDetail, R.color.blue_600, timeSpan)
         }
 
     }
