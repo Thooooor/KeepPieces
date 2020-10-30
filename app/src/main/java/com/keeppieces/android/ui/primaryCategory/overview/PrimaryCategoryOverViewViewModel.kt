@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.PrimaryCategory.viewmodel
+package com.keeppieces.android.ui.primaryCategory.overview
 
 import androidx.lifecycle.ViewModel
 import com.keeppieces.android.logic.data.*

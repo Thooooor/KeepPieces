@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
-import com.keeppieces.android.ui.PrimaryCategory.PrimaryCategoryOverviewFragment
+import com.keeppieces.android.ui.primaryCategory.overview.PrimaryCategoryOverviewFragment
 import com.keeppieces.android.ui.account.AccountFragment
 import com.keeppieces.android.ui.member.MemberFragment
 import com.keeppieces.android.ui.overview.getParentActivity

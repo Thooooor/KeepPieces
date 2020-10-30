@@ -23,26 +23,28 @@ class SecondaryCategoryRepository {
         secondaryCategoryDao.deleteSecondaryCategory(secondaryCategory)
     }
 
-    fun getSecondaryClassification(bills:List<Bill>):MutableMap<String,Pair<List<Bill>,Int>>{
-        val secondaryClassification = mutableMapOf<String,Pair<List<Bill>,Int>>()
-        var count:Int = 0
+    fun getClassification(bills:List<Bill>,level:Int):MutableMap<String,Pair<List<Bill>,Int>>{
+        val classification = mutableMapOf<String,Pair<List<Bill>,Int>>()
+        var category:String
+        var count:Int = 0  // color
         for(bill in bills){
-            if(bill.secondaryCategory !in secondaryClassification) {
-                secondaryClassification[bill.secondaryCategory] = Pair(mutableListOf(bill),count++)
+            category = if(level == 1) { bill.primaryCategory } else {bill.secondaryCategory}
+            if (category !in classification){
+                classification[category] = Pair(mutableListOf(bill),count++)
             }
             else {
-                secondaryClassification[bill.secondaryCategory] = Pair(
-                    secondaryClassification[bill.secondaryCategory]!!.first.plus(bill),
-                    secondaryClassification[bill.secondaryCategory]!!.second)
+                classification[category] = Pair(
+                    classification[category]!!.first.plus(bill),
+                    classification[category]!!.second)
             }
         }
-        return secondaryClassification
+        return classification
     }
 
-    fun getSecondarySummary(secondaryClassification:MutableMap<String,Pair<List<Bill>,Int>>,positiveColor:String,negativeColor:String):MutableList<GeneralSecondary>{
-        val secondaryList = mutableListOf<GeneralSecondary>()  // 存放最终结果
-        for (secondaryBill in secondaryClassification) {
-            val billList = secondaryBill.value.first
+    fun getCategorySummary(classification:MutableMap<String,Pair<List<Bill>,Int>>,positiveColor:String,negativeColor:String):MutableList<GeneralCategory>{
+        val categorySummaryList = mutableListOf<GeneralCategory>()  // 存放最终结果
+        for (categoryMap in classification) {
+            val billList = categoryMap.value.first
             var total = 0.00
             var income = 0.00
             var expenditure = 0.00
@@ -57,15 +59,15 @@ class SecondaryCategoryRepository {
                 }
             }
             val color = Repository.getColorInt(
-                if (total>=0) {positiveColor} else {negativeColor}, secondaryBill.value.second)
-            secondaryList.add(GeneralSecondary(secondaryBill.key,total,color))
+                if (total>=0) {positiveColor} else {negativeColor}, categoryMap.value.second)
+            categorySummaryList.add(GeneralCategory(categoryMap.key,total,color))
         }
-        return secondaryList
+        return categorySummaryList
     }
 }
 
-data class GeneralSecondary(
-    val secondaryCategory: String,
+data class GeneralCategory(
+    val category: String,
     var amount: Double,  // 带正负号
     @ColorRes val color: Int
 )

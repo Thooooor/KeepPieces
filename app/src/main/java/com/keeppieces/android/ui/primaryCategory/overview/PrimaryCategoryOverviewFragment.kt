@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.PrimaryCategory
+package com.keeppieces.android.ui.primaryCategory.overview
 
 import android.os.Build
 import android.os.Bundle
@@ -13,8 +13,6 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
-import com.keeppieces.android.ui.PrimaryCategory.adapter.PrimaryCategoryOverviewAdapter
-import com.keeppieces.android.ui.PrimaryCategory.viewmodel.PrimaryCategoryOverViewViewModel
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion

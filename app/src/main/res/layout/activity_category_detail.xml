@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app = "http://schemas.android.com/apk/res-auto"
-    xmlns:tools = "http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/categoryDetailToolbar"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        android:layout_height="?attr/actionBarSize"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分类详情"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:layout_gravity="center"
+            />
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,22 +45,20 @@
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/keyline_start"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/spacing_keyline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing_keyline" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/keyline_end"
-            app:layout_constraintGuide_end="@dimen/spacing_keyline"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing_keyline" />
 
         <com.keeppieces.pie_chart.PieChart
-            android:id="@+id/primary_category_pie_chart"
+            android:id="@+id/category_pie_chart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -53,51 +68,50 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/primary_category_title"
+            android:id="@+id/category_title"
             style="?attr/textAppearanceHeadline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/primary_category_pie_chart"
+            app:layout_constraintBottom_toBottomOf="@id/category_pie_chart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/primary_category_pie_chart"
+            app:layout_constraintTop_toTopOf="@id/category_pie_chart"
             app:layout_constraintVertical_bias="0.418"
             tools:text="某个一级类" />
 
         <TextView
-            android:id="@+id/primaryIncome"
+            android:id="@+id/income"
             style="?attr/textAppearanceSubtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_small"
-            app:layout_constraintTop_toBottomOf="@id/primary_category_title"
+            app:layout_constraintBottom_toTopOf="@id/expenditure"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/primaryExpenditure"
+            app:layout_constraintTop_toBottomOf="@id/category_title"
             tools:text="收入" />
 
         <TextView
-            android:id="@+id/primaryExpenditure"
+            android:id="@+id/expenditure"
             style="?attr/textAppearanceSubtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/primaryIncome"
+            app:layout_constraintTop_toBottomOf="@id/income"
             tools:text="支出" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
-        android:id="@+id/second_category_date_bar"
+        android:id="@+id/category_date_bar"
         layout="@layout/include_detail_datebar" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
@@ -108,12 +122,8 @@
             app:tabIndicatorColor="@color/colorPrimary" />
 
         <com.keeppieces.android.ui.viewpager.SwipeControllableViewPager
-            android:id="@+id/second_category_view_pager"
+            android:id="@+id/category_view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
-
 </LinearLayout>
-
-

@@ -1,4 +1,4 @@
-package com.keeppieces.android.ui.PrimaryCategory.adapter
+package com.keeppieces.android.ui.primaryCategory.overview
 
 import android.view.LayoutInflater
 import android.view.View

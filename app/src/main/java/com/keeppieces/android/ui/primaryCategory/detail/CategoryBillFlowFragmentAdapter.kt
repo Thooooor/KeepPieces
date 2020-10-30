@@ -1,15 +1,21 @@
-package com.keeppieces.android.ui.PrimaryCategory.adapter
+package com.keeppieces.android.ui.primaryCategory.detail
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.keeppieces.android.KeepPiecesApplication.Companion.context
 import com.keeppieces.android.R
 import com.keeppieces.android.logic.data.Bill
 
-class SecondaryCategoryBillFlowFragmentAdapter(val billList:List<Bill>) : RecyclerView.Adapter<SecondaryCategoryBillFlowFragmentAdapter.ViewHolder>(){
+class CategoryBillFlowFragmentAdapter(val context: Context,
+                                      val billList:List<Bill>,
+                                      val startDate:String,
+                                      val endDate:String,
+                                      private val level:Int) : RecyclerView.Adapter<CategoryBillFlowFragmentAdapter.ViewHolder>(){
 
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
         val billTypeSymbol:TextView = view.findViewById(R.id.billType)
@@ -37,9 +43,16 @@ class SecondaryCategoryBillFlowFragmentAdapter(val billList:List<Bill>) : Recycl
             "转账" -> " ￥"
             else -> "TypeError"
         }
-        holder.detailArrow.setOnClickListener {
-
+        if (level == 1) {
+            holder.detailArrow.setOnClickListener {
+                CategoryDetailBaseActivity.start(context, startDate, endDate, bill.secondaryCategory, level = 2)
+            }
         }
+        else {
+            holder.detailArrow.visibility = View.INVISIBLE
+        }
+
+
     }
 
     override fun getItemCount(): Int = billList.size
