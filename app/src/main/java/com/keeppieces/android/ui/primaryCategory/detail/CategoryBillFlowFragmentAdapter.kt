@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.R
 import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.ui.bill.BillActivity
 
 class CategoryBillFlowFragmentAdapter(
     val context: Context,
@@ -44,21 +45,21 @@ class CategoryBillFlowFragmentAdapter(
             "转账" -> " ￥"
             else -> "TypeError"
         }
-        if (level == 1) {
-            holder.detailArrow.setOnClickListener {
-                CategoryDetailBaseActivity.start(
-                    context,
-                    startDate,
-                    endDate,
-                    bill.secondaryCategory,
-                    level = 2
-                )
-            }
-        } else {
-            holder.detailArrow.visibility = View.INVISIBLE
+
+        holder.detailArrow.setOnClickListener {
+                if (level == 1) {
+                    CategoryDetailBaseActivity.start(
+                        context,
+                        startDate,
+                        endDate,
+                        bill.secondaryCategory,
+                        level = 2
+                    )
+                }
+                else {
+                    BillActivity.start(context,bill)
+                }
         }
-
-
     }
 
     override fun getItemCount(): Int = billList.size
