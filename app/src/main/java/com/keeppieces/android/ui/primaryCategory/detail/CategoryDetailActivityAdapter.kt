@@ -10,8 +10,8 @@ class CategoryDetailActivityAdapter(
     fm: FragmentManager,
     private val tabSize: Int,
     private val incomeList: List<Bill>, private val expenditureList: List<Bill>,
-    val startDate:String, val endDate:String,
-    private val level:Int
+    val startDate: String, val endDate: String,
+    private val level: Int
 ) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getCount(): Int {
@@ -25,12 +25,12 @@ class CategoryDetailActivityAdapter(
     override fun getItem(position: Int): Fragment =
         when (position) {
             0 -> CategoryBillFlowFragment(expenditureList, startDate, endDate, level)  // 支出
-            1 -> CategoryBillFlowFragment(incomeList,startDate, endDate, level)  // 收入
-            else -> CategoryBillFlowFragment(expenditureList,startDate, endDate, level)  // 支出
+            1 -> CategoryBillFlowFragment(incomeList, startDate, endDate, level)  // 收入
+            else -> CategoryBillFlowFragment(expenditureList, startDate, endDate, level)  // 支出
         }
 
     override fun getPageTitle(position: Int) =
-        when(position) {
+        when (position) {
             0 -> "支出"
             1 -> "收入"
             else -> "支出"

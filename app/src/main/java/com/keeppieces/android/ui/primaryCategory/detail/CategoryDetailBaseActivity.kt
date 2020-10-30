@@ -30,6 +30,7 @@ import kotlin.math.abs
 import kotlin.properties.Delegates
 
 var count = 0
+
 open class CategoryDetailBaseActivity() : AppCompatActivity() {
     lateinit var startDate: String
     lateinit var endDate: String
@@ -49,12 +50,12 @@ open class CategoryDetailBaseActivity() : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("CHECKPOINT",(count++).toString())
+        Log.d("CHECKPOINT", (count++).toString())
         setContentView(R.layout.activity_category_detail)
         startDate = intent.getStringExtra("startDate") ?: LocalDate.now().toString()
         endDate = intent.getStringExtra("endDate") ?: LocalDate.now().toString()
         category = intent.getStringExtra("category") ?: "出了点错误"
-        level = intent.getIntExtra("level",1)
+        level = intent.getIntExtra("level", 1)
         setSupportActionBar(categoryDetailToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
@@ -156,14 +157,15 @@ open class CategoryDetailBaseActivity() : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpView() {
-        viewModel.getCategoryBillInTimeSpan(startDate, endDate, category,level)
+        viewModel.getCategoryBillInTimeSpan(startDate, endDate, category, level)
             .observe(this) { billList ->
                 detailDateText.text = StringBuilder("$startDate ~ $endDate").toString()
                 category_title.text = category
                 setUpPieView(billList)
                 viewModel.separateBillList(billList) // 分离收支账单用于展示流水
-                income.text = StringBuilder("收入:"+viewModel.incomeTotal.toCHINADFormatted())
-                expenditure.text = StringBuilder("支出:"+viewModel.expenditureTotal.toCHINADFormatted())
+                income.text = StringBuilder("收入:" + viewModel.incomeTotal.toCHINADFormatted())
+                expenditure.text =
+                    StringBuilder("支出:" + viewModel.expenditureTotal.toCHINADFormatted())
                 setUpViewPager()
             }
         if (cnt <= 0) cnt++
@@ -202,14 +204,18 @@ open class CategoryDetailBaseActivity() : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context, startDate: String, endDate: String, category: String, level:Int) {
-//            val intent = if (level == 1) {Intent(context, PrimaryCategoryDetailActivity::class.java)} else {Intent(context, SecondaryCategoryDetailActivity::class.java)}
-            Log.d("STARTACTIVITY",context.toString())
+        fun start(
+            context: Context,
+            startDate: String,
+            endDate: String,
+            category: String,
+            level: Int
+        ) {
             val intent = Intent(context, CategoryDetailBaseActivity::class.java).apply {
                 putExtra("startDate", startDate)
                 putExtra("endDate", endDate)
                 putExtra("category", category)
-                putExtra("level",level)
+                putExtra("level", level)
             }
             startActivity(context, intent, null)
         }

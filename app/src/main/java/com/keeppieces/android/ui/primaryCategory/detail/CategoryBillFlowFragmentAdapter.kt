@@ -11,23 +11,25 @@ import com.keeppieces.android.KeepPiecesApplication.Companion.context
 import com.keeppieces.android.R
 import com.keeppieces.android.logic.data.Bill
 
-class CategoryBillFlowFragmentAdapter(val context: Context,
-                                      val billList:List<Bill>,
-                                      val startDate:String,
-                                      val endDate:String,
-                                      private val level:Int) : RecyclerView.Adapter<CategoryBillFlowFragmentAdapter.ViewHolder>(){
+class CategoryBillFlowFragmentAdapter(
+    val context: Context,
+    val billList: List<Bill>,
+    val startDate: String,
+    val endDate: String,
+    private val level: Int
+) : RecyclerView.Adapter<CategoryBillFlowFragmentAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
-        val billTypeSymbol:TextView = view.findViewById(R.id.billType)
-        val billDetailSecondary:TextView = view.findViewById(R.id.billDetailSecondary)
-        val billAccount:TextView = view.findViewById(R.id.billAccount)
-        val billDate:TextView = view.findViewById(R.id.billDate)
-        val billAmountString:TextView = view.findViewById(R.id.billAmount)
-        val detailArrow:ImageView = view.findViewById(R.id.detailArrow)
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val billTypeSymbol: TextView = view.findViewById(R.id.billType)
+        val billDetailSecondary: TextView = view.findViewById(R.id.billDetailSecondary)
+        val billAccount: TextView = view.findViewById(R.id.billAccount)
+        val billDate: TextView = view.findViewById(R.id.billDate)
+        val billAmountString: TextView = view.findViewById(R.id.billAmount)
+        val detailArrow: ImageView = view.findViewById(R.id.detailArrow)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_detail,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_detail, parent, false)
         return ViewHolder(view)
     }
 
@@ -35,9 +37,9 @@ class CategoryBillFlowFragmentAdapter(val context: Context,
         val bill = billList[position]
         holder.billAccount.text = bill.account
         holder.billAmountString.text = bill.amount.toString()
-        holder.billDate.text= bill.date
+        holder.billDate.text = bill.date
         holder.billDetailSecondary.text = bill.secondaryCategory
-        holder.billTypeSymbol.text = when(bill.type) {
+        holder.billTypeSymbol.text = when (bill.type) {
             "收入" -> "+￥"
             "支出" -> "-￥"
             "转账" -> " ￥"
@@ -45,10 +47,15 @@ class CategoryBillFlowFragmentAdapter(val context: Context,
         }
         if (level == 1) {
             holder.detailArrow.setOnClickListener {
-                CategoryDetailBaseActivity.start(context, startDate, endDate, bill.secondaryCategory, level = 2)
+                CategoryDetailBaseActivity.start(
+                    context,
+                    startDate,
+                    endDate,
+                    bill.secondaryCategory,
+                    level = 2
+                )
             }
-        }
-        else {
+        } else {
             holder.detailArrow.visibility = View.INVISIBLE
         }
 

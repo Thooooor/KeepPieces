@@ -11,7 +11,13 @@ import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.logic.data.Bill
 
-class CategoryBillFlowFragment(val billList:List<Bill>, val startDate:String,val endDate:String, private val level:Int, var cnt:Int = -1):Fragment() {
+class CategoryBillFlowFragment(
+    val billList: List<Bill>,
+    val startDate: String,
+    val endDate: String,
+    private val level: Int,
+    var cnt: Int = -1
+) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,13 +27,13 @@ class CategoryBillFlowFragment(val billList:List<Bill>, val startDate:String,val
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recyclerView:RecyclerView = view.findViewById(R.id.bill_flow_recycler_view)
+        val recyclerView: RecyclerView = view.findViewById(R.id.bill_flow_recycler_view)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            if(cnt<0) addItemDecoration(getItemDecoration())
+            if (cnt < 0) addItemDecoration(getItemDecoration())
             cnt++
-            adapter = CategoryBillFlowFragmentAdapter(context,billList, startDate, endDate, level)
+            adapter = CategoryBillFlowFragmentAdapter(context, billList, startDate, endDate, level)
         }
     }
 }

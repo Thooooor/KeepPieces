@@ -29,16 +29,23 @@ const val DayMode = 0
 const val MonthMode = 1
 const val CustomMode = 2
 
-class PrimaryCategoryOverviewFragment(var startDate: String, var endDate: String): Fragment() {
-    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(
-        PrimaryCategoryOverViewViewModel::class.java) }
+class PrimaryCategoryOverviewFragment(var startDate: String, var endDate: String) : Fragment() {
+    private val viewModel by lazy {
+        ViewModelProvider(requireActivity()).get(
+            PrimaryCategoryOverViewViewModel::class.java
+        )
+    }
     private lateinit var startLocalDate: LocalDate
     private lateinit var endLocalDate: LocalDate
     private var timeSpan: Int = 1
     private var cnt: Int = -1
     private var mode = MonthMode
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_primary, container, false)
     }
 
@@ -69,23 +76,24 @@ class PrimaryCategoryOverviewFragment(var startDate: String, var endDate: String
         val year = endLocalDate.year
         val month = endLocalDate.monthValue
         val lastDay = endLocalDate.dayOfMonth
-        mode = if (startLocalDate.dayOfMonth == 1 && startLocalDate.monthValue == month && lastDay >= 28) {
-            when (lastDay) {
-                31 -> MonthMode
-                30 -> when (month) {
-                    4 -> MonthMode
-                    6 -> MonthMode
-                    9 -> MonthMode
-                    11 -> MonthMode
+        mode =
+            if (startLocalDate.dayOfMonth == 1 && startLocalDate.monthValue == month && lastDay >= 28) {
+                when (lastDay) {
+                    31 -> MonthMode
+                    30 -> when (month) {
+                        4 -> MonthMode
+                        6 -> MonthMode
+                        9 -> MonthMode
+                        11 -> MonthMode
+                        else -> CustomMode
+                    }
+                    29 -> if (month == 2) MonthMode else CustomMode
+                    28 -> if (month == 2 && IsoChronology.INSTANCE.isLeapYear(year.toLong())) MonthMode else CustomMode
                     else -> CustomMode
                 }
-                29 -> if (month == 2) MonthMode else CustomMode
-                28 -> if (month == 2 && IsoChronology.INSTANCE.isLeapYear(year.toLong())) MonthMode else CustomMode
-                else -> CustomMode
+            } else {
+                CustomMode
             }
-        } else {
-            CustomMode
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -124,19 +132,22 @@ class PrimaryCategoryOverviewFragment(var startDate: String, var endDate: String
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpView() {
         if (cnt <= 0) cnt++
-        val billListInTimeSpan = viewModel.billList(startDate,endDate)
+        val billListInTimeSpan = viewModel.billList(startDate, endDate)
         billListInTimeSpan.observe(viewLifecycleOwner) { billList ->
             viewModel.getPrimaryClassification(billList) // 对 bill 按一级类分类，分类结果保存在viewModel中
-            viewModel.getPrimarySummary("blue","yellow")
+            viewModel.getPrimarySummary("blue", "yellow")
             timeSpanView.text = StringBuilder("$startDate ~ $endDate").toString()
             setUpPrimaryPieView()
             setUpPrimaryRecyclerView()
         }
     }
+
     private fun setUpPrimaryPieView() {
         val piePortions = viewModel.primarySummary.map {
             PiePortion(
-                it.primaryCategory, abs(it.amount), ContextCompat.getColor(requireContext(), it.color)
+                it.primaryCategory,
+                abs(it.amount),
+                ContextCompat.getColor(requireContext(), it.color)
             )// 这里的amount正负由颜色确定
         }.toList()
         val pieData = PieData(portions = piePortions)
@@ -151,10 +162,11 @@ class PrimaryCategoryOverviewFragment(var startDate: String, var endDate: String
             layoutManager = LinearLayoutManager(requireContext())
 //            setHasFixedSize(true)
 //            if (cnt == 0) addItemDecoration(getItemDecoration())
-            adapter = PrimaryCategoryOverviewAdapter(viewModel.primarySummary,
+            adapter = PrimaryCategoryOverviewAdapter(
+                viewModel.primarySummary,
                 viewModel.primaryTotalIncomeExpenditure.second,
                 viewModel.primaryTotalIncomeExpenditure.third,
-                startDate,endDate
+                startDate, endDate
             )
         }
     }
