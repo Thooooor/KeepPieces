@@ -9,7 +9,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
@@ -23,9 +22,9 @@ import kotlinx.android.synthetic.main.fragment_primary.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.chrono.IsoChronology
+import java.util.*
 import kotlin.math.abs
 
-const val DayMode = 0
 const val MonthMode = 1
 const val CustomMode = 2
 
@@ -116,7 +115,7 @@ class PrimaryCategoryOverviewFragment(var startDate: String, var endDate: String
             val picker = builder.build()
             picker.show(childFragmentManager, picker.toString())
             picker.addOnPositiveButtonClickListener {
-                val format = SimpleDateFormat("yyyy-MM-dd")
+                val format = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)
                 timeSpan = ((it.second!! - it.first!!) / (1000 * 3600 * 24)).toInt() + 1
                 timeSpan = if (timeSpan == 0) 1 else timeSpan
                 startDate = format.format(it.first)

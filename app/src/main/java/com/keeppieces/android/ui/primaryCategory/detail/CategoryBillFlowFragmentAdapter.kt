@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.keeppieces.android.KeepPiecesApplication.Companion.context
 import com.keeppieces.android.R
 import com.keeppieces.android.logic.data.Bill
 
