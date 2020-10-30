@@ -1,9 +1,11 @@
-package com.keeppieces.android.ui.PrimaryCategory
+package com.keeppieces.android.ui.primaryCategory.detail
 
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -14,12 +16,12 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.Bill
-import com.keeppieces.android.ui.PrimaryCategory.adapter.PrimaryCategoryDetailActivityAdapter
-import com.keeppieces.android.ui.PrimaryCategory.viewmodel.PrimaryCategoryDetailActivityViewModel
+import com.keeppieces.android.ui.primaryCategory.overview.CustomMode
+import com.keeppieces.android.ui.primaryCategory.overview.MonthMode
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
-import kotlinx.android.synthetic.main.activity_primary_category_detail.*
+import kotlinx.android.synthetic.main.activity_category_detail.*
 import kotlinx.android.synthetic.main.include_detail_datebar.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -27,31 +29,37 @@ import java.time.chrono.IsoChronology
 import kotlin.math.abs
 import kotlin.properties.Delegates
 
+var count = 0
 
-class PrimaryCategoryDetailActivity : AppCompatActivity() {
-    private lateinit var startDate: String
-    private lateinit var endDate: String
-    private lateinit var primaryCategory: String
-    private var primaryOrSecondaryFlag by Delegates.notNull<Boolean>()
-    private val viewModel: PrimaryCategoryDetailActivityViewModel by viewModels()
+open class CategoryDetailBaseActivity() : AppCompatActivity() {
+    lateinit var startDate: String
+    lateinit var endDate: String
+    private lateinit var category: String
+    private var level by Delegates.notNull<Int>()
+    val viewModel: CategoryDetailActivityViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.O)
     var startLocalDate: LocalDate = LocalDate.now()
 
     @RequiresApi(Build.VERSION_CODES.O)
     var endLocalDate: LocalDate = LocalDate.now()
-    private var timeSpan: Int = 1
-    private var cnt: Int = -1
-    private var mode = MonthMode
+    var timeSpan: Int = 1
+    var cnt: Int = -1
+    var mode = MonthMode
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_primary_category_detail)
+        Log.d("CHECKPOINT", (count++).toString())
+        setContentView(R.layout.activity_category_detail)
         startDate = intent.getStringExtra("startDate") ?: LocalDate.now().toString()
         endDate = intent.getStringExtra("endDate") ?: LocalDate.now().toString()
-        primaryCategory = intent.getStringExtra("primaryCategory") ?: "出了点错误"
-        primaryOrSecondaryFlag = intent.getBooleanExtra("primaryOrSecondaryFlag",false)
+        category = intent.getStringExtra("category") ?: "出了点错误"
+        level = intent.getIntExtra("level", 1)
+        setSupportActionBar(categoryDetailToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.title = ""
         initDate()  // 在这里会初始化好timeSpan
         if (savedInstanceState == null) runEnterAnimation()
         setUpView()
@@ -79,7 +87,13 @@ class PrimaryCategoryDetailActivity : AppCompatActivity() {
                 setUpView()
             }
         }
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return true
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -99,10 +113,8 @@ class PrimaryCategoryDetailActivity : AppCompatActivity() {
             startLocalDate = startLocalDate.plusDays(span.toLong())
             endLocalDate = endLocalDate.plusDays(span.toLong())
         }
-
         startDate = startLocalDate.toString()
         endDate = endLocalDate.toString()
-//        Log.d("Monthly Date Update", "$startDate ~ $endDate")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -145,54 +157,66 @@ class PrimaryCategoryDetailActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpView() {
-        viewModel.getPrimaryCategoryBillInTimeSpan(startDate, endDate, primaryCategory)
+        viewModel.getCategoryBillInTimeSpan(startDate, endDate, category, level)
             .observe(this) { billList ->
                 detailDateText.text = StringBuilder("$startDate ~ $endDate").toString()
-                primary_category_title.text = primaryCategory
+                category_title.text = category
                 setUpPieView(billList)
                 viewModel.separateBillList(billList) // 分离收支账单用于展示流水
-                primaryIncome.text = StringBuilder("收入:"+viewModel.incomeTotal.toCHINADFormatted())
-                primaryExpenditure.text = StringBuilder("支出:"+viewModel.expenditureTotal.toCHINADFormatted())
+                income.text = StringBuilder("收入:" + viewModel.incomeTotal.toCHINADFormatted())
+                expenditure.text =
+                    StringBuilder("支出:" + viewModel.expenditureTotal.toCHINADFormatted())
                 setUpViewPager()
             }
         if (cnt <= 0) cnt++
     }
 
     private fun setUpPieView(bills: List<Bill>) {
-        viewModel.getSecondaryClassification(bills)
-        viewModel.getSecondaryCategorySummary("blue", "yellow")
-        val piePortions = viewModel.secondaryCategorySummary.map {
+        viewModel.getClassification(bills, level)
+        viewModel.getCategorySummary("blue", "yellow")
+        val piePortions = viewModel.categorySummary.map {
             PiePortion(
-                it.secondaryCategory, abs(it.amount), ContextCompat.getColor(this, it.color)
+                it.category, abs(it.amount), ContextCompat.getColor(this, it.color)
             )
         }.toList()
 
         val pieData = PieData(portions = piePortions)
-        val pieAnimation = PieAnimation(primary_category_pie_chart).apply {
+        val pieAnimation = PieAnimation(category_pie_chart).apply {
             duration = 600
         }
-        primary_category_pie_chart.setPieData(pieData = pieData, animation = pieAnimation)
+        category_pie_chart.setPieData(pieData = pieData, animation = pieAnimation)
     }
 
     private fun setUpViewPager() {
-        second_category_view_pager.adapter = PrimaryCategoryDetailActivityAdapter(
+        category_view_pager.adapter = CategoryDetailActivityAdapter(
             supportFragmentManager,
             2,  // 收入和支出
             viewModel.incomeBillList,
-            viewModel.expenditureBillList
+            viewModel.expenditureBillList,
+            startDate,
+            endDate,
+            level
         )
-        second_category_view_pager.offscreenPageLimit = 0
-        income_expenditure_tab_layout.setupWithViewPager(second_category_view_pager, true)
-        second_category_view_pager.setCurrentItem(0, true)
+        category_view_pager.swipeEnabled = true
+        category_view_pager.offscreenPageLimit = 0
+        income_expenditure_tab_layout.setupWithViewPager(category_view_pager, true)
+        category_view_pager.setCurrentItem(0, true)
     }
 
     companion object {
-        fun start(context: Context, startDate: String, endDate: String, primaryCategory: String, primaryOrSecondaryFlag:Boolean) {
-            val intent = Intent(context, PrimaryCategoryDetailActivity::class.java)
-            intent.putExtra("startDate", startDate)
-            intent.putExtra("endDate", endDate)
-            intent.putExtra("primaryCategory", primaryCategory)
-            intent.putExtra("primaryOrSecondaryFlag",primaryOrSecondaryFlag)
+        fun start(
+            context: Context,
+            startDate: String,
+            endDate: String,
+            category: String,
+            level: Int
+        ) {
+            val intent = Intent(context, CategoryDetailBaseActivity::class.java).apply {
+                putExtra("startDate", startDate)
+                putExtra("endDate", endDate)
+                putExtra("category", category)
+                putExtra("level", level)
+            }
             startActivity(context, intent, null)
         }
     }
