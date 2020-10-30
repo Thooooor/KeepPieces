@@ -61,26 +61,46 @@ class AccountRepository {
         return accountList
     }
 
-    fun getAccountSummary(accounts:List<Account>, positiveColor: String, negativeColor: String):AccountSummary {
-        val accountList = mutableListOf<DailyAccount>()
-        var total = 0.00
-        var positiveSize = 0
-        var negativeSize = 0
-        for (account in accounts) {
-            total += account.amount
-            if(account.amount>=0) {
-                val accountNameColor = repository.getColorInt(positiveColor, positiveSize)
-                positiveSize += 1
-                accountList.add(DailyAccount(account.name, account.amount, accountNameColor))
+    fun getAccountSummary(accountList: MutableMap<String, Pair<List<Bill>, Int>>, positiveColor: String, negativeColor: String): MutableList<DailyAccount> {
+//        val accountList = mutableListOf<DailyAccount>()
+//        var total = 0.00
+//        var positiveSize = 0
+//        var negativeSize = 0
+//        for (account in accounts) {
+//            total += account.amount
+//            if(account.amount>=0) {
+//                val accountNameColor = repository.getColorInt(positiveColor, positiveSize)
+//                positiveSize += 1
+//                accountList.add(DailyAccount(account.name, account.amount, accountNameColor))
+//            }
+//            else {
+//                val accountNameColor = repository.getColorInt(negativeColor, negativeSize)
+//                negativeSize += 1
+//                accountList.add(DailyAccount(account.name, account.amount, accountNameColor))
+//            }
+//        }
+//        accountList.sortBy {it.amount }
+//        return AccountSummary(total,accountList)
+        val accountMonthCondition = mutableMapOf<String, Pair<Double, Int>>()
+        val accountSummaryList = mutableListOf<DailyAccount>()
+        for (accountBill in accountList) {
+            var amount = 0.00
+            for (bill in accountBill.value.first) {
+                if (bill.type == "收入" || (bill.type == "转账" && bill.secondaryCategory == accountBill.key)) {
+                    amount += bill.amount
+                } else if (bill.type == "支出" || (bill.type == "转账" && bill.account == accountBill.key)) {
+                    amount -= bill.amount
+                }
             }
-            else {
-                val accountNameColor = repository.getColorInt(negativeColor, negativeSize)
-                negativeSize += 1
-                accountList.add(DailyAccount(account.name, account.amount, accountNameColor))
-            }
+            val accountColor = repository.getColorInt(
+                if (amount>=0) {positiveColor} else {negativeColor}, accountBill.value.second)
+            accountMonthCondition[accountBill.key] = Pair(amount, accountColor)
         }
-        accountList.sortBy {it.amount }
-        return AccountSummary(total,accountList)
+        accountMonthCondition.forEach { (account, condition) ->
+            accountSummaryList.add(DailyAccount(account, condition.first, condition.second))
+        }
+        accountSummaryList.sortByDescending { abs(it.amount) }
+        return accountSummaryList
     }
 
     fun getAccountClassification(bills: List<Bill>): MutableMap<String, Pair<List<Bill>, Int>> {
