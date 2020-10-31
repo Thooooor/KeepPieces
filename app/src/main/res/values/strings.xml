@@ -121,4 +121,6 @@
     <string name="Income">收入</string>
     <string name="Outcome">支出</string>
     <string name="more_information">more_information</string>
+    <string name="detailEditButton">编辑</string>
+    <string name="detailDeleteButton">删除</string>
 </resources>

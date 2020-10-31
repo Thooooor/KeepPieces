@@ -16,7 +16,7 @@ import com.keeppieces.android.R
 import kotlinx.android.synthetic.main.dialog_set_month_budget.*
 import java.time.LocalDate
 
-class AddMonthBudgetDialog:DialogFragment() {
+class AddMonthBudgetDialog: DialogFragment() {
     private lateinit var setter: SetMonthBudgetInterface
     private val monthBudgetFile = "month_budget"
     private val nowMonthBudgetString = "nowMonthBudget"

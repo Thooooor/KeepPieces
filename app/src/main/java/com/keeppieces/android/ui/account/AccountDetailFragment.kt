@@ -29,11 +29,12 @@ class AccountDetailFragment(private val billsFilter: MutableList<Bill>, val type
     }
 
     private fun setUpRecyclerView() {
+        val fragmentManager = parentFragmentManager
         bill_flow_recycler_view.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
-            adapter = DetailAdapter(billsFilter)
+            adapter = DetailAdapter(billsFilter, fragmentManager)
         }
     }
 
