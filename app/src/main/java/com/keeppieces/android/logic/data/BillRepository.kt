@@ -1,9 +1,12 @@
 package com.keeppieces.android.logic.data
 
+import android.os.Build
 import android.util.Log
 import androidx.annotation.ColorRes
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import com.keeppieces.android.KeepPiecesApplication
+import java.time.LocalDate
 
 class BillRepository {
     private val context = KeepPiecesApplication.context
@@ -124,6 +127,30 @@ class BillRepository {
     fun getABill(id: Long) = billDao.getABill(id)
 
     fun getBillById(billId:Long) = billDao.getBillById(billId)
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getBillLine(bills: List<Bill>, startDate: String, timeSpan:Int): MutableList<Double> {
+        val dateList = mutableListOf(startDate)
+        val pointList = mutableListOf(0.00)
+        var localStartDate = LocalDate.parse(startDate)
+
+        for (bill in bills) {
+            val date = bill.date
+            if (!dateList.contains(date)) {
+                localStartDate = localStartDate.plusDays(1)
+                while (date != localStartDate.toString()) {
+                    dateList.add(localStartDate.toString())
+                    pointList.add(0.00)
+                    localStartDate = localStartDate.plusDays(1)
+                }
+                dateList.add(date)
+                pointList.add(0.00)
+            }
+            val dateIndex = dateList.indexOf(date)
+            if (bill.type == "支出")  pointList[dateIndex] += bill.amount
+        }
+        return pointList
+    }
 
     fun getBillByGeneralBill(generalBill: GeneralBill): Bill {
         val bill = Bill(

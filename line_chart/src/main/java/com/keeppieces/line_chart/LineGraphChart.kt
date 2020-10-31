@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.PointF
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ColorRes
@@ -38,13 +39,13 @@ class LineGraphChart : View {
 
     private val barWidth by lazy {
         TypedValue.applyDimension(
-          TypedValue.COMPLEX_UNIT_DIP, .5f, resources.displayMetrics
+            TypedValue.COMPLEX_UNIT_DIP, .5f, resources.displayMetrics
         )
     }
 
     private val borderPathWidth by lazy {
         TypedValue.applyDimension(
-          TypedValue.COMPLEX_UNIT_DIP, 4f, resources.displayMetrics
+            TypedValue.COMPLEX_UNIT_DIP, 4f, resources.displayMetrics
         )
     }
 
@@ -53,16 +54,16 @@ class LineGraphChart : View {
     }
 
     constructor(
-      context: Context?,
-      attrs: AttributeSet?
+        context: Context?,
+        attrs: AttributeSet?
     ) : super(context, attrs) {
         init(attrs)
     }
 
     constructor(
-      context: Context?,
-      attrs: AttributeSet?,
-      defStyleAttr: Int
+        context: Context?,
+        attrs: AttributeSet?,
+        defStyleAttr: Int
     ) : super(context, attrs, defStyleAttr) {
         init(attrs)
     }
@@ -99,10 +100,10 @@ class LineGraphChart : View {
     }
 
     override fun onSizeChanged(
-      w: Int,
-      h: Int,
-      oldw: Int,
-      oldh: Int
+        w: Int,
+        h: Int,
+        oldw: Int,
+        oldh: Int
     ) {
         super.onSizeChanged(w, h, oldw, oldh)
 
@@ -152,8 +153,8 @@ class LineGraphChart : View {
 
             for (i in 1 until points.size) {
                 path.cubicTo(
-                  conPoint1[i - 1].x, conPoint1[i - 1].y, conPoint2[i - 1].x, conPoint2[i - 1].y,
-                  points[i].x, points[i].y
+                    conPoint1[i - 1].x, conPoint1[i - 1].y, conPoint2[i - 1].x, conPoint2[i - 1].y,
+                    points[i].x, points[i].y
                 )
             }
 
@@ -178,7 +179,6 @@ class LineGraphChart : View {
             width.toFloat() / (data.size - 1) //subtract -1 because we want to include position at right side
 
         val maxData = data.maxByOrNull { it.amount }!!.amount
-
         for (i in 0 until data.size) {
             val y = bottomY - (data[i].amount / maxData * (bottomY - curveTopMargin))
             points.add(PointF(xDiff * i, y))
@@ -203,79 +203,80 @@ class LineGraphChart : View {
         post {
             Thread(Runnable {
 
-              val oldPoints = points.toList()
+                val oldPoints = points.toList()
 
-              if (oldPoints.isEmpty()) {
+                if (oldPoints.isEmpty()) {
+                    this.data.addAll(data.toList())
+                    calculatePointsForData()
+                    calculateConnectionPointsForBezierCurve()
+                    postInvalidate()
+                    return@Runnable
+                }
+
+                resetDataPoints()
                 this.data.addAll(data.toList())
                 calculatePointsForData()
                 calculateConnectionPointsForBezierCurve()
-                postInvalidate()
-                return@Runnable
-              }
 
-              resetDataPoints()
-              this.data.addAll(data.toList())
-              calculatePointsForData()
-              calculateConnectionPointsForBezierCurve()
+                val newPoints = points.toList()
 
-              val newPoints = points.toList()
+                val size = oldPoints.size
 
-              val size = oldPoints.size
-              var maxDiffY = 0f
-              for (i in 0 until size) {
-                val abs = abs(oldPoints[i].y - newPoints[i].y)
-                if (abs > maxDiffY) maxDiffY = abs
-              }
-
-              val loopCount = maxDiffY / 16
-
-              val tempPointsForAnimation = mutableListOf<MutableList<PointF>>()
-
-              for (i in 0 until size) {
-                val old = oldPoints[i]
-                val new = newPoints[i]
-
-                val plusOrMinusAmount = abs(new.y - old.y) / maxDiffY * 16
-
-                var tempY = old.y
-                val tempList = mutableListOf<PointF>()
-
-                for (j in 0..loopCount.toInt()) {
-                  if (tempY == new.y) {
-                    tempList.add(PointF(new.x, new.y))
-
-                  } else {
-
-                    if (new.y > old.y) {
-                      tempY += plusOrMinusAmount
-                      tempY = min(tempY, new.y)
-                      tempList.add(PointF(new.x, tempY))
-
-                    } else {
-                      tempY -= plusOrMinusAmount
-                      tempY = max(tempY, new.y)
-                      tempList.add(PointF(new.x, tempY))
-                    }
-                  }
+                var maxDiffY = 0f
+                for (i in 0 until size) {
+                    val abs = abs(oldPoints[i].y - newPoints[i].y)
+                    if (abs > maxDiffY) maxDiffY = abs
                 }
-                tempPointsForAnimation.add(tempList)
 
-              }
+                val loopCount = maxDiffY / 16
 
-              if (tempPointsForAnimation.isEmpty()) return@Runnable
+                val tempPointsForAnimation = mutableListOf<MutableList<PointF>>()
 
-              val first = tempPointsForAnimation[0]
-              val length = first.size
+                for (i in 0 until size) {
+                    val old = oldPoints[i]
+                    val new = newPoints[i]
 
-              for (i in 0 until length) {
-                conPoint1.clear()
-                conPoint2.clear()
-                points.clear()
-                points.addAll(tempPointsForAnimation.map { it[i] })
-                calculateConnectionPointsForBezierCurve()
-                postInvalidate()
-                Thread.sleep(16)
-              }
+                    val plusOrMinusAmount = abs(new.y - old.y) / maxDiffY * 16
+
+                    var tempY = old.y
+                    val tempList = mutableListOf<PointF>()
+
+                    for (j in 0..loopCount.toInt()) {
+                        if (tempY == new.y) {
+                            tempList.add(PointF(new.x, new.y))
+
+                        } else {
+
+                            if (new.y > old.y) {
+                                tempY += plusOrMinusAmount
+                                tempY = min(tempY, new.y)
+                                tempList.add(PointF(new.x, tempY))
+
+                            } else {
+                                tempY -= plusOrMinusAmount
+                                tempY = max(tempY, new.y)
+                                tempList.add(PointF(new.x, tempY))
+                            }
+                        }
+                    }
+                    tempPointsForAnimation.add(tempList)
+
+                }
+
+                if (tempPointsForAnimation.isEmpty()) return@Runnable
+
+                val first = tempPointsForAnimation[0]
+                val length = first.size
+
+                for (i in 0 until length) {
+                    conPoint1.clear()
+                    conPoint2.clear()
+                    points.clear()
+                    points.addAll(tempPointsForAnimation.map { it[i] })
+                    calculateConnectionPointsForBezierCurve()
+                    postInvalidate()
+                    Thread.sleep(16)
+                }
 
             }).start()
         }

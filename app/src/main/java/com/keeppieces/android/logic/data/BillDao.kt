@@ -21,7 +21,7 @@ interface BillDao {
 //    @Query("SELECT * FROM bill WHERE date LIKE :year+'-'+:month+'-%' ORDER BY bill_id")
 //    fun getOneMonthBill(year:String, month: String): LiveData<List<Bill>>
 
-    @Query("SELECT * FROM bill WHERE date >= :startDate and date <= :endDate")
+    @Query("SELECT * FROM bill WHERE date >= :startDate and date <= :endDate ORDER BY date")
     fun getPeriodBill(startDate: String, endDate: String): LiveData<List<Bill>>
 
     @Query("SELECT * FROM bill WHERE date >= :startDate and date <= :endDate and (account = :account or secondary_category = :account)")

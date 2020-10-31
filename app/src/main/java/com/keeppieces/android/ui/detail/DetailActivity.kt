@@ -42,7 +42,6 @@ class DetailActivity : AppCompatActivity() {
         detailLineChart.setCurveBorderColor(colorInt)
         setupToolbar()
         setupFragment()
-
         detailLeftArrow.setOnClickListener {
             updateDate(-timeSpan)
             setupFragment()
@@ -121,10 +120,10 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupFragment() {
-        val fragment = DetailFragment(startDate, endDate, detailType)
+        val fragment = DetailFragment(startDate, endDate, timeSpan)
         replaceFragment(fragment)
         setupDatebar()
-        detailLineChart.addDataPoints(getRandomPoints())
+        // detailLineChart.addDataPoints(getRandomPoints())
     }
 
     private fun replaceFragment(fragment: Fragment) {
