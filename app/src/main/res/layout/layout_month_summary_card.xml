@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
+    android:clickable="false"
     android:layout_marginStart="@dimen/spacing_medium"
     android:layout_marginEnd="@dimen/spacing_medium"
     android:layout_marginTop="@dimen/spacing_small"
@@ -17,6 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +27,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="@dimen/spacing_small"
             android:text="本月概要"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +38,7 @@
             android:id="@+id/month_expenditure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="68dp"
             android:orientation="horizontal"
             android:textSize="32sp"
@@ -49,7 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="40dp"
             android:layout_weight="1"
             android:gravity="left"
@@ -74,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="16dp"
                 android:gravity="center"
                 android:text="本月预算："
                 android:textSize="11sp" />
@@ -84,8 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/本月预算"
-                android:background="#00000000"
-                android:gravity="center_vertical|start"
+                android:gravity="center_vertical|center"
                 android:text="点此设置"
                 android:textColor="#ffffff"
                 android:textSize="11sp" />
@@ -96,18 +96,17 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@id/month_income"
-
                 android:gravity="center"
                 android:text="本月收入:"
                 android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/month_income"
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="16dp"
                 android:gravity="center_vertical|center"
                 android:text="0.00"
                 android:textSize="11sp" />
@@ -116,11 +115,11 @@
 
         <com.keeppieces.pie_chart.PieChart
             android:id="@+id/month_income_expenditure_pie"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
