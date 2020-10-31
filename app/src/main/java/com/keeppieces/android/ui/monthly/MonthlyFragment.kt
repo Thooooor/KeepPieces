@@ -14,6 +14,8 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.MainActivity
+import com.keeppieces.android.MainEndDate
+import com.keeppieces.android.MainStartDate
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
@@ -78,6 +80,8 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
 
         startDate = startLocalDate.toString()
         endDate = endLocalDate.toString()
+        MainStartDate = startDate
+        MainEndDate = endDate
         Log.d("Monthly Date Update", "$startDate ~ $endDate")
     }
 

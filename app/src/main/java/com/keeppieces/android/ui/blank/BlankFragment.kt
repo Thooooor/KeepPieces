@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.keeppieces.android.MainActivity
+import com.keeppieces.android.MainEndDate
+import com.keeppieces.android.MainStartDate
 import com.keeppieces.android.R
 import com.keeppieces.android.ui.primaryCategory.overview.PrimaryCategoryOverviewFragment
 import com.keeppieces.android.ui.account.AccountFragment
@@ -20,7 +22,7 @@ const val MemberPage = 2
 const val CategoryPage = 3
 var currentType: Int = CategoryPage
 
-class BlankFragment(var startDate: String, var endDate: String) : Fragment() {
+class BlankFragment() : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,13 +32,13 @@ class BlankFragment(var startDate: String, var endDate: String) : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setFragment(currentType, startDate, endDate)
+        setFragment(currentType, MainStartDate, MainEndDate)
         changeFab.setOnClickListener {
             when (currentType) {
-                AccountPage -> setFragment(CategoryPage, startDate, endDate)
-                CategoryPage -> setFragment(MemberPage, startDate, endDate)
-                MemberPage -> setFragment(AccountPage, startDate, endDate)
-                else -> setFragment(AccountPage, startDate, endDate)
+                AccountPage -> setFragment(CategoryPage, MainStartDate, MainEndDate)
+                CategoryPage -> setFragment(MemberPage, MainStartDate, MainEndDate)
+                MemberPage -> setFragment(AccountPage, MainStartDate, MainEndDate)
+                else -> setFragment(AccountPage, MainStartDate, MainEndDate)
             }
         }
     }

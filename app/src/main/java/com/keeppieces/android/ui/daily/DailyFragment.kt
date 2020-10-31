@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keeppieces.android.MainActivity
+import com.keeppieces.android.MainToday
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
@@ -64,6 +65,7 @@ class DailyFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun updateDate() {
         date = today.toString()
+        MainToday = today.toString()
         Log.d("Daily Date Update", date)
     }
 
