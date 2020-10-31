@@ -28,12 +28,13 @@ class CategoryBillFlowFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.bill_flow_recycler_view)
+        val fragmentManager = parentFragmentManager
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             if (cnt < 0) addItemDecoration(getItemDecoration())
             cnt++
-            adapter = CategoryBillFlowFragmentAdapter(context, billList, startDate, endDate, level)
+            adapter = CategoryBillFlowFragmentAdapter(context, billList, startDate, endDate, level, fragmentManager)
         }
     }
 }

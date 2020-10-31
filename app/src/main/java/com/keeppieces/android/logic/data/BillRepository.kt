@@ -105,7 +105,7 @@ class BillRepository {
             when (bill.type) {
                 "收入" -> total += bill.amount
                 "支出" -> total -= bill.amount
-                else -> total = total
+                else -> total += 0
             }
         }
         return TodaySummary(total, newBills)
