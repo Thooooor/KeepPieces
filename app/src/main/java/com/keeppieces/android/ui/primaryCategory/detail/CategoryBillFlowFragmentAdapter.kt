@@ -6,17 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.keeppieces.android.R
 import com.keeppieces.android.logic.data.Bill
 import com.keeppieces.android.ui.bill.BillActivity
+import com.keeppieces.android.ui.detail.EditDialog
 
 class CategoryBillFlowFragmentAdapter(
     val context: Context,
     val billList: List<Bill>,
     val startDate: String,
     val endDate: String,
-    private val level: Int
+    private val level: Int,
+    val fragmentManager: FragmentManager
 ) : RecyclerView.Adapter<CategoryBillFlowFragmentAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -45,25 +48,28 @@ class CategoryBillFlowFragmentAdapter(
             "转账" -> " ￥"
             else -> "TypeError"
         }
+        holder.itemView.setOnClickListener {
+            if (level == 1) {
+                CategoryDetailBaseActivity.start(
+                    context,
+                    startDate,
+                    endDate,
+                    level = 2,
+                    bill.primaryCategory,
+                    bill.secondaryCategory
+                )
+            }
+            else {
+                val editDialog = EditDialog(it.context ,bill)
+                editDialog.show(fragmentManager, "edit")
+            }
+        }
 
         holder.detailArrow.setOnClickListener {
-                if (level == 1) {
-                    CategoryDetailBaseActivity.start(
-                        context,
-                        startDate,
-                        endDate,
-                        level = 2,
-                        bill.primaryCategory,
-                        bill.secondaryCategory
-                    )
-                }
-                else {
-                    BillActivity.start(context,bill)
-                }
+            BillActivity.start(context, bill)
         }
     }
 
     override fun getItemCount(): Int = billList.size
-
 
 }
