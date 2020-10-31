@@ -114,7 +114,7 @@
 
         <include
             layout="@layout/layout_daily_type_overview"
-            android:id="@+id/layout_monthly_type_overview"
+            android:id="@+id/layoutMonthlyTypeOverview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"
@@ -126,14 +126,14 @@
 
         <include
             layout="@layout/layout_daily_primary_overview"
-            android:id="@+id/layout_monthly_primary_overview"
+            android:id="@+id/layoutMonthlyPrimaryOverview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"
             app:layout_constraintStart_toStartOf="@+id/keyline_start"
             app:layout_constraintEnd_toEndOf="@+id/keyline_end"
             android:layout_marginTop="@dimen/vertical_gutters_half"
-            app:layout_constraintTop_toBottomOf="@+id/layout_monthly_type_overview"
+            app:layout_constraintTop_toBottomOf="@+id/layoutMonthlyTypeOverview"
             />
 
         <include
@@ -145,12 +145,12 @@
             app:layout_constraintStart_toStartOf="@+id/keyline_start"
             app:layout_constraintEnd_toEndOf="@+id/keyline_end"
             android:layout_marginTop="@dimen/vertical_gutters_half"
-            app:layout_constraintTop_toBottomOf="@+id/layout_monthly_primary_overview"
+            app:layout_constraintTop_toBottomOf="@+id/layoutMonthlyPrimaryOverview"
             />
 
         <include
             layout="@layout/layout_daily_member_overview"
-            android:id="@+id/layout_monthly_member_overview"
+            android:id="@+id/layoutMonthlyMemberOverview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"

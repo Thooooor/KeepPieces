@@ -12,19 +12,27 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.keeppieces.android.MainActivity
+import com.keeppieces.android.MainToday
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.*
+import com.keeppieces.android.ui.blank.AccountPage
+import com.keeppieces.android.ui.blank.CategoryPage
+import com.keeppieces.android.ui.blank.MemberPage
+import com.keeppieces.android.ui.blank.currentType
 import com.keeppieces.android.ui.daily.adapter.DailyAccountOverviewAdapter
 import com.keeppieces.android.ui.daily.adapter.DailyMemberOverviewAdapter
 import com.keeppieces.android.ui.daily.adapter.DailyPrimaryOverviewAdapter
 import com.keeppieces.android.ui.daily.adapter.DailyTypeOverviewAdapter
 import com.keeppieces.android.ui.detail.DailyDetail
 import com.keeppieces.android.ui.detail.DetailActivity
+import com.keeppieces.android.ui.overview.getParentActivity
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_daily.*
 import kotlinx.android.synthetic.main.layout_daily_account_overview.*
 import kotlinx.android.synthetic.main.layout_daily_member_overview.*
@@ -57,6 +65,7 @@ class DailyFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun updateDate() {
         date = today.toString()
+        MainToday = today.toString()
         Log.d("Daily Date Update", date)
     }
 
@@ -101,6 +110,18 @@ class DailyFragment : Fragment() {
         }
         dailyDetailBtn.setOnClickListener {
             DetailActivity.start(it.context, date, date, DailyDetail, R.color.dark_green)
+        }
+        layoutDailyPrimaryOverview.setOnClickListener {
+            currentType = CategoryPage
+            getParentActivity<MainActivity>().view_pager.setCurrentItem(3, true)
+        }
+        layoutDailyAccountOverview.setOnClickListener {
+            currentType = AccountPage
+            getParentActivity<MainActivity>().view_pager.setCurrentItem(3, true)
+        }
+        layoutDailyMemberOverview.setOnClickListener {
+            currentType = MemberPage
+            getParentActivity<MainActivity>().view_pager.setCurrentItem(3, true)
         }
     }
 

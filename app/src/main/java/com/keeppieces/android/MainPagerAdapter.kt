@@ -20,29 +20,18 @@ class MainPagerAdapter(
     fm: FragmentManager,
     private val tabs: List<TabUiModel>
 ) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    private val today = Calendar.getInstance()
-    private val year = today.get(Calendar.YEAR)
-    private var month = today.get(Calendar.MONTH) + 1 // Calendar.MONTH 范围为 0~11
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getItem(position: Int): Fragment {
-        val lastDay = when(month) {
-            2 -> if (IsoChronology.INSTANCE.isLeapYear(year.toLong())) 29 else 28
-            4 -> 30
-            6 -> 30
-            9 -> 30
-            11 -> 30
-            else -> 31
-        }
+        val startDate = MainStartDate
+        val endDate = MainEndDate
 
-        val startDate = LocalDate.of(year, month, 1).toString()
-        val endDate = LocalDate.of(year, month, lastDay).toString()
 
         return when (position) {
             0 -> OverviewFragment()
             1 -> DailyFragment()
             2 -> MonthlyFragment(startDate, endDate)
-            3 -> BlankFragment(startDate, endDate)
+            3 -> BlankFragment()
             4 -> SettingsFragment()
             else -> DailyFragment()
         }
