@@ -20,72 +20,53 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintTop_toTopOf="parent"
-        android:paddingBottom="@dimen/spacing_small"
         >
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
             android:text="本月概要"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+
+        <TextView
+            android:id="@+id/month_expenditure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="68dp"
             android:orientation="horizontal"
+            android:textSize="32sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0.00" />
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/today_amount_symbol"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="@dimen/spacing_small"-->
-            <!--                android:text="￥"-->
-            <!--                android:textSize="32sp" />-->
-
-            <TextView
-                android:id="@+id/month_expenditure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="0.00"
-                android:textSize="32sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="140dp"
-            android:layout_height="25dp"
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:orientation="horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="本月支出："
+            android:textSize="13.5sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text="本月支出："
-                android:textSize="13.5sp" />
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:orientation="horizontal"
+            android:padding="@dimen/spacing_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/month_income_expenditure_pie">
 
             <TextView
                 android:id="@+id/本月预算"
@@ -98,8 +79,8 @@
                 android:text="本月预算："
                 android:textSize="11sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_set_month_budget"
+            <TextView
+                android:id="@+id/set_month_budget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/本月预算"
@@ -135,13 +116,38 @@
 
         <com.keeppieces.pie_chart.PieChart
             android:id="@+id/month_income_expenditure_pie"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_small"
+            android:text="已用预算"
+            app:layout_constraintBottom_toBottomOf="@+id/month_income_expenditure_pie"
+            app:layout_constraintEnd_toEndOf="@+id/month_income_expenditure_pie"
+            app:layout_constraintHorizontal_bias="0.514"
+            app:layout_constraintStart_toStartOf="@+id/month_income_expenditure_pie"
+            app:layout_constraintTop_toTopOf="@+id/month_income_expenditure_pie"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <TextView
+            android:id="@+id/used_budget_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_small"
+            android:text="0.0%"
+            app:layout_constraintBottom_toBottomOf="@+id/month_income_expenditure_pie"
+            app:layout_constraintEnd_toEndOf="@+id/month_income_expenditure_pie"
+            app:layout_constraintHorizontal_bias="0.514"
+            app:layout_constraintStart_toStartOf="@+id/month_income_expenditure_pie"
+            app:layout_constraintTop_toTopOf="@+id/month_income_expenditure_pie"
+            app:layout_constraintVertical_bias="0.7" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

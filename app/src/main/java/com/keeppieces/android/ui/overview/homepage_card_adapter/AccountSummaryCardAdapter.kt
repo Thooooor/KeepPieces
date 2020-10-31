@@ -21,7 +21,14 @@ import java.util.*
 
 class AccountSummaryCardAdapter(private val content:Context, private val accountSummaryList: List<DailyAccount>):
     RecyclerView.Adapter<AccountSummaryCardAdapter.ViewHolder>(){
-    
+    @RequiresApi(Build.VERSION_CODES.O)
+    val month = LocalDate.now().monthValue
+    @RequiresApi(Build.VERSION_CODES.O)
+    val year = LocalDate.now().year
+    @RequiresApi(Build.VERSION_CODES.O)
+    val startDate = LocalDate.parse("${year}-${month}-01")
+    @RequiresApi(Build.VERSION_CODES.O)
+    val endDate = startDate.plusMonths(1).minusDays(1)
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
         val accountTitle:TextView = view.findViewById(R.id.title_in_item)
         val moneyType:TextView = view.findViewById(R.id.money_type_in_item)  // 收入、支出的区分标志
@@ -35,25 +42,11 @@ class AccountSummaryCardAdapter(private val content:Context, private val account
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(content).inflate(R.layout.item_summary_card,parent,false)
         val viewHolder = ViewHolder(view)
-        val today = Calendar.getInstance()
-        val year = today.get(Calendar.YEAR)
-        val month = today.get(Calendar.MONTH) + 1
-        val lastDay = when(month) {
-            2 -> if (IsoChronology.INSTANCE.isLeapYear(year.toLong())) 29 else 28
-            4 -> 30
-            6 -> 30
-            9 -> 30
-            11 -> 30
-            else -> 31
-        }
 
-        val startDate = LocalDate.of(year, month, 1).toString()
-        val endDate = LocalDate.of(year, month, lastDay).toString()
-
-        viewHolder.accountMoreInformationButton.setOnClickListener {
+        view.setOnClickListener {
             val position = viewHolder.adapterPosition
             val account = accountSummaryList[position].account
-            AccountActivity.start(content, startDate, endDate, account)
+            AccountActivity.start(content, startDate.toString(), endDate.toString(), account)
         }
         return viewHolder
     }
@@ -66,6 +59,10 @@ class AccountSummaryCardAdapter(private val content:Context, private val account
             moneySymbol.text = "￥"  // 后期扩展
             moneyAmount.text = accountItem.amount.toMoneyFormatted()  // 这里自带符号，所以考虑把前面的符号抛弃
             bar.renderData(VerticalBarData(100f, 100f, accountItem.color))
+            accountMoreInformationButton.setOnClickListener {
+                val account = accountSummaryList[position].account
+                AccountActivity.start(content, startDate.toString(), endDate.toString(), account)
+            }
         }
     }
 

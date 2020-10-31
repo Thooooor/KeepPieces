@@ -135,12 +135,12 @@ class BillRepository {
 //    fun getAllPrimaryCategoryBill(primaryCategory: String)
 //            = billDao.getPrimaryCategoryBill(primaryCategory)
 
-    fun getCategoryBillListInTimeSpan(startDate: String, endDate: String, category:String, level:Int) =
-        if (level == 1) {
-            billDao.getPrimaryCategoryBillInTimeSpan(startDate,endDate,category)
+    fun getCategoryBillListInTimeSpan(startDate: String, endDate: String,primaryCategory:String,secondaryCategory:String? = null) =
+        if (secondaryCategory == null) {
+            billDao.getPrimaryCategoryBillInTimeSpan(startDate,endDate,primaryCategory)
         }
         else {
-            billDao.getSecondaryCategoryBillInTimeSpan(startDate,endDate,category)
+            billDao.getSecondaryCategoryBillInTimeSpan(startDate,endDate,primaryCategory,secondaryCategory)
         }
 }
 

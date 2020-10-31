@@ -52,8 +52,9 @@ class CategoryBillFlowFragmentAdapter(
                         context,
                         startDate,
                         endDate,
-                        bill.secondaryCategory,
-                        level = 2
+                        level = 2,
+                        bill.primaryCategory,
+                        bill.secondaryCategory
                     )
                 }
                 else {

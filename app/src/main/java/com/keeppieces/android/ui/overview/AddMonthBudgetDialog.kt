@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment
 import com.keeppieces.android.R
 import kotlinx.android.synthetic.main.dialog_set_month_budget.*
 import java.time.LocalDate
+import kotlin.math.abs
 
 class AddMonthBudgetDialog:DialogFragment() {
     internal lateinit var setter: SetMonthBudgetInterface
@@ -54,7 +55,7 @@ class AddMonthBudgetDialog:DialogFragment() {
             }
         ok_button.setOnClickListener {
             val monthBudget = edit_month_budget.text.toString()
-            if (monthBudget.isNotEmpty()) {
+            if (monthBudget.isNotEmpty() && abs(monthBudget.toDouble())>=1) {
                 prefs.edit().apply {
                     putString(nowMonthBudgetString,monthBudget)
                     putInt(nowMonthString,nowMonth)
