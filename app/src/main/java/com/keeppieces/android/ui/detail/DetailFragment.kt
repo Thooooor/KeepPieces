@@ -33,43 +33,15 @@ class DetailFragment(var startDate: String, var endDate: String, detailType: Int
         setUpRecyclerView()
     }
 
-//    private val myCallback = object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-//        override fun onMove(
-//            recyclerView: RecyclerView,
-//            viewHolder: RecyclerView.ViewHolder,
-//            target: RecyclerView.ViewHolder
-//        ): Boolean = false
-//
-//        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//            val position = viewHolder.adapterPosition
-//
-//            Log.d("Detail", position.toString())
-//        }
-//
-//        override fun onChildDraw(
-//            c: Canvas,
-//            recyclerView: RecyclerView,
-//            viewHolder: RecyclerView.ViewHolder,
-//            dX: Float,
-//            dY: Float,
-//            actionState: Int,
-//            isCurrentlyActive: Boolean
-//        ) {
-//            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-//            c.clipRect(0f, viewHolder.itemView.top.toFloat(), dX, viewHolder.itemView.bottom.toFloat())
-//        }
-//    }
-
     private fun setUpRecyclerView() {
+        val fragmentManager = parentFragmentManager
         viewModel.billList(startDate, endDate).observe(viewLifecycleOwner) {billList ->
             val bills = if (billList.isEmpty()) listOf<Bill>() else billList
             detailBillList.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
                 addItemDecoration(getItemDecoration())
-                adapter = DetailAdapter(bills)
-//                val myHelper = ItemTouchHelper(myCallback)
-//                myHelper.attachToRecyclerView(this)
+                adapter = DetailAdapter(bills, fragmentManager)
             }
         }
 

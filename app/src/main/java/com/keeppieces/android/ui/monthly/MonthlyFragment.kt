@@ -13,19 +13,28 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.keeppieces.android.MainActivity
+import com.keeppieces.android.MainEndDate
+import com.keeppieces.android.MainStartDate
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.*
+import com.keeppieces.android.ui.blank.AccountPage
+import com.keeppieces.android.ui.blank.CategoryPage
+import com.keeppieces.android.ui.blank.MemberPage
+import com.keeppieces.android.ui.blank.currentType
 import com.keeppieces.android.ui.detail.DetailActivity
 import com.keeppieces.android.ui.detail.MonthlyDetail
 import com.keeppieces.android.ui.monthly.adapter.MonthlyAccountOverviewAdapter
 import com.keeppieces.android.ui.monthly.adapter.MonthlyMemberOverviewAdapter
 import com.keeppieces.android.ui.monthly.adapter.MonthlyPrimaryOverviewAdapter
 import com.keeppieces.android.ui.monthly.adapter.MonthlyTypeOverviewAdapter
+import com.keeppieces.android.ui.overview.getParentActivity
 import com.keeppieces.pie_chart.PieAnimation
 import com.keeppieces.pie_chart.PieData
 import com.keeppieces.pie_chart.PiePortion
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_monthly.*
 import kotlinx.android.synthetic.main.layout_daily_account_overview.*
 import kotlinx.android.synthetic.main.layout_daily_member_overview.*
@@ -71,6 +80,8 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
 
         startDate = startLocalDate.toString()
         endDate = endLocalDate.toString()
+        MainStartDate = startDate
+        MainEndDate = endDate
         Log.d("Monthly Date Update", "$startDate ~ $endDate")
     }
 
@@ -134,6 +145,18 @@ class MonthlyFragment(var startDate: String, var endDate: String): Fragment() {
             DetailActivity.start(it.context, startDate, endDate, MonthlyDetail, R.color.blue_600, timeSpan)
         }
 
+        layoutMonthlyPrimaryOverview.setOnClickListener {
+            currentType = CategoryPage
+            getParentActivity<MainActivity>().view_pager.setCurrentItem(3, true)
+        }
+        layoutMonthlyAccountOverview.setOnClickListener {
+            currentType = AccountPage
+            getParentActivity<MainActivity>().view_pager.setCurrentItem(3, true)
+        }
+        layoutMonthlyMemberOverview.setOnClickListener {
+            currentType = MemberPage
+            getParentActivity<MainActivity>().view_pager.setCurrentItem(3, true)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

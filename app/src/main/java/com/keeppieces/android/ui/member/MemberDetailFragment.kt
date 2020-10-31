@@ -16,7 +16,6 @@ import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.logic.data.Bill
 import com.keeppieces.android.ui.detail.DetailAdapter
 import kotlinx.android.synthetic.main.fragment_member_flow_view.*
-import kotlinx.android.synthetic.main.fragment_member_flow_view.bill_flow_recycler_view
 
 
 class MemberDetailFragment(private val billsFilter: MutableList<Bill>, val type: String) : Fragment() {
@@ -63,34 +62,14 @@ class MemberDetailFragment(private val billsFilter: MutableList<Bill>, val type:
     }
 
     private fun setUpRecyclerView() {
+        val fragmentManager = parentFragmentManager
         bill_flow_recycler_view.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             addItemDecoration(getItemDecoration())
-            adapter = DetailAdapter(billsFilter)
-            val myHelper = ItemTouchHelper(myCallback)
-            myHelper.attachToRecyclerView(this)
+            adapter = DetailAdapter(billsFilter, fragmentManager)
         }
     }
-//
-//
-//    private fun getBillsFilter(billList: List<Bill>) : List<Bill> {
-//        val billsFilter = mutableListOf<Bill>()
-//        if (type == "收入") {
-//            for (item in billList) {
-//                if (item.secondaryCategory == account || item.type == type) {
-//                    billsFilter += listOf(item)
-//                }
-//            }
-//        } else {
-//            for (item in billList) {
-//                if (item.type == type) {
-//                    billsFilter += listOf(item)
-//                }
-//            }
-//        }
-//        return billsFilter
-//    }
 
     companion object
 }

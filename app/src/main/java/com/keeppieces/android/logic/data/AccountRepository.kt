@@ -114,6 +114,9 @@ class AccountRepository {
                     accountClassification[bill.account]!!.first.plus(bill),
                     accountClassification[bill.account]!!.second)
             } else {
+                if (bill.secondaryCategory !in accountClassification) {
+                    accountClassification[bill.secondaryCategory] = Pair(mutableListOf(), count++)
+                }
                 accountClassification[bill.account] = Pair(
                     accountClassification[bill.account]!!.first.plus(bill),
                     accountClassification[bill.account]!!.second)
