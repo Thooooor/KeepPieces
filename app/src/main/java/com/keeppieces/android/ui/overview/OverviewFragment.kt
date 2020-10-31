@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keeppieces.android.MainActivity
 import com.keeppieces.android.R
@@ -42,6 +41,7 @@ import kotlinx.android.synthetic.main.layout_month_summary_card.*
 import kotlinx.android.synthetic.main.layout_today_summary_card.*
 import java.time.LocalDate
 import kotlin.math.abs
+import kotlin.properties.Delegates
 
 
 class OverviewFragment : Fragment() {
@@ -52,6 +52,9 @@ class OverviewFragment : Fragment() {
     private val nowMonthBudgetString = "nowMonthBudget"
     private val nowMonthString = "nowMonth"
     private val nowYearString = "nowYear"
+    private var savedMonthBudget:String? = null
+    var savedYear by Delegates.notNull<Int>()
+    var savedMonth by Delegates.notNull<Int>()
 
     @RequiresApi(Build.VERSION_CODES.O)
     val nowDate: LocalDate = LocalDate.now()
@@ -71,20 +74,20 @@ class OverviewFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view:View,savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val fragmentManager = parentFragmentManager
         val prefs: SharedPreferences = requireActivity().getSharedPreferences(
             monthBudgetFile,
             Context.MODE_PRIVATE
         )
-        val savedYear = prefs.getInt(nowYearString, -1)
-        val savedMonth = prefs.getInt(nowMonthString, -1)
-        val savedMonthBudget = prefs.getString(nowMonthBudgetString, null)
+        savedYear = prefs.getInt(nowYearString, -1)
+        savedMonth = prefs.getInt(nowMonthString, -1)
+        savedMonthBudget = prefs.getString(nowMonthBudgetString, null)
         if (savedYear == nowYear && savedMonth == nowMonth && savedMonthBudget != null) {
-            button_set_month_budget.text = StringBuilder("￥$savedMonthBudget").toString()
+            set_month_budget.text = savedMonthBudget!!.toDouble().toCHINADFormatted()
+            used_budget_percent.text = "0.0%"
         }
-        setUpCardView()
         addFab.setOnClickListener {
             BillActivity.start(requireContext())
         }
@@ -99,9 +102,10 @@ class OverviewFragment : Fragment() {
             currentType = MemberPage
             getParentActivity<MainActivity>().view_pager.setCurrentItem(3, true)
         }
-        button_set_month_budget.setOnClickListener {
+        set_month_budget.setOnClickListener {
             addMonthBudgetDialog.show(fragmentManager, "addMonthBudget")
         }
+        setUpCardView()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -162,12 +166,18 @@ class OverviewFragment : Fragment() {
         month_income_expenditure_pie.setPieData(pieData = pieData, animation = pieAnimation)
         month_income.text = monthIncome.toCHINADFormatted()
         month_expenditure.text = monthExpenditure.toCHINADFormatted()
+        if (savedYear == nowYear && savedMonth == nowMonth && savedMonthBudget != null) {
+            val string = String.format("%.1f%%",(100*monthExpenditure/ savedMonthBudget!!.toDouble()))
+            used_budget_percent.text = string
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpTodaySummaryCardView(bills: List<Bill>) {  // bills：今天的账单表
         val todaySummary = viewModel.getTodaySummary(bills, "blue")
+        Log.d("todaySummary.Bill",todaySummary.bills.size.toString())
         val lineIndicatorData = getLineIndicatorData(
+            requireContext(),
             todaySummary.bills,
             ::getGeneralBillSecondaryCategory, ::getGeneralBillAmount, ::getGeneralBillColorInt
         )
@@ -185,6 +195,7 @@ class OverviewFragment : Fragment() {
         val accountListAbout = viewModel.getAccountClassification(bills)
         val accountSummary = viewModel.getAccountSummary(accountListAbout, "green", "purple")
         val lineIndicatorData = getLineIndicatorData(
+            this.requireContext(),
             accountSummary,
             ::getDailyAccountAccount, ::getDailyAccountAmount, ::getDailyAccountColorInt
         )
@@ -215,6 +226,7 @@ class OverviewFragment : Fragment() {
     private fun setUpMemberMonthSummaryCardView(monthBillList: List<Bill>) {
         val memberMonthSummary = viewModel.getMemberMonthSummary(monthBillList, "yellow")
         val lineIndicatorData = getLineIndicatorData(
+            requireActivity().applicationContext,
             memberMonthSummary,
             ::getDailyMemberMember, ::getDailyMemberAmount, ::getDailyMemberColorInt
         )
@@ -228,6 +240,7 @@ class OverviewFragment : Fragment() {
     }
 
     private fun <T> getLineIndicatorData(
+        context: Context,
         dataList: List<T>,
         getName: (T) -> String,
         getValue: (T) -> Double,
@@ -238,9 +251,9 @@ class OverviewFragment : Fragment() {
             LineIndicatorPortion(
                 name = getName(it),
                 value = abs(getValue(it).toFloat()),
-                colorInt = ContextCompat.getColor(requireContext(), getValueColor(it))
+                colorInt = ContextCompat.getColor(context,getValueColor(it))
             )
-        }
+        }.toList()
         return LineIndicatorData(portions = portions)
     }
 

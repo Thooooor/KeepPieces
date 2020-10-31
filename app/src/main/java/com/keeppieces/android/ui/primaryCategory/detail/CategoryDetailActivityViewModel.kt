@@ -16,9 +16,9 @@ class CategoryDetailActivityViewModel : ViewModel() {
     fun getCategoryBillInTimeSpan(
         startDate: String,
         endDate: String,
-        category: String,
-        level: Int
-    ) = billRepository.getCategoryBillListInTimeSpan(startDate, endDate, category, level)
+        primaryCategory: String,
+        secondaryCategory: String? = null
+    ) = billRepository.getCategoryBillListInTimeSpan(startDate, endDate, primaryCategory, secondaryCategory)
 
     fun separateBillList(billList: List<Bill>) {
         incomeBillList = mutableListOf()

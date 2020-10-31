@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -16,6 +18,8 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.toCHINADFormatted
 import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.logic.data.PrimaryCategory
+import com.keeppieces.android.logic.data.SecondaryCategory
 import com.keeppieces.android.ui.primaryCategory.overview.CustomMode
 import com.keeppieces.android.ui.primaryCategory.overview.MonthMode
 import com.keeppieces.pie_chart.PieAnimation
@@ -34,7 +38,8 @@ var count = 0
 open class CategoryDetailBaseActivity() : AppCompatActivity() {
     lateinit var startDate: String
     lateinit var endDate: String
-    private lateinit var category: String
+    private lateinit var primaryCategory: String
+    private var secondaryCategory: String? = null
     private var level by Delegates.notNull<Int>()
     val viewModel: CategoryDetailActivityViewModel by viewModels()
 
@@ -54,8 +59,9 @@ open class CategoryDetailBaseActivity() : AppCompatActivity() {
         setContentView(R.layout.activity_category_detail)
         startDate = intent.getStringExtra("startDate") ?: LocalDate.now().toString()
         endDate = intent.getStringExtra("endDate") ?: LocalDate.now().toString()
-        category = intent.getStringExtra("category") ?: "出了点错误"
         level = intent.getIntExtra("level", 1)
+        primaryCategory = intent.getStringExtra("primaryCategory") ?: "出了点错误"
+        secondaryCategory = intent.getStringExtra("secondaryCategory")
         setSupportActionBar(categoryDetailToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
@@ -157,10 +163,15 @@ open class CategoryDetailBaseActivity() : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpView() {
-        viewModel.getCategoryBillInTimeSpan(startDate, endDate, category, level)
+        viewModel.getCategoryBillInTimeSpan(startDate, endDate, primaryCategory, secondaryCategory)
             .observe(this) { billList ->
                 detailDateText.text = StringBuilder("$startDate ~ $endDate").toString()
-                category_title.text = category
+                if (secondaryCategory!=null) {  // 也可通过level来判断
+                    category_title.text = secondaryCategory
+                }
+                else {
+                    category_title.text = primaryCategory
+                }
                 setUpPieView(billList)
                 viewModel.separateBillList(billList) // 分离收支账单用于展示流水
                 income.text = StringBuilder("收入:" + viewModel.incomeTotal.toCHINADFormatted())
@@ -197,9 +208,9 @@ open class CategoryDetailBaseActivity() : AppCompatActivity() {
             endDate,
             level
         )
+        income_expenditure_tab_layout.setupWithViewPager(category_view_pager, true)  // 对接TabLayout以及Viewpager
         category_view_pager.swipeEnabled = true
         category_view_pager.offscreenPageLimit = 0
-        income_expenditure_tab_layout.setupWithViewPager(category_view_pager, true)
         category_view_pager.setCurrentItem(0, true)
     }
 
@@ -208,14 +219,16 @@ open class CategoryDetailBaseActivity() : AppCompatActivity() {
             context: Context,
             startDate: String,
             endDate: String,
-            category: String,
-            level: Int
+            level: Int,
+            primaryCategory: String,
+            secondaryCategory: String?=null,
         ) {
             val intent = Intent(context, CategoryDetailBaseActivity::class.java).apply {
                 putExtra("startDate", startDate)
                 putExtra("endDate", endDate)
-                putExtra("category", category)
                 putExtra("level", level)
+                putExtra("primaryCategory", primaryCategory)
+                putExtra("secondaryCategory", secondaryCategory)
             }
             startActivity(context, intent, null)
         }

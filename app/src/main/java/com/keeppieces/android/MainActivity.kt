@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity(),AddMonthBudgetDialog.SetMonthBudgetInte
         view_pager.offscreenPageLimit = 0
         tab_layout.setUpWithViewPager(view_pager, true)
         view_pager.setCurrentItem(0, true)
-        view_pager.adapter
     }
 
     private fun runEnterAnimation() {
@@ -69,6 +68,6 @@ class MainActivity : AppCompatActivity(),AddMonthBudgetDialog.SetMonthBudgetInte
     }
 
     override fun setMonthBudgetButtonText(monthBudget: String) {
-        button_set_month_budget.text = monthBudget.toDouble().toCHINADFormatted()
+        set_month_budget.text = monthBudget.toDouble().toCHINADFormatted()
     }
 }

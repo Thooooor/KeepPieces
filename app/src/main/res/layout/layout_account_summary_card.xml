@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_margin="@dimen/spacing_small"
         >
 
         <TextView
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="本月账户情况"
             style="?attr/textAppearanceSubtitle2"
+            android:layout_marginBottom="@dimen/spacing_small"
             android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginStart="@dimen/spacing_medium"
             />
@@ -67,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="查看更多"
+            android:text="查看详情"
             style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
     </LinearLayout>

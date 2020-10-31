@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_margin="@dimen/spacing_small"
         >
 
         <TextView
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:text="今日概要"
             style="?attr/textAppearanceSubtitle2"
+            android:layout_marginBottom="@dimen/spacing_small"
             android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginStart="@dimen/spacing_medium"
             />
@@ -45,7 +47,7 @@
                 android:id="@+id/today_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12132.49"
+                tools:text="12132.49"
                 style="?attr/textAppearanceHeadline3"
                 android:layout_marginStart="@dimen/spacing_medium"
                 />

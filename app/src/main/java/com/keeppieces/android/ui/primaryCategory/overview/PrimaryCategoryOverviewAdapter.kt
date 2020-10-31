@@ -59,8 +59,8 @@ class PrimaryCategoryOverviewAdapter(
                 it.context,
                 startDate,
                 endDate,
-                onePrimaryCategory.primaryCategory,
-                1
+                level = 1,
+                onePrimaryCategory.primaryCategory
             )
         }
     }
