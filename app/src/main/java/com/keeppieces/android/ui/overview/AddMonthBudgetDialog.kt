@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.dialog_set_month_budget.*
 import java.time.LocalDate
 
 class AddMonthBudgetDialog:DialogFragment() {
-    internal lateinit var setter: SetMonthBudgetInterface
+    private lateinit var setter: SetMonthBudgetInterface
     private val monthBudgetFile = "month_budget"
     private val nowMonthBudgetString = "nowMonthBudget"
     private val nowMonthString = "nowMonth"
@@ -73,7 +73,6 @@ class AddMonthBudgetDialog:DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-//        Log.d("checkpoint",context.toString())
         try{
             setter = context as SetMonthBudgetInterface  // 接口实现
             Log.d("checkpoint",setter.toString())
