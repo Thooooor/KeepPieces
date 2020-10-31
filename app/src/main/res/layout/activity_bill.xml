@@ -356,7 +356,7 @@
                     android:hint="@string/bill_info_china"
                     android:autofillHints="@string/bill_info_china"
                     android:imeOptions="actionDone"
-                    android:maxLength="20"
+                    android:maxLength="19"
                     android:textCursorDrawable="@null"
                     android:maxLines="2"
                     android:cursorVisible="true" />

@@ -144,7 +144,7 @@ class OverviewFragment : Fragment() {
         for (bill in bills) {
             when (bill.type) {
                 "收入" -> monthIncome += bill.amount
-                else -> monthExpenditure += bill.amount
+                "支出" -> monthExpenditure += bill.amount
             }
         }
         val piePortions = listOf(
