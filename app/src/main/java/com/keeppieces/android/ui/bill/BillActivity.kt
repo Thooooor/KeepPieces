@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.keeppieces.android.R
 import com.keeppieces.android.logic.data.Bill
+import com.keeppieces.android.logic.data.SecondaryCategory
 import com.keeppieces.android.ui.bill.picker.*
 import kotlinx.android.synthetic.main.activity_bill.*
 import java.time.LocalDate
@@ -315,10 +316,17 @@ class BillActivity : AppCompatActivity(),
     override fun onDialogPositiveClickForAddCategory(dialog: DialogFragment) {
         val textPrimary = (dialog as AddCategoryDialog).textPrimary
         val textSecondary = dialog.textSecondary
-        if (textPrimary != "" && textSecondary != "") {
-            billPrimary.text = textPrimary
-            billSecondary.text = textSecondary
-        }
+        val secondaryLiveList = viewModel.findSecondaryList()
+        secondaryLiveList.observe(this, { tmp ->
+            val secondaryList = tmp.map { t -> t.name }
+            if (textSecondary in secondaryList) {
+                Toast.makeText(this, "已存在该二级分类", Toast.LENGTH_LONG).show()
+            } else {
+                billPrimary.text = textPrimary
+                billSecondary.text = textSecondary
+                viewModel.addSecondary(SecondaryCategory(textSecondary, textPrimary))
+            }
+        })
     }
 
     override fun onDialogNegativeClickForAddCategory(dialog: DialogFragment) {
