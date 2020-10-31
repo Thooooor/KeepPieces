@@ -66,7 +66,8 @@ class CategoryBillFlowFragmentAdapter(
         }
 
         holder.detailArrow.setOnClickListener {
-            BillActivity.start(context, bill)
+            val editDialog = EditDialog(it.context ,bill)
+            editDialog.show(fragmentManager, "edit")
         }
     }
 
