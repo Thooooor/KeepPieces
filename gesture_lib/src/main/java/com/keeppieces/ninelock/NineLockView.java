@@ -27,7 +27,7 @@ public class NineLockView extends View {
     private int offsetX;//x轴偏移量
     private int offsetY;//y轴偏移量
     private int step;//节点间的距离
-    private int radius=25;//节点圆圈的半径大小
+    private final int radius=50;//节点圆圈的半径大小
     private int lastPointX;//最后一个节点的 x 坐标
     private int lastPointY;//最后一个节点的 y 坐标
     private float linearEndX;//触摸点的最终位置坐标

@@ -71,12 +71,9 @@ class LoginFragment : Fragment() {
                             )
                                 .show()
                             jump()
-                        }//else{
-
-//                        Toast.makeText(loginActivity.applicationContext,
-//                            "密码错误",Toast.LENGTH_SHORT)
-//                            .show()
-//                   }
+                        }else{
+                            passwordText.text = "密码不正确"
+                        }
                     }
 
                     override fun beforeTextChanged(

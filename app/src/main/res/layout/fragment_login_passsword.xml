@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -71,11 +72,30 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/passwordTextLinear"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/pwdLinearLayout">
+
+        <TextView
+            android:id="@+id/passwordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="密码错误"
+            android:gravity="center">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/bottomLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="319dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/pwdLinearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextLinear">
 
         <LinearLayout
             android:layout_width="wrap_content"
