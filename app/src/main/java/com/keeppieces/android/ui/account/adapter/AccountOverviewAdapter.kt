@@ -1,5 +1,6 @@
 package com.keeppieces.android.ui.account.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +11,12 @@ import com.google.android.material.card.MaterialCardView
 import com.keeppieces.android.R
 import com.keeppieces.android.extension.getItemDecoration
 import com.keeppieces.android.extension.toCHINADFormatted
+import com.keeppieces.android.logic.data.AccountRepository
 import com.keeppieces.android.ui.account.AccountActivity
 import com.keeppieces.android.ui.account.AccountDetail
 import com.keeppieces.line_indicator.VerticalBar
 import com.keeppieces.line_indicator.VerticalBarData
+import kotlin.concurrent.thread
 
 class AccountOverviewAdapter(
         private val accountList: MutableList<AccountDetail>,

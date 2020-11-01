@@ -169,11 +169,8 @@ class AccountRepository {
                     }
                 }
             }
-//            val account = getAAccount(accountBill.key)
             val accountColor = repository.getColorInt(
                 if (inAmount-outAmount>=0) {positiveColor} else {negativeColor}, accountBill.value.second)
-//            val inMaxCategory = inCategoryAmount.maxOf { tmp -> tmp.key}
-//            val inMaxCategory = inCategoryAmount.
             val inMaxCategory = getMapMax(inCategoryAmount)
             val outMaxCategory = getMapMax(outCategoryAmount)
             val inMaxMember = getMapMax(inMemberAmount)
@@ -182,7 +179,6 @@ class AccountRepository {
                 inAmount,
                 outAmount,
                 inAmount-outAmount,
-//                accountBill.,
                 accountColor,
                 outMaxCategory,
                 inMaxCategory,

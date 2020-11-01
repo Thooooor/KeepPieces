@@ -26,7 +26,7 @@ class BillRepository {
             total += when (bill.type) {
                 "收入" -> bill.amount
                 "支出" -> -bill.amount
-                else -> bill.amount
+                else -> 0.00
             }
         }
         return DailyOverview(total, dailyBills)
@@ -105,10 +105,10 @@ class BillRepository {
             val primaryIndex = primaryList.indexOf(primary)
             val primaryColorInt = repository.getColorInt(color, primaryIndex)
             newBills.add(GeneralBill(bill, primaryColorInt))
-            when (bill.type) {
-                "收入" -> total += bill.amount
-                "支出" -> total -= bill.amount
-                else -> total += 0
+            total += when (bill.type) {
+                "收入" -> bill.amount
+                "支出" -> -bill.amount
+                else -> 0.00
             }
         }
         return TodaySummary(total, newBills)
